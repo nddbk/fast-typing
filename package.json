@@ -1,0 +1,79 @@
+{
+  "version": "0.4.1",
+  "name": "fast-typing",
+  "description": "Chrome apps for typing practice",
+  "homepage": "http://techpush.net",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:techpush/fast-typing.git"
+  },
+  "author": "Dong Nguyen <ndaidong@gmail.com> (https://twitter.com/ndaidong)",
+  "main": "./index.js",
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/tape test/start.js | tap-spec",
+    "coverage": "./node_modules/.bin/nyc tape test/start.js | tap-spec",
+    "report": "npm run coverage && ./node_modules/.bin/nyc report --reporter=lcov",
+    "coveralls": "npm run report && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+  },
+  "devDependencies": {
+    "async": "latest",
+    "bellajs": "latest",
+    "bluebird": "latest",
+    "cheerio": "latest",
+    "copy-dir": "latest",
+    "coveralls": "latest",
+    "cssnano": "latest",
+    "gulp": "latest",
+    "mkdirp": "latest",
+    "nyc": "latest",
+    "postcss": "latest",
+    "postcss-cssnext": "latest",
+    "postcss-filter-plugins": "latest",
+    "postcss-mixins": "latest",
+    "postcss-nested": "latest",
+    "svgo": "latest",
+    "tap-spec": "latest",
+    "tape": "latest",
+    "traceur": "latest",
+    "uglify-js": "latest"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "apps",
+    "typing",
+    "util"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    "ndaidong <ndaidong@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/techpush/fast-typing/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "builder": {
+    "cssDir": "src/css",
+    "jsDir": "src/js",
+    "imgDir": "src/images",
+    "distDir": "dist",
+    "css": {
+      "mdl": "https://code.getmdl.io/1.1.3/material.brown-yellow.min.css"
+    },
+    "javascript": {
+      "avim": "https://raw.githubusercontent.com/techpush/avim-chrome/master/src/avim.js",
+      "bella": "https://raw.githubusercontent.com/techpush/bella.js/master/src/bella.js",
+      "chance": "https://raw.githubusercontent.com/chancejs/chancejs/master/dist/chance.min.js",
+      "fetch": "https://raw.githubusercontent.com/typicode/fetchival/master/index.js",
+      "material": "https://storage.googleapis.com/code.getmdl.io/1.1.3/material.js",
+      "promise": "https://raw.githubusercontent.com/jakearchibald/es6-promise/master/dist/es6-promise.js",
+      "ractive": "http://cdn.ractivejs.org/latest/ractive.js",
+      "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js"
+    }
+  }
+}

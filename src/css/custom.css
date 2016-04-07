@@ -1,0 +1,63 @@
+html, body{
+  font-family: 'Droid Serif';
+}
+header .quick-link{
+  text-align: right;
+  padding-right: 30px;
+}
+  header .quick-link span.ctrl{
+    cursor: pointer;
+    margin: 15px 5px;
+    color: #fff;
+    font-size: 18px;
+    padding: 2px 6px;
+    text-shadow: 1px 1px 2px #000;
+  }
+  header .quick-link span.ctrl:hover{
+    color: #0f0;
+  }
+
+  a.mdl-layout-title.page-title{
+    color: #fff;
+    text-decoration: none;
+  }
+
+.timeloc{
+  position: absolute;
+  left: 10px;
+  top: 60px;
+  width: 400px;
+  height: 200px;
+}
+
+  .timeloc .location{
+    text-align: right;
+    font: 400 italic 28px "Droid Serif Italic";
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+  }
+    .timeloc .location .weather{
+      position: relative;
+      top: 10px;
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      margin-left: 10px;
+      background: transparent url(/images/gif/transparent.gif) no-repeat center center;
+      background-size: cover;
+    }
+
+  .timeloc .time{
+    margin-top: 20px;
+    text-align: right;
+    font: 600 italic 64px "Droid Serif Bold";
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+  }
+  .timeloc .date{
+    margin-top: 20px;
+    text-align: right;
+    font: 400 26px "Droid Serif";
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+  }
