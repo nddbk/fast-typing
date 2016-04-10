@@ -62,15 +62,10 @@
     "jsDir": "src/js",
     "imgDir": "src/images",
     "distDir": "dist",
-    "css": {
-      "mdl": "https://code.getmdl.io/1.1.3/material.brown-yellow.min.css"
-    },
     "javascript": {
-      "avim": "https://raw.githubusercontent.com/techpush/avim-chrome/master/src/avim.js",
       "bella": "https://raw.githubusercontent.com/techpush/bella.js/master/src/bella.js",
       "chance": "https://raw.githubusercontent.com/chancejs/chancejs/master/dist/chance.min.js",
       "fetch": "https://raw.githubusercontent.com/typicode/fetchival/master/index.js",
-      "material": "https://storage.googleapis.com/code.getmdl.io/1.1.3/material.js",
       "promise": "https://raw.githubusercontent.com/jakearchibald/es6-promise/master/dist/es6-promise.js",
       "ractive": "http://cdn.ractivejs.org/latest/ractive.js",
       "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js"

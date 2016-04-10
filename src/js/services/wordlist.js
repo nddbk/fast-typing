@@ -253,8 +253,11 @@ Box.Application.addService('wordlist', function _wordlist() {
     'your', 'yourself', 'youth', 'zero', 'zoo'
   ];
 
-  function get() {
-    return wordList;
+  function get(size) {
+    if (!size) {
+      return wordList;
+    }
+    return Bella.pick(wordList, size);
   }
 
   return {
