@@ -16,6 +16,7 @@ App.addModule('textpad', function(context) {
   var Dom = Bella.dom;
   var Event = Bella.event;
 
+  var defaultTextLength = App.getGlobalConfig('defaultTextLength');
   var wordlist = context.getService('wordlist');
 
   var $textpad, $typingArea;
@@ -26,9 +27,9 @@ App.addModule('textpad', function(context) {
   var cursor = 0;
   var startTime = 0;
   var endTime = 0;
-  var totalTime = 0;
   var error = 0;
   var correct = 0;
+  var mistake = 0;
   var totalChars = 0;
   var totalWords = 0;
 
@@ -40,9 +41,9 @@ App.addModule('textpad', function(context) {
     cursor = 0;
     startTime = 0;
     endTime = 0;
-    totalTime = 0;
     error = 0;
     correct = 0;
+    mistake = 0;
     totalChars = 0;
     totalWords = 0;
     $typingArea.empty();
@@ -56,12 +57,15 @@ App.addModule('textpad', function(context) {
 
   end = function() {
     endTime = Bella.time();
-    totalTime = endTime - startTime;
-    console.log('totalTime: %s', totalTime);
-    console.log('totalChars: %s', totalChars);
-    console.log('totalWords: %s', totalWords);
-    console.log('error: %s', error);
-    console.log('correct: %s', correct);
+    context.broadcast('onfinished', {
+      startTime: startTime,
+      endTime: endTime,
+      totalChars: totalChars,
+      totalWords: totalWords,
+      error: error,
+      correct: correct,
+      mistake: mistake
+    });
     restart();
   };
 
@@ -81,13 +85,13 @@ App.addModule('textpad', function(context) {
       cursor = k;
     }
 
-    if (k === 0) {
-      start();
+    if (k === 0 || k === 1 && mistake === 0) {
+      return start();
     }
     if (k === characters.length) {
-      end();
+      return end();
     }
-    return cursor;
+    return context.broadcast('onpressed');
   };
 
   var moveBack = function() {
@@ -118,6 +122,7 @@ App.addModule('textpad', function(context) {
       } else {
         el.addClass('error');
         error++;
+        mistake++;
       }
       moveCursor(cursor);
     }
@@ -164,13 +169,13 @@ App.addModule('textpad', function(context) {
       i++;
     });
     moveCursor(0);
+    return context.broadcast('onstarted');
   };
 
   var load = function(text) {
     var s = text;
     if (!s) {
-      var size = App.getGlobalConfig('defaultTextLength');
-      var a = wordlist.get(size);
+      var a = wordlist.get(defaultTextLength);
       s = a.join(' ');
     }
     render(s);

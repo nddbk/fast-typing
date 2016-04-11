@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FastTyping</title>
   <link rel="stylesheet" type="text/css" href="css/inline.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
 <body>
 
@@ -18,16 +19,28 @@
   <main class="main">
     <div class="card" id="summary" data-module="summary">
       <div class="line">
-        <label>Current tour: </label>
-        <span class="label">Speed</span>: <span class="number">42</span>
-        <span class="label">Error</span>: <span class="number">3</span>
-        <span class="label">Score</span>: <span class="number">720</span>
-      </div>
-      <div class="line">
         <label>Last tour: </label>
-        <span class="label">Speed</span>: <span class="number">42</span>
-        <span class="label">Error</span>: <span class="number">3</span>
-        <span class="label">Score</span>: <span class="number">720</span>
+        <span class="section">
+          <span class="number" id="numSpeed"></span> wpm
+        </span>
+        <span class="section">
+          <span class="number" id="numMistake"></span> <span id="txtMistake"></span>
+        </span>
+        <span class="section">
+          <span class="number" id="numScore"></span> <span id="txtScore"></span>
+        </span>
+      </div>
+      <div class="line older">
+        <label>Highest record: </label>
+        <span class="section">
+          <span class="number" id="numHrSpeed"></span> wpm
+        </span>
+        <span class="section">
+          <span class="number" id="numHrMistake"></span> <span id="txtHrMistake"></span>
+        </span>
+        <span class="section">
+          <span class="number" id="numHrScore"></span> <span id="txtHrScore"></span>
+        </span>
       </div>
     </div>
     <div class="card" id="textpad" data-module="textpad" tabindex="-1">
@@ -39,8 +52,6 @@
   <script type="text/javascript" src="/js/vendor/bella.js"></script>
   <script type="text/javascript" src="/js/vendor/fetch.js"></script>
   <script type="text/javascript" src="/js/vendor/promise.js"></script>
-  <script type="text/javascript" src="/js/vendor/chance.js"></script>
-  <script type="text/javascript" src="/js/vendor/ractive.js"></script>
   <script type="text/javascript" src="/js/services/wordlist.js"></script>
   <script type="text/javascript" src="/js/services/storage.js"></script>
   <script type="text/javascript" src="/js/services/parser.js"></script>

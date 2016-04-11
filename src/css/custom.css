@@ -1,0 +1,74 @@
+
+#summary {
+  min-height: 70px;
+}
+
+#summary label{
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 100px;
+  display: inline-block;
+  text-align: right;
+}
+
+#summary .line.older {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+#summary .line .section{
+  display: inline-block;
+  margin-left: 20px;
+}
+
+#summary .line .section .number{
+  font-size: 28px;
+}
+
+#summary .line.older .section .number{
+  font-size: 18px;
+}
+
+#textpad {
+  border: none;
+  outline: none;
+}
+#textpad .text-area{
+  position: relative;
+  font-family: Courier;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: rgba(238, 255, 215, 0.1);
+  border: 2px inset #CCCFA0;
+  word-wrap: break-word;
+  cursor: default;
+  padding: 10px;
+  min-height: 70px;
+  opacity: 0.5;
+  color: #000;
+}
+#textpad:focus .text-area{
+  opacity: 1.0;
+}
+#textpad .correct {
+  color: green;
+}
+#textpad .error {
+  color: red;
+  background-color: #ff9;
+}
+@keyframes blink {
+  20% { border-color: #0000ff; }
+  50% { border-color: #ff00ff; }
+  80% { border-color: #ff0000; }
+}
+#textpad .cursor {
+  animation: none;
+}
+#textpad:focus .cursor{
+  opacity: 1;
+  border-bottom: solid 2px #000000;
+  display: inline;
+  animation: blink .4s step-end infinite alternate;
+}

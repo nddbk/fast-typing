@@ -5,7 +5,6 @@
   "author": "@ndaidong",
   "version": "0.3.1",
   "default_locale": "en",
-  "homepage_url": "http://techpush.net",
 
   "icons": {
     "16":"icon-16.png",
@@ -16,20 +15,20 @@
     "128":"icon-128.png"
   },
 
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+  "app": {
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    }
   },
 
  "offline_enabled": true,
 
  "permissions": [
-  "tabs",
   "alarms",
   "notifications",
   "storage",
     "unlimitedStorage",
-    "geolocation",
-    "management"
+    "geolocation"
   ]
 }

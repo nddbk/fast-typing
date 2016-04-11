@@ -7,8 +7,6 @@
 /* eslint no-console: 0 */
 /* eslint func-names: 0 */
 
-/* global chance */
-
 Box.Application.addService('wordlist', function() {
 
   'use strict';
@@ -259,10 +257,6 @@ Box.Application.addService('wordlist', function() {
     'year', 'yellow', 'yes', 'yesterday', 'yet', 'you', 'young', 'younger',
     'your', 'yourself', 'youth', 'zero', 'zoo'
   ];
-
-  for (var i = 0; i < 100; i++) {
-    wordList.push(chance.word());
-  }
 
   var get = function(size) {
     if (!size) {
