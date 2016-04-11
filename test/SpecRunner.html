@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.4.1</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.4.1/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-2.4.1/jasmine.css">
+  </head>
+  <body>
+    <div class="card" id="textpad" data-module="textpad" tabindex="-1" style="display: none">
+      <div id="typingArea" class="text-area"></div>
+    </div>
+    <script src="lib/jasmine-2.4.1/jasmine.js"></script>
+    <script src="lib/jasmine-2.4.1/jasmine-html.js"></script>
+    <script src="lib/jasmine-2.4.1/boot.js"></script>
+    <script src="../src/js/vendor/sinon.js"></script>
+    <script src="../src/js/vendor/t3nativeTest.js"></script>
+    <script src="../src/js/vendor/bella.js"></script>
+
+    <script src="../src/js/services/storage.js"></script>
+    <script src="spec/services/StorageSpec.js"></script>
+    <script src="../src/js/services/parser.js"></script>
+    <script src="spec/services/ParserSpec.js"></script>
+    <script src="../src/js/services/wordlist.js"></script>
+    <script src="spec/services/WordlistSpec.js"></script>
+
+    <script src="../src/js/modules/textpad.js"></script>
+    <script src="spec/modules/TextpadSpec.js"></script>
+  </body>
+</html>

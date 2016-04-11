@@ -7,9 +7,9 @@
 /* eslint no-console: 0 */
 /* eslint func-names: 0 */
 
-Box.Application.addModule('textpad', function() {
+Box.Application.addModule('textpad', function(context) {
 
-  var wordlist = Box.Application.getService('wordlist');
+  var wordlist = context.getService('wordlist');
 
   var $textpad, $typingArea;
 
