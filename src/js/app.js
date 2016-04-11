@@ -5,6 +5,7 @@
  */
 
 /* eslint no-console: 0 */
+/* eslint func-names: 0 */
 
 (function _init() {
 
@@ -15,5 +16,8 @@
     console.log(exception);
   });
 
-  App.init();
+  App.init({
+    debug: true
+  });
+
 })();
