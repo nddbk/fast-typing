@@ -283,13 +283,15 @@ body {
   outline: none;
 }
 #textpad .text-area{
+  position: relative;
   font-family: Courier;
+  font-size: 16px;
+  line-height: 1.5;
   background-color: rgba(238, 255, 95, 0.2);
   border: 2px inset #CCCFA0;
   white-space: pre-wrap;
   cursor: default;
   padding: 10px;
-  position: relative;
   min-height: 70px;
   opacity: 0.5;
   color: #000;

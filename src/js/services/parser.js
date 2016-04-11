@@ -4,7 +4,12 @@
  * @ndaidong
  */
 
-Box.Application.addService('parser', function _parser() {
+ /* eslint no-console: 0 */
+ /* eslint func-names: 0 */
+
+Box.Application.addService('parser', function() {
+
+  'use strict';
 
   function parse(data) {
     var s = '';

@@ -7,7 +7,14 @@
 /* eslint no-console: 0 */
 /* eslint func-names: 0 */
 
-Box.Application.addModule('textpad', function(context) {
+var App = Box.Application || {};
+
+App.addModule('textpad', function(context) {
+
+  'use strict';
+
+  var Dom = Bella.dom;
+  var Event = Bella.event;
 
   var wordlist = context.getService('wordlist');
 
@@ -64,12 +71,12 @@ Box.Application.addModule('textpad', function(context) {
       return false;
     }
 
-    Bella.dom.all('.cursor').forEach(function(item) {
+    Dom.all('.cursor').forEach(function(item) {
       item.removeClass('cursor');
     });
 
     if (k >= 0 && k < characters.length) {
-      var el = Bella.dom.get('c_' + k);
+      var el = Dom.get('c_' + k);
       el.addClass('cursor');
       cursor = k;
     }
@@ -87,7 +94,7 @@ Box.Application.addModule('textpad', function(context) {
     if (cursor > 0) {
       cursor--;
       var prevChar = characters[cursor];
-      var el = Bella.dom.get(prevChar.id);
+      var el = Dom.get(prevChar.id);
 
       if (el.hasClass('correct')) {
         correct--;
@@ -104,7 +111,7 @@ Box.Application.addModule('textpad', function(context) {
     if (cursor < characters.length) {
       cursor++;
       var prevChar = characters[cursor - 1];
-      var el = Bella.dom.get(prevChar.id);
+      var el = Dom.get(prevChar.id);
       if (prevChar.char === char) {
         el.addClass('correct');
         correct++;
@@ -123,7 +130,7 @@ Box.Application.addModule('textpad', function(context) {
     var e = evt || window.event;
     var keyCode = e.keyCode || e.which;
     if (keyCode === 8) {
-      Bella.event.stop(evt);
+      Event.stop(evt);
       return moveBack();
     }
     return e;
@@ -146,7 +153,7 @@ Box.Application.addModule('textpad', function(context) {
     var i = 0;
     a.forEach(function(c) {
       var id = 'c_' + i;
-      var span = Bella.dom.add('SPAN', $typingArea);
+      var span = Dom.add('SPAN', $typingArea);
       span.id = id;
       span.innerHTML = c;
       characters.push({
@@ -162,7 +169,8 @@ Box.Application.addModule('textpad', function(context) {
   var load = function(text) {
     var s = text;
     if (!s) {
-      var a = wordlist.get(5);
+      var size = App.getGlobalConfig('defaultTextLength');
+      var a = wordlist.get(size);
       s = a.join(' ');
     }
     render(s);
@@ -174,7 +182,7 @@ Box.Application.addModule('textpad', function(context) {
 
   var init = function() {
     $textpad.focus();
-    Bella.event.on(document.body, 'click', function() {
+    Event.on(document.body, 'click', function() {
 
       isActivated = false;
       var focused = document.activeElement;
@@ -189,14 +197,14 @@ Box.Application.addModule('textpad', function(context) {
       }
     });
 
-    Bella.event.on(document, 'keydown', handleAction);
-    Bella.event.on(document, 'keypress', handleText);
+    Event.on(document, 'keydown', handleAction);
+    Event.on(document, 'keypress', handleText);
   };
 
   return {
     init: function() {
-      $textpad = Bella.dom.get('textpad');
-      $typingArea = Bella.dom.get('typingArea');
+      $textpad = Dom.get('textpad');
+      $typingArea = Dom.get('typingArea');
       init();
       load();
     },

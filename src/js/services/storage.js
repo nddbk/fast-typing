@@ -4,9 +4,15 @@
  * @ndaidong
  */
 
-Box.Application.addService('storage', function _storage() {
 
-  var _store = (function _getCache(data) {
+ /* eslint no-console: 0 */
+ /* eslint func-names: 0 */
+
+Box.Application.addService('storage', function() {
+
+  'use strict';
+
+  var _store = (function(data) {
     var o;
     if (data) {
       o = JSON.parse(data);
@@ -14,25 +20,25 @@ Box.Application.addService('storage', function _storage() {
     return o || {};
   })(localStorage.getItem('store'));
 
-  var updateStore = function _updateStore() {
+  var updateStore = function() {
     localStorage.setItem('store', JSON.stringify(_store));
   };
 
-  var set = function _set(key, value) {
+  var set = function(key, value) {
     _store[key] = value;
     updateStore();
   };
-  var get = function _get(key) {
+  var get = function(key) {
     return _store[key];
   };
-  var remove = function _remove(key) {
+  var remove = function(key) {
     if (Bella.hasProperty(_store, key)) {
       _store[key] = null;
       delete _store[key];
       updateStore();
     }
   };
-  var me = function _me() {
+  var me = function() {
     return _store.user || false;
   };
 

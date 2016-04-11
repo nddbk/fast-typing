@@ -4,7 +4,14 @@
  * @ndaidong
  */
 
-Box.Application.addService('wordlist', function _wordlist() {
+/* eslint no-console: 0 */
+/* eslint func-names: 0 */
+
+/* global chance */
+
+Box.Application.addService('wordlist', function() {
+
+  'use strict';
 
   var wordList = [
     'ability', 'able', 'aboard', 'about', 'above', 'accept', 'accident', 'according',
@@ -253,12 +260,16 @@ Box.Application.addService('wordlist', function _wordlist() {
     'your', 'yourself', 'youth', 'zero', 'zoo'
   ];
 
-  function get(size) {
+  for (var i = 0; i < 100; i++) {
+    wordList.push(chance.word());
+  }
+
+  var get = function(size) {
     if (!size) {
       return wordList;
     }
     return Bella.pick(wordList, size);
-  }
+  };
 
   return {
     get: get
