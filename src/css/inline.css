@@ -284,26 +284,27 @@ body {
 }
 #textpad .text-area{
   font-family: Courier;
-  background-color: rgba(238, 255, 65, 0.4);
-  border: 1px solid #CCCFA0;
+  background-color: rgba(238, 255, 95, 0.2);
+  border: 2px inset #CCCFA0;
   white-space: pre-wrap;
   cursor: default;
   padding: 10px;
   position: relative;
-  border-radius: 5px;
   min-height: 70px;
   opacity: 0.5;
+  color: #000;
 }
 #textpad:focus .text-area{
   opacity: 1.0;
 }
 #textpad .correct {
-  color: #20A080;
+  color: green;
 }
 #textpad .error {
-  background-color: #FFC0C0;
-  color: #F00;
+  color: red;
 }
 #textpad .cursor {
-  background-color:#20A080;
+  text-decoration: underline;
+  text-decoration-color: #f06d06;
+  text-decoration-style: wavy;
 }
