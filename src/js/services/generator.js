@@ -11,1131 +11,489 @@ Box.Application.addService('generator', function() {
 
   'use strict';
 
-  /*eslint-disable*/
-  var hd = ['TH', 'OF', 'AN', 'IN', 'TO', 'CO', 'BE', 'HE', 'RE', 'HA', 'WA', 'FO', 'WH', 'MA', 'WI', 'ON', 'HI', 'PR', 'ST', 'NO', 'IS', 'IT', 'SE', 'WE', 'AS', 'CA', 'DE', 'SO', 'MO', 'SH', 'DI', 'AL', 'AR', 'LI', 'WO', 'FR', 'PA', 'ME', 'AT', 'SU', 'BU', 'SA', 'FI', 'NE', 'CH', 'PO', 'HO', 'DO', 'OR', 'UN', 'LO', 'EX', 'BY', 'FA', 'LA', 'LE', 'PE', 'MI', 'SI', 'YO', 'TR', 'BA', 'GO', 'BO', 'GR', 'TE', 'EN', 'OU', 'RA', 'AC', 'FE', 'PL', 'CL', 'SP', 'BR', 'EV', 'TA', 'DA', 'AB', 'TI', 'RO', 'MU', 'EA', 'NA', 'SC', 'AD', 'GE', 'YE', 'AF', 'AG', 'UP', 'AP', 'DR', 'US', 'PU', 'CE', 'IF', 'RI', 'VI', 'IM', 'AM', 'KN', 'OP', 'CR', 'OT', 'JU', 'QU', 'TW', 'GA', 'VA', 'VE', 'PI', 'GI', 'BI', 'FL', 'BL', 'EL', 'JO', 'FU', 'HU', 'CU', 'RU', 'OV', 'MY', 'OB', 'KE', 'EF', 'PH', 'CI', 'KI', 'NI', 'SL', 'EM', 'SM', 'VO', 'MR', 'WR', 'ES', 'DU', 'TU', 'AU', 'NU', 'GU', 'OW', 'SY', 'JA', 'OC', 'EC', 'ED', 'ID', 'JE', 'AI', 'EI', 'SK', 'OL', 'GL', 'EQ', 'LU', 'AV', 'SW', 'AW', 'EY', 'TY'],
-      di = {
-          TH: {
-              m: ['E', 'A', 'I', 'O', 'R'],
-              e: ['E', 'O']
-          },
-          AN: {
-              m: ['D', 'T', 'Y', 'C', 'S', 'G', 'N', 'I', 'O', 'E', 'A', 'K'],
-              e: ['D', 'T', 'Y', 'S', 'G', 'O', 'E', 'A', 'K']
-          },
-          IN: {
-              m: ['G', 'T', 'E', 'D', 'S', 'C', 'A', 'I', 'K', 'V', 'U', 'N', 'F'],
-              e: ['G', 'T', 'E', 'D', 'S', 'A', 'K']
-          },
-          IO: {
-              m: ['N', 'U', 'R'],
-              e: ['N', 'U', 'R']
-          },
-          EN: {
-              m: ['T', 'C', 'D', 'S', 'E', 'I', 'G', 'O', 'N', 'A'],
-              e: ['T', 'D', 'S', 'E', 'G', 'O', 'A']
-          },
-          TI: {
-              m: ['O', 'N', 'C', 'V', 'M', 'L', 'E', 'T', 'S', 'A', 'R', 'F'],
-              e: ['N', 'C', 'M', 'L', 'E', 'T', 'S', 'A', 'R', 'F']
-          },
-          FO: {
-              m: ['R', 'U', 'O', 'L'],
-              e: ['R', 'U', 'O', 'L']
-          },
-          HE: {
-              m: ['R', 'N', 'Y', 'S', 'M', 'I', 'A', 'L', 'D', 'T'],
-              e: ['R', 'N', 'Y', 'S', 'M', 'A', 'L', 'D', 'T']
-          },
-          HA: {
-              m: ['T', 'D', 'V', 'N', 'S', 'R', 'P', 'L'],
-              e: ['T', 'D', 'N', 'S', 'R', 'L']
-          },
-          HI: {
-              m: ['S', 'N', 'C', 'M', 'L', 'P', 'G', 'T', 'R', 'E'],
-              e: ['S', 'N', 'C', 'M', 'L', 'P', 'G', 'T', 'R', 'E']
-          },
-          TE: {
-              m: ['R', 'D', 'N', 'S', 'M', 'L', 'E', 'C', 'A'],
-              e: ['R', 'D', 'N', 'S', 'M', 'L', 'E', 'A']
-          },
-          AT: {
-              m: ['I', 'E', 'T', 'H', 'U', 'O', 'C'],
-              e: ['E', 'H', 'O']
-          },
-          ER: {
-              m: ['E', 'S', 'I', 'A', 'N', 'Y', 'T', 'V', 'M', 'R', 'O', 'L', 'G', 'F', 'C'],
-              e: ['E', 'S', 'A', 'N', 'Y', 'T', 'M']
-          },
-          AL: {
-              m: ['L', 'S', 'I', 'T', 'E', 'U', 'O', 'M', 'K', 'F', 'A'],
-              e: ['L', 'S', 'T', 'E', 'F']
-          },
-          WA: {
-              m: ['S', 'Y', 'R', 'T', 'N', 'L'],
-              e: ['S', 'Y', 'R', 'T', 'N', 'L']
-          },
-          VE: {
-              m: ['R', 'N', 'L', 'S', 'D'],
-              e: ['R', 'N', 'L', 'S', 'D']
-          },
-          CO: {
-              m: ['N', 'M', 'U', 'R', 'L', 'V', 'S', 'O'],
-              e: ['N', 'M', 'U', 'R', 'L', 'O']
-          },
-          RE: {
-              m: ['S', 'A', 'D', 'N', 'E', 'C', 'L', 'T', 'P', 'M', 'V', 'G', 'F', 'Q'],
-              e: ['S', 'A', 'D', 'N', 'E', 'L', 'T', 'P', 'M']
-          },
-          IT: {
-              m: ['H', 'I', 'Y', 'E', 'S', 'T', 'A', 'U'],
-              e: ['H', 'Y', 'E', 'S', 'A']
-          },
-          WI: {
-              m: ['T', 'L', 'N', 'S'],
-              e: ['T', 'L', 'N', 'S']
-          },
-          ME: {
-              m: ['N', 'R', 'D', 'T', 'S', 'M', 'A'],
-              e: ['N', 'R', 'D', 'T', 'S', 'M', 'A']
-          },
-          NC: {
-              m: ['E', 'I', 'H', 'T', 'R', 'O', 'L'],
-              e: ['E', 'H', 'T']
-          },
-          ON: {
-              m: ['S', 'E', 'T', 'G', 'A', 'D', 'L', 'C', 'V', 'O', 'I', 'F'],
-              e: ['S', 'E', 'T', 'G', 'A', 'D', 'O']
-          },
-          PR: {
-              m: ['O', 'E', 'I', 'A'],
-              e: ['E', 'A']
-          },
-          AR: {
-              m: ['E', 'T', 'D', 'Y', 'S', 'I', 'R', 'L', 'M', 'K', 'G', 'A', 'O', 'N', 'C'],
-              e: ['E', 'T', 'D', 'Y', 'S', 'M', 'K', 'A', 'N']
-          },
-          ES: {
-              m: ['S', 'T', 'E', 'I', 'P', 'U', 'C'],
-              e: ['S', 'T', 'E']
-          },
-          EV: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          ST: {
-              m: ['A', 'R', 'I', 'E', 'O', 'U', 'S'],
-              e: ['A', 'E', 'O', 'S']
-          },
-          EA: {
-              m: ['R', 'S', 'T', 'D', 'L', 'C', 'N', 'V', 'M', 'K'],
-              e: ['R', 'S', 'T', 'D', 'L', 'N', 'M']
-          },
-          IV: {
-              m: ['E', 'I', 'A'],
-              e: ['E']
-          },
-          EC: {
-              m: ['T', 'O', 'I', 'E', 'A', 'U', 'R', 'H'],
-              e: ['T', 'E', 'H']
-          },
-          NO: {
-              m: ['T', 'W', 'R', 'U', 'N', 'M'],
-              e: ['T', 'W', 'R', 'U', 'N', 'M']
-          },
-          OU: {
-              m: ['T', 'L', 'R', 'N', 'S', 'G', 'P', 'B'],
-              e: ['T', 'L', 'R', 'N', 'S', 'P']
-          },
-          PE: {
-              m: ['R', 'N', 'C', 'A', 'D', 'T', 'O'],
-              e: ['R', 'N', 'A', 'D', 'T']
-          },
-          IL: {
-              m: ['L', 'E', 'I', 'Y', 'D', 'A'],
-              e: ['L', 'E', 'Y', 'D']
-          },
-          IS: {
-              m: ['T', 'H', 'S', 'I', 'E', 'C', 'M'],
-              e: ['T', 'H', 'S', 'E', 'M']
-          },
-          MA: {
-              m: ['N', 'T', 'L', 'K', 'D', 'S', 'I', 'G'],
-              e: ['N', 'T', 'L', 'D', 'S']
-          },
-          AV: {
-              m: ['E', 'I', 'A'],
-              e: ['E']
-          },
-          OM: {
-              m: ['E', 'P', 'M', 'I', 'A'],
-              e: ['E']
-          },
-          IC: {
-              m: ['A', 'H', 'E', 'I', 'T', 'K', 'U', 'S'],
-              e: ['H', 'E', 'T', 'K', 'S']
-          },
-          GH: {
-              m: ['T'],
-              e: ['T']
-          },
-          DE: {
-              m: ['R', 'N', 'S', 'D', 'A', 'V', 'P', 'T', 'M', 'L', 'F'],
-              e: ['R', 'N', 'S', 'D', 'A', 'P', 'T', 'M', 'L']
-          },
-          AI: {
-              m: ['N', 'D', 'R', 'L', 'T'],
-              e: ['N', 'D', 'R', 'L', 'T']
-          },
-          CT: {
-              m: ['I', 'E', 'U', 'S', 'O'],
-              e: ['E', 'S', 'O']
-          },
-          IG: {
-              m: ['H', 'N', 'I'],
-              e: ['H', 'N']
-          },
-          ID: {
-              m: ['E'],
-              e: ['E']
-          },
-          OR: {
-              m: ['E', 'T', 'M', 'D', 'S', 'K', 'I', 'Y', 'L', 'G', 'A', 'R', 'N', 'C'],
-              e: ['E', 'T', 'M', 'D', 'S', 'K', 'Y', 'A', 'N']
-          },
-          OV: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          UL: {
-              m: ['D', 'T', 'A', 'L'],
-              e: ['D', 'T', 'L']
-          },
-          YO: {
-              m: ['U'],
-              e: ['U']
-          },
-          BU: {
-              m: ['T', 'S', 'R', 'I'],
-              e: ['T', 'S', 'R']
-          },
-          RA: {
-              m: ['T', 'N', 'L', 'C', 'I', 'M', 'D', 'S', 'R', 'P', 'G', 'B'],
-              e: ['T', 'N', 'L', 'M', 'D', 'S', 'R']
-          },
-          FR: {
-              m: ['O', 'E', 'A'],
-              e: ['E', 'A']
-          },
-          RO: {
-              m: ['M', 'U', 'V', 'P', 'N', 'W', 'S', 'O', 'L', 'D', 'C', 'B', 'A', 'T', 'G'],
-              e: ['M', 'U', 'P', 'N', 'W', 'O', 'L', 'D', 'T']
-          },
-          WH: {
-              m: ['I', 'E', 'O', 'A'],
-              e: ['E', 'O']
-          },
-          OT: {
-              m: ['H', 'E', 'T', 'I'],
-              e: ['H', 'E']
-          },
-          BL: {
-              m: ['E', 'I', 'Y', 'O', 'A'],
-              e: ['E', 'Y']
-          },
-          NT: {
-              m: ['E', 'I', 'S', 'R', 'O', 'A', 'L', 'Y', 'U', 'H'],
-              e: ['E', 'S', 'O', 'A', 'Y', 'H']
-          },
-          UN: {
-              m: ['D', 'T', 'I', 'C', 'G'],
-              e: ['D', 'T', 'G']
-          },
-          TR: {
-              m: ['A', 'I', 'O', 'E', 'U', 'Y'],
-              e: ['A', 'E', 'Y']
-          },
-          HO: {
-              m: ['U', 'W', 'S', 'R', 'L', 'O', 'M', 'T', 'P', 'N', 'D'],
-              e: ['U', 'W', 'R', 'L', 'O', 'M', 'T', 'P', 'N', 'D']
-          },
-          AC: {
-              m: ['T', 'E', 'K', 'H', 'C', 'R', 'I'],
-              e: ['T', 'E', 'K', 'H']
-          },
-          TU: {
-              m: ['R', 'D', 'A', 'T'],
-              e: ['R', 'T']
-          },
-          WE: {
-              m: ['R', 'L', 'E', 'V', 'S', 'N', 'A'],
-              e: ['R', 'L', 'E', 'S', 'N', 'A']
-          },
-          CA: {
-              m: ['L', 'N', 'T', 'R', 'U', 'S', 'M', 'P'],
-              e: ['L', 'N', 'T', 'R', 'S', 'M']
-          },
-          SH: {
-              m: ['E', 'O', 'I', 'A'],
-              e: ['E', 'O']
-          },
-          UR: {
-              m: ['E', 'N', 'T', 'S', 'I', 'A', 'Y', 'R', 'P', 'C'],
-              e: ['E', 'N', 'T', 'S', 'A', 'Y']
-          },
-          IE: {
-              m: ['S', 'N', 'D', 'T', 'W', 'V', 'R', 'L', 'F'],
-              e: ['S', 'N', 'D', 'T', 'W', 'R', 'L']
-          },
-          PA: {
-              m: ['R', 'T', 'S', 'N', 'L', 'I', 'C'],
-              e: ['R', 'T', 'S', 'N', 'L']
-          },
-          TO: {
-              m: ['R', 'O', 'N', 'W', 'P', 'M', 'L'],
-              e: ['R', 'O', 'N', 'W', 'P', 'M', 'L']
-          },
-          EE: {
-              m: ['N', 'D', 'T', 'M', 'S', 'R', 'P', 'L', 'K'],
-              e: ['N', 'D', 'T', 'M', 'S', 'R', 'P', 'L', 'K']
-          },
-          LI: {
-              m: ['N', 'T', 'S', 'C', 'K', 'G', 'E', 'F', 'Z', 'V', 'O', 'M', 'A'],
-              e: ['N', 'T', 'S', 'C', 'G', 'E', 'F', 'M', 'A']
-          },
-          RI: {
-              m: ['N', 'E', 'C', 'T', 'S', 'G', 'A', 'V', 'O', 'P', 'M', 'L', 'D', 'B'],
-              e: ['N', 'E', 'C', 'T', 'S', 'G', 'A', 'P', 'M', 'L', 'D']
-          },
-          UG: {
-              m: ['H', 'G'],
-              e: ['H']
-          },
-          AM: {
-              m: ['E', 'P', 'I', 'O', 'A'],
-              e: ['E']
-          },
-          ND: {
-              m: ['E', 'I', 'S', 'A', 'U', 'O'],
-              e: ['E', 'S', 'O']
-          },
-          US: {
-              m: ['E', 'T', 'I', 'S', 'L', 'H'],
-              e: ['E', 'T', 'S', 'H']
-          },
-          LL: {
-              m: ['Y', 'E', 'O', 'I', 'S', 'A'],
-              e: ['Y', 'E', 'S']
-          },
-          AS: {
-              m: ['T', 'S', 'E', 'I', 'U', 'O', 'K', 'H'],
-              e: ['T', 'S', 'E', 'O', 'H']
-          },
-          TA: {
-              m: ['T', 'N', 'L', 'I', 'R', 'K', 'B', 'G', 'C'],
-              e: ['T', 'N', 'L', 'R']
-          },
-          LE: {
-              m: ['S', 'D', 'A', 'T', 'C', 'R', 'N', 'M', 'G', 'V', 'F'],
-              e: ['S', 'D', 'A', 'T', 'R', 'N', 'M']
-          },
-          MO: {
-              m: ['R', 'S', 'V', 'T', 'U', 'D'],
-              e: ['R', 'T', 'U', 'D']
-          },
-          WO: {
-              m: ['R', 'U'],
-              e: ['R', 'U']
-          },
-          MI: {
-              m: ['N', 'L', 'S', 'T', 'C', 'G'],
-              e: ['N', 'L', 'S', 'T', 'C', 'G']
-          },
-          AB: {
-              m: ['L', 'O', 'I'],
-              e: []
-          },
-          EL: {
-              m: ['L', 'Y', 'I', 'E', 'F', 'O', 'A', 'T', 'S', 'P', 'D'],
-              e: ['L', 'Y', 'E', 'F', 'T', 'S', 'D']
-          },
-          IA: {
-              m: ['L', 'N', 'T'],
-              e: ['L', 'N', 'T']
-          },
-          NA: {
-              m: ['L', 'T', 'R', 'N', 'M'],
-              e: ['L', 'T', 'R', 'N', 'M']
-          },
-          SS: {
-              m: ['I', 'E', 'U', 'O', 'A'],
-              e: ['E', 'O']
-          },
-          AG: {
-              m: ['E', 'A', 'O'],
-              e: ['E', 'O']
-          },
-          TT: {
-              m: ['E', 'L', 'I'],
-              e: ['E']
-          },
-          NE: {
-              m: ['D', 'S', 'W', 'R', 'E', 'Y', 'V', 'T', 'L', 'C', 'A'],
-              e: ['D', 'S', 'W', 'R', 'E', 'Y', 'T', 'L', 'A']
-          },
-          PL: {
-              m: ['A', 'E', 'I', 'Y', 'O'],
-              e: ['E', 'Y']
-          },
-          LA: {
-              m: ['T', 'N', 'R', 'S', 'C', 'Y', 'W', 'I', 'B'],
-              e: ['T', 'N', 'R', 'S', 'Y', 'W']
-          },
-          OS: {
-              m: ['T', 'E', 'S', 'I'],
-              e: ['T', 'E', 'S']
-          },
-          CE: {
-              m: ['S', 'N', 'R', 'D', 'P', 'L', 'I'],
-              e: ['S', 'N', 'R', 'D', 'P', 'L']
-          },
-          DI: {
-              m: ['S', 'N', 'T', 'D', 'F', 'E', 'C', 'A', 'V', 'R'],
-              e: ['S', 'N', 'T', 'D', 'F', 'E', 'C', 'A', 'R']
-          },
-          BE: {
-              m: ['R', 'E', 'C', 'T', 'L', 'F', 'S', 'I', 'G', 'D', 'A'],
-              e: ['R', 'E', 'T', 'L', 'S', 'D', 'A']
-          },
-          AP: {
-              m: ['P', 'E', 'A'],
-              e: ['E']
-          },
-          SI: {
-              m: ['O', 'N', 'D', 'T', 'S', 'G', 'C', 'B', 'V', 'M', 'A'],
-              e: ['N', 'D', 'T', 'S', 'G', 'C', 'M', 'A']
-          },
-          NI: {
-              m: ['N', 'T', 'S', 'C', 'Z', 'O', 'G', 'F'],
-              e: ['N', 'T', 'S', 'C', 'G', 'F']
-          },
-          OW: {
-              m: ['N', 'E', 'S', 'I', 'A'],
-              e: ['N', 'E', 'S']
-          },
-          SO: {
-              m: ['N', 'M', 'U', 'L', 'C', 'R'],
-              e: ['N', 'M', 'U', 'L', 'R']
-          },
-          AK: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          CH: {
-              m: ['E', 'A', 'I', 'O', 'U', 'R'],
-              e: ['E', 'O']
-          },
-          EM: {
-              m: ['E', 'S', 'P', 'O', 'B', 'A', 'I'],
-              e: ['E', 'S']
-          },
-          IM: {
-              m: ['E', 'P', 'I', 'A', 'S', 'M'],
-              e: ['E', 'S']
-          },
-          SE: {
-              m: ['D', 'N', 'L', 'S', 'R', 'E', 'C', 'T', 'V', 'A'],
-              e: ['D', 'N', 'L', 'S', 'R', 'E', 'T', 'A']
-          },
-          NS: {
-              m: ['T', 'I', 'E'],
-              e: ['T', 'E']
-          },
-          PO: {
-              m: ['S', 'R', 'N', 'L', 'W', 'T', 'I'],
-              e: ['R', 'N', 'L', 'W', 'T']
-          },
-          EI: {
-              m: ['R', 'N', 'G', 'T'],
-              e: ['R', 'N', 'G', 'T']
-          },
-          EX: {
-              m: ['P', 'T', 'I', 'C', 'A'],
-              e: ['T']
-          },
-          KI: {
-              m: ['N'],
-              e: ['N']
-          },
-          UC: {
-              m: ['H', 'T', 'K', 'E'],
-              e: ['H', 'T', 'K', 'E']
-          },
-          AD: {
-              m: ['E', 'I', 'Y', 'V', 'M', 'D'],
-              e: ['E', 'Y']
-          },
-          GR: {
-              m: ['E', 'A', 'O'],
-              e: ['E', 'A']
-          },
-          IR: {
-              m: ['E', 'S', 'T', 'L', 'I'],
-              e: ['E', 'S', 'T']
-          },
-          NG: {
-              m: ['E', 'S', 'L', 'T', 'R', 'I'],
-              e: ['E', 'S']
-          },
-          OP: {
-              m: ['E', 'P', 'L'],
-              e: ['E']
-          },
-          SP: {
-              m: ['E', 'O', 'I', 'A'],
-              e: ['E']
-          },
-          OL: {
-              m: ['D', 'L', 'I', 'O', 'E', 'U'],
-              e: ['D', 'L', 'E']
-          },
-          DA: {
-              m: ['Y', 'T', 'R', 'N'],
-              e: ['Y', 'T', 'R', 'N']
-          },
-          NL: {
-              m: ['Y'],
-              e: ['Y']
-          },
-          TL: {
-              m: ['Y', 'E'],
-              e: ['Y', 'E']
-          },
-          LO: {
-              m: ['W', 'N', 'O', 'S', 'C', 'V', 'U', 'T', 'R', 'P', 'G'],
-              e: ['W', 'N', 'O', 'U', 'T', 'R', 'P']
-          },
-          BO: {
-              m: ['U', 'T', 'R', 'O', 'D', 'A'],
-              e: ['U', 'T', 'R', 'O', 'D']
-          },
-          RS: {
-              m: ['T', 'E', 'O', 'I'],
-              e: ['T', 'E', 'O']
-          },
-          FE: {
-              m: ['R', 'E', 'W', 'L', 'C', 'A'],
-              e: ['R', 'E', 'W', 'L', 'A']
-          },
-          FI: {
-              m: ['R', 'N', 'C', 'E', 'L', 'G'],
-              e: ['R', 'N', 'C', 'E', 'L', 'G']
-          },
-          SU: {
-              m: ['R', 'C', 'P', 'B', 'M', 'L', 'A'],
-              e: ['R', 'P', 'M', 'L']
-          },
-          GE: {
-              m: ['N', 'T', 'S', 'R', 'D'],
-              e: ['N', 'T', 'S', 'R', 'D']
-          },
-          MP: {
-              m: ['L', 'O', 'A', 'T', 'R', 'E'],
-              e: ['T', 'E']
-          },
-          UA: {
-              m: ['L', 'T', 'R'],
-              e: ['L', 'T', 'R']
-          },
-          OO: {
-              m: ['K', 'D', 'L', 'T', 'R', 'N', 'M'],
-              e: ['K', 'D', 'L', 'T', 'R', 'N', 'M']
-          },
-          RT: {
-              m: ['I', 'H', 'A', 'E', 'Y', 'U', 'S'],
-              e: ['H', 'A', 'E', 'Y', 'S']
-          },
-          SA: {
-              m: ['I', 'M', 'Y', 'N', 'L'],
-              e: ['M', 'Y', 'N', 'L']
-          },
-          CR: {
-              m: ['E', 'I', 'O', 'A'],
-              e: ['E', 'A']
-          },
-          FF: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          IK: {
-              m: ['E'],
-              e: ['E']
-          },
-          MB: {
-              m: ['E'],
-              e: ['E']
-          },
-          KE: {
-              m: ['D', 'N', 'T', 'S', 'R', 'E'],
-              e: ['D', 'N', 'T', 'S', 'R', 'E']
-          },
-          FA: {
-              m: ['C', 'R', 'M', 'I'],
-              e: ['R', 'M']
-          },
-          CI: {
-              m: ['A', 'T', 'E', 'S', 'P', 'N'],
-              e: ['A', 'T', 'E', 'S', 'P', 'N']
-          },
-          EQ: {
-              m: ['U'],
-              e: []
-          },
-          AF: {
-              m: ['T', 'F'],
-              e: ['T', 'F']
-          },
-          ET: {
-              m: ['T', 'I', 'H', 'E', 'Y', 'W', 'S', 'A'],
-              e: ['H', 'E', 'Y', 'S', 'A']
-          },
-          AY: {
-              m: ['S', 'E'],
-              e: ['S']
-          },
-          MU: {
-              m: ['S', 'N', 'L', 'C'],
-              e: ['S', 'N', 'L']
-          },
-          UE: {
-              m: ['S', 'N'],
-              e: ['S', 'N']
-          },
-          HR: {
-              m: ['O', 'E', 'I'],
-              e: ['E']
-          },
-          TW: {
-              m: ['O', 'E'],
-              e: ['O', 'E']
-          },
-          GI: {
-              m: ['N', 'V', 'O', 'C'],
-              e: ['N', 'C']
-          },
-          OI: {
-              m: ['N'],
-              e: ['N']
-          },
-          VI: {
-              m: ['N', 'D', 'S', 'C', 'T', 'O', 'L', 'E'],
-              e: ['N', 'D', 'S', 'C', 'T', 'L', 'E']
-          },
-          CU: {
-              m: ['L', 'R', 'T', 'S'],
-              e: ['L', 'R', 'T', 'S']
-          },
-          FU: {
-              m: ['L', 'R', 'N'],
-              e: ['L', 'R', 'N']
-          },
-          ED: {
-              m: ['I', 'U', 'E'],
-              e: ['E']
-          },
-          QU: {
-              m: ['I', 'E', 'A'],
-              e: ['E']
-          },
-          UT: {
-              m: ['I', 'H', 'E'],
-              e: ['H', 'E']
-          },
-          RC: {
-              m: ['H', 'E'],
-              e: ['H', 'E']
-          },
-          OF: {
-              m: ['F', 'T'],
-              e: ['F', 'T']
-          },
-          CL: {
-              m: ['E', 'A', 'U', 'O'],
-              e: ['E']
-          },
-          FT: {
-              m: ['E'],
-              e: ['E']
-          },
-          IZ: {
-              m: ['E', 'A'],
-              e: ['E']
-          },
-          PP: {
-              m: ['E', 'O', 'R', 'L'],
-              e: ['E']
-          },
-          RG: {
-              m: ['E', 'A'],
-              e: ['E']
-          },
-          DU: {
-              m: ['C', 'S', 'R', 'A'],
-              e: ['S', 'R']
-          },
-          RM: {
-              m: ['A', 'S', 'I', 'E'],
-              e: ['S', 'E']
-          },
-          YE: {
-              m: ['A', 'S', 'D'],
-              e: ['A', 'S', 'D']
-          },
-          RL: {
-              m: ['Y', 'D'],
-              e: ['Y', 'D']
-          },
-          DO: {
-              m: ['W', 'N', 'M', 'E'],
-              e: ['W', 'N', 'M']
-          },
-          AU: {
-              m: ['T', 'S'],
-              e: ['T', 'S']
-          },
-          EP: {
-              m: ['T', 'O', 'E', 'A'],
-              e: ['T', 'E']
-          },
-          BA: {
-              m: ['S', 'C', 'R', 'N', 'L'],
-              e: ['S', 'R', 'N', 'L']
-          },
-          JU: {
-              m: ['S'],
-              e: ['S']
-          },
-          RD: {
-              m: ['S', 'E', 'I'],
-              e: ['S', 'E']
-          },
-          RU: {
-              m: ['S', 'N', 'C'],
-              e: ['S', 'N']
-          },
-          OG: {
-              m: ['R', 'I'],
-              e: []
-          },
-          BR: {
-              m: ['O', 'I', 'E', 'A'],
-              e: ['E', 'A']
-          },
-          EF: {
-              m: ['O', 'F', 'U', 'T', 'E'],
-              e: ['F', 'T', 'E']
-          },
-          KN: {
-              m: ['O', 'E'],
-              e: ['O', 'E']
-          },
-          LS: {
-              m: ['O'],
-              e: ['O']
-          },
-          GA: {
-              m: ['N', 'I', 'T', 'R'],
-              e: ['N', 'T', 'R']
-          },
-          PI: {
-              m: ['N', 'T', 'R', 'E', 'C'],
-              e: ['N', 'T', 'R', 'E', 'C']
-          },
-          YI: {
-              m: ['N'],
-              e: ['N']
-          },
-          BI: {
-              m: ['L', 'T', 'N'],
-              e: ['L', 'T', 'N']
-          },
-          IB: {
-              m: ['L', 'I', 'E'],
-              e: ['E']
-          },
-          UB: {
-              m: ['L'],
-              e: []
-          },
-          VA: {
-              m: ['L', 'T', 'R', 'N'],
-              e: ['L', 'T', 'R', 'N']
-          },
-          OC: {
-              m: ['K', 'I', 'E', 'C', 'A'],
-              e: ['K', 'E']
-          },
-          IF: {
-              m: ['I', 'F', 'E', 'T'],
-              e: ['F', 'E', 'T']
-          },
-          RN: {
-              m: ['I', 'E', 'M', 'A'],
-              e: ['E', 'A']
-          },
-          RR: {
-              m: ['I', 'E', 'Y', 'O'],
-              e: ['E', 'Y']
-          },
-          SC: {
-              m: ['H', 'R', 'O', 'I', 'A'],
-              e: ['H']
-          },
-          TC: {
-              m: ['H'],
-              e: ['H']
-          },
-          CK: {
-              m: ['E'],
-              e: ['E']
-          },
-          DG: {
-              m: ['E'],
-              e: ['E']
-          },
-          DR: {
-              m: ['E', 'O', 'I', 'A'],
-              e: ['E', 'A']
-          },
-          MM: {
-              m: ['E', 'U', 'I'],
-              e: ['E']
-          },
-          NN: {
-              m: ['E', 'O', 'I'],
-              e: ['E', 'O']
-          },
-          OD: {
-              m: ['E', 'Y', 'U'],
-              e: ['E', 'Y']
-          },
-          RV: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          UD: {
-              m: ['E', 'I'],
-              e: ['E']
-          },
-          XP: {
-              m: ['E'],
-              e: ['E']
-          },
-          JE: {
-              m: ['C'],
-              e: []
-          },
-          UM: {
-              m: ['B', 'E'],
-              e: ['E']
-          },
-          EG: {
-              m: ['A', 'R', 'I', 'E'],
-              e: ['E']
-          },
-          DL: {
-              m: ['Y', 'E'],
-              e: ['Y', 'E']
-          },
-          PH: {
-              m: ['Y', 'O', 'I', 'E'],
-              e: ['Y', 'O', 'E']
-          },
-          SL: {
-              m: ['Y', 'A'],
-              e: ['Y']
-          },
-          GO: {
-              m: ['V', 'T', 'O'],
-              e: ['T', 'O']
-          },
-          CC: {
-              m: ['U', 'O', 'E'],
-              e: ['E']
-          },
-          LU: {
-              m: ['T', 'S', 'M', 'E', 'D'],
-              e: ['T', 'S', 'M', 'E']
-          },
-          OA: {
-              m: ['T', 'R', 'D'],
-              e: ['T', 'R', 'D']
-          },
-          PU: {
-              m: ['T', 'R', 'L', 'B'],
-              e: ['T', 'R', 'L']
-          },
-          UI: {
-              m: ['T', 'R', 'L'],
-              e: ['T', 'R', 'L']
-          },
-          YS: {
-              m: ['T'],
-              e: ['T']
-          },
-          ZA: {
-              m: ['T'],
-              e: ['T']
-          },
-          HU: {
-              m: ['S', 'R', 'N', 'M'],
-              e: ['S', 'R', 'N', 'M']
-          },
-          MR: {
-              m: ['S'],
-              e: ['S']
-          },
-          OE: {
-              m: ['S'],
-              e: ['S']
-          },
-          SY: {
-              m: ['S'],
-              e: ['S']
-          },
-          EO: {
-              m: ['R', 'P'],
-              e: ['R', 'P']
-          },
-          TY: {
-              m: ['P'],
-              e: []
-          },
-          UP: {
-              m: ['P', 'O'],
-              e: []
-          },
-          FL: {
-              m: ['O', 'E'],
-              e: ['E']
-          },
-          LM: {
-              m: ['O'],
-              e: []
-          },
-          NF: {
-              m: ['O'],
-              e: []
-          },
-          RP: {
-              m: ['O'],
-              e: []
-          },
-          OH: {
-              m: ['N'],
-              e: []
-          },
-          NU: {
-              m: ['M'],
-              e: ['M']
-          },
-          XA: {
-              m: ['M'],
-              e: ['M']
-          },
-          OB: {
-              m: ['L'],
-              e: []
-          },
-          VO: {
-              m: ['L'],
-              e: ['L']
-          },
-          DM: {
-              m: ['I'],
-              e: []
-          },
-          GN: {
-              m: ['I'],
-              e: []
-          },
-          LD: {
-              m: ['I', 'E'],
-              e: ['E']
-          },
-          PT: {
-              m: ['I'],
-              e: []
-          },
-          SK: {
-              m: ['I', 'E'],
-              e: ['E']
-          },
-          WR: {
-              m: ['I'],
-              e: []
-          },
-          JO: {
-              m: ['H'],
-              e: []
-          },
-          LT: {
-              m: ['H', 'E'],
-              e: ['H', 'E']
-          },
-          YT: {
-              m: ['H'],
-              e: ['H']
-          },
-          UF: {
-              m: ['F'],
-              e: ['F']
-          },
-          BJ: {
-              m: ['E'],
-              e: []
-          },
-          DD: {
-              m: ['E'],
-              e: ['E']
-          },
-          EY: {
-              m: ['E'],
-              e: []
-          },
-          GG: {
-              m: ['E'],
-              e: ['E']
-          },
-          GL: {
-              m: ['E', 'A'],
-              e: ['E']
-          },
-          GU: {
-              m: ['E'],
-              e: ['E']
-          },
-          HT: {
-              m: ['E'],
-              e: ['E']
-          },
-          LV: {
-              m: ['E'],
-              e: ['E']
-          },
-          MS: {
-              m: ['E'],
-              e: ['E']
-          },
-          NM: {
-              m: ['E'],
-              e: ['E']
-          },
-          NV: {
-              m: ['E'],
-              e: ['E']
-          },
-          OK: {
-              m: ['E'],
-              e: ['E']
-          },
-          PM: {
-              m: ['E'],
-              e: ['E']
-          },
-          RK: {
-              m: ['E'],
-              e: ['E']
-          },
-          SW: {
-              m: ['E'],
-              e: ['E']
-          },
-          TM: {
-              m: ['E'],
-              e: ['E']
-          },
-          XC: {
-              m: ['E'],
-              e: ['E']
-          },
-          ZE: {
-              m: ['D'],
-              e: ['D']
-          },
-          AW: {
-              m: ['A'],
-              e: []
-          },
-          SM: {
-              m: ['A'],
-              e: []
-          }
-      };
-  /*eslint-enable*/
+  var consolnants = [
+    'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+    'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y'
+  ];
+  var vowels = [
+    'a', 'e', 'i', 'o', 'u', 'y'
+  ];
 
-  function word(n) {
-    var str = '';
-    var l = 0;
-    var d, ch;
-    while (l < n) {
-      if (l < 2) {
-        str = hd[Math.floor(hd.length * Math.random())];
+  var alphabet = consolnants.concat(vowels);
+
+  var consolnantCombinations = [
+    'bl', 'br',
+    'ch', 'chr', 'chz', 'cl', 'cr', 'cz',
+    'dr',
+    'fl',
+    'gh',
+    'gr',
+    'kn',
+    'ph',
+    'qu', 'qw',
+    'sch', 'sh', 'sl', 'sm', 'st',
+    'th', 'thr', 'tr',
+    'zh'
+  ];
+
+  var allConsolnants = consolnants.concat(consolnantCombinations);
+
+  var vowelCombinations = [
+    'ai', 'ao', 'au', 'ay',
+    'ea', 'ee', 'ei', 'eu', 'ey',
+    'ia', 'ie', 'io',
+    'oo', 'oa', 'oe', 'oi', 'oy', 'ou',
+    'ua', 'ue', 'ui', 'ua', 'uy',
+    'ye'
+  ];
+
+  var allVowels = vowels.concat(vowelCombinations);
+
+  var endSounds = [
+    '-Cate',
+    '-Case',
+    '-Cace',
+    '-Came',
+    '-Cake',
+    '-Cache',
+    '-Cage',
+    '-Cain',
+    '-Cail',
+    '-Caise',
+    '-Caid',
+    '-Cait',
+    '-Caight',
+    '-Caint',
+    '-Cave',
+    '-Cable',
+    '-Cadle',
+    '-Cange',
+    '-Cape',
+    '-Caste',
+    '-Canger',
+    '-Carrow',
+    '-Casis',
+    '-Cazy',
+    '-Cayer',
+    '-Caying',
+    '-Vche',
+    '-Vcious',
+    '-Ceigh',
+    '-Ceight',
+    '-Cein',
+    '-Ceroic',
+    '-Ceying',
+    '-Ceyor',
+    '-Ciche',
+    '-Cide',
+    '-Cidle',
+    '-Cifle',
+    '-Cigh',
+    '-Cight',
+    '-Cile',
+    '-Cimb',
+    '-Cime',
+    '-Cind',
+    '-Cine',
+    '-Cise',
+    '-Cite',
+    '-Cisis',
+    '-Citle',
+    '-Cize',
+    '-Cive',
+    '-Cizon',
+    '-Cycle',
+    '-Coach',
+    '-Coad',
+    '-Coak',
+    '-Coal',
+    '-Coast',
+    '-Coat',
+    '-Coin',
+    '-Coing',
+    '-Cold',
+    '-Colk',
+    '-Cost',
+    '-Cough',
+    '-Counce',
+    '-Count',
+    '-Couse',
+    '-Couth',
+    '-Cow',
+    '-Cowd',
+    '-Cower',
+    '-Cowing',
+    '-Cowl',
+    '-Cown',
+    '-Vddle',
+    '-Vght',
+    '-Vndle',
+    '-Vtial',
+    '-Vtion',
+    '-Vssion'
+  ];
+
+  var wordList = [
+    'ability', 'able', 'aboard', 'about', 'above', 'accept', 'accident', 'according',
+    'account', 'accurate', 'acres', 'across', 'act', 'action', 'active', 'activity',
+    'actual', 'actually', 'add', 'addition', 'additional', 'adjective', 'adult', 'adventure',
+    'advice', 'affect', 'afraid', 'after', 'afternoon', 'again', 'against', 'age',
+    'ago', 'agree', 'ahead', 'aid', 'air', 'airplane', 'alike', 'alive',
+    'all', 'allow', 'almost', 'alone', 'along', 'aloud', 'alphabet', 'already',
+    'also', 'although', 'am', 'among', 'amount', 'ancient', 'angle', 'angry',
+    'animal', 'announced', 'another', 'answer', 'ants', 'any', 'anybody', 'anyone',
+    'anything', 'anyway', 'anywhere', 'apart', 'apartment', 'appearance', 'apple', 'applied',
+    'appropriate', 'are', 'area', 'arm', 'army', 'around', 'arrange', 'arrangement',
+    'arrive', 'arrow', 'art', 'article', 'as', 'aside', 'ask', 'asleep',
+    'at', 'ate', 'atmosphere', 'atom', 'atomic', 'attached', 'attack', 'attempt',
+    'attention', 'audience', 'author', 'automobile', 'available', 'average', 'avoid', 'aware',
+    'away', 'baby', 'back', 'bad', 'badly', 'bag', 'balance', 'ball',
+    'balloon', 'band', 'bank', 'bar', 'bare', 'bark', 'barn', 'base',
+    'baseball', 'basic', 'basis', 'basket', 'bat', 'battle', 'be', 'bean',
+    'bear', 'beat', 'beautiful', 'beauty', 'became', 'because', 'become', 'becoming',
+    'bee', 'been', 'before', 'began', 'beginning', 'begun', 'behavior', 'behind',
+    'being', 'believed', 'bell', 'belong', 'below', 'belt', 'bend', 'beneath',
+    'bent', 'beside', 'best', 'bet', 'better', 'between', 'beyond', 'bicycle',
+    'bigger', 'biggest', 'bill', 'birds', 'birth', 'birthday', 'bit', 'bite',
+    'black', 'blank', 'blanket', 'blew', 'blind', 'block', 'blood', 'blow',
+    'blue', 'board', 'boat', 'body', 'bone', 'book', 'border', 'born',
+    'both', 'bottle', 'bottom', 'bound', 'bow', 'bowl', 'box', 'boy',
+    'brain', 'branch', 'brass', 'brave', 'bread', 'break', 'breakfast', 'breath',
+    'breathe', 'breathing', 'breeze', 'brick', 'bridge', 'brief', 'bright', 'bring',
+    'broad', 'broke', 'broken', 'brother', 'brought', 'brown', 'brush', 'buffalo',
+    'build', 'building', 'built', 'buried', 'burn', 'burst', 'bus', 'bush',
+    'business', 'busy', 'but', 'butter', 'buy', 'by', 'cabin', 'cage',
+    'cake', 'call', 'calm', 'came', 'camera', 'camp', 'can', 'canal',
+    'cannot', 'cap', 'capital', 'captain', 'captured', 'car', 'carbon', 'card',
+    'care', 'careful', 'carefully', 'carried', 'carry', 'case', 'cast', 'castle',
+    'cat', 'catch', 'cattle', 'caught', 'cause', 'cave', 'cell', 'cent',
+    'center', 'central', 'century', 'certain', 'certainly', 'chain', 'chair', 'chamber',
+    'chance', 'change', 'changing', 'chapter', 'character', 'characteristic', 'charge', 'chart',
+    'check', 'cheese', 'chemical', 'chest', 'chicken', 'chief', 'child', 'children',
+    'choice', 'choose', 'chose', 'chosen', 'church', 'circle', 'circus', 'citizen',
+    'city', 'class', 'classroom', 'claws', 'clay', 'clean', 'clear', 'clearly',
+    'climate', 'climb', 'clock', 'close', 'closely', 'closer', 'cloth', 'clothes',
+    'clothing', 'cloud', 'club', 'coach', 'coal', 'coast', 'coat', 'coffee',
+    'cold', 'collect', 'college', 'colony', 'color', 'column', 'combination', 'combine',
+    'come', 'comfortable', 'coming', 'command', 'common', 'community', 'company', 'compare',
+    'compass', 'complete', 'completely', 'complex', 'composed', 'composition', 'compound', 'concerned',
+    'condition', 'congress', 'connected', 'consider', 'consist', 'consonant', 'constantly', 'construction',
+    'contain', 'continent', 'continued', 'contrast', 'control', 'conversation', 'cook', 'cookies',
+    'cool', 'copper', 'copy', 'corn', 'corner', 'correct', 'correctly', 'cost',
+    'cotton', 'could', 'count', 'country', 'couple', 'courage', 'course', 'court',
+    'cover', 'cow', 'cowboy', 'crack', 'cream', 'create', 'creature', 'crew',
+    'crop', 'cross', 'crowd', 'cry', 'cup', 'curious', 'current', 'curve',
+    'customs', 'cut', 'cutting', 'daily', 'damage', 'dance', 'danger', 'dangerous',
+    'dark', 'darkness', 'date', 'daughter', 'dawn', 'day', 'dead', 'deal',
+    'dear', 'death', 'decide', 'declared', 'deep', 'deeply', 'deer', 'definition',
+    'degree', 'depend', 'depth', 'describe', 'desert', 'design', 'desk', 'detail',
+    'determine', 'develop', 'development', 'diagram', 'diameter', 'did', 'die', 'differ',
+    'difference', 'different', 'difficult', 'difficulty', 'dig', 'dinner', 'direct', 'direction',
+    'directly', 'dirt', 'dirty', 'disappear', 'discover', 'discovery', 'discuss', 'discussion',
+    'disease', 'dish', 'distance', 'distant', 'divide', 'division', 'do', 'doctor',
+    'does', 'dog', 'doing', 'doll', 'dollar', 'done', 'donkey', 'door',
+    'dot', 'double', 'doubt', 'down', 'dozen', 'draw', 'drawn', 'dream',
+    'dress', 'drew', 'dried', 'drink', 'drive', 'driven', 'driver', 'driving',
+    'drop', 'dropped', 'drove', 'dry', 'duck', 'due', 'dug', 'dull',
+    'during', 'dust', 'duty', 'each', 'eager', 'ear', 'earlier', 'early',
+    'earn', 'earth', 'easier', 'easily', 'east', 'easy', 'eat', 'eaten',
+    'edge', 'education', 'effect', 'effort', 'egg', 'eight', 'either', 'electric',
+    'electricity', 'element', 'elephant', 'eleven', 'else', 'empty', 'end', 'enemy',
+    'energy', 'engine', 'engineer', 'enjoy', 'enough', 'enter', 'entire', 'entirely',
+    'environment', 'equal', 'equally', 'equator', 'equipment', 'escape', 'especially', 'essential',
+    'establish', 'even', 'evening', 'event', 'eventually', 'ever', 'every', 'everybody',
+    'everyone', 'everything', 'everywhere', 'evidence', 'exact', 'exactly', 'examine', 'example',
+    'excellent', 'except', 'exchange', 'excited', 'excitement', 'exciting', 'exclaimed', 'exercise',
+    'exist', 'expect', 'experience', 'experiment', 'explain', 'explanation', 'explore', 'express',
+    'expression', 'extra', 'eye', 'face', 'facing', 'fact', 'factor', 'factory',
+    'failed', 'fair', 'fairly', 'fall', 'fallen', 'familiar', 'family', 'famous',
+    'far', 'farm', 'farmer', 'farther', 'fast', 'fastened', 'faster', 'fat',
+    'father', 'favorite', 'fear', 'feathers', 'feature', 'fed', 'feed', 'feel',
+    'feet', 'fell', 'fellow', 'felt', 'fence', 'few', 'fewer', 'field',
+    'fierce', 'fifteen', 'fifth', 'fifty', 'fight', 'fighting', 'figure', 'fill',
+    'film', 'final', 'finally', 'find', 'fine', 'finest', 'finger', 'finish',
+    'fire', 'fireplace', 'firm', 'first', 'fish', 'five', 'fix', 'flag',
+    'flame', 'flat', 'flew', 'flies', 'flight', 'floating', 'floor', 'flow',
+    'flower', 'fly', 'fog', 'folks', 'follow', 'food', 'foot', 'football',
+    'for', 'force', 'foreign', 'forest', 'forget', 'forgot', 'forgotten', 'form',
+    'former', 'fort', 'forth', 'forty', 'forward', 'fought', 'found', 'four',
+    'fourth', 'fox', 'frame', 'free', 'freedom', 'frequently', 'fresh', 'friend',
+    'friendly', 'frighten', 'frog', 'from', 'front', 'frozen', 'fruit', 'fuel',
+    'full', 'fully', 'fun', 'function', 'funny', 'fur', 'furniture', 'further',
+    'future', 'gain', 'game', 'garage', 'garden', 'gas', 'gasoline', 'gate',
+    'gather', 'gave', 'general', 'generally', 'gentle', 'gently', 'get', 'getting',
+    'giant', 'gift', 'girl', 'give', 'given', 'giving', 'glad', 'glass',
+    'globe', 'go', 'goes', 'gold', 'golden', 'gone', 'good', 'goose',
+    'got', 'government', 'grabbed', 'grade', 'gradually', 'grain', 'grandfather', 'grandmother',
+    'graph', 'grass', 'gravity', 'gray', 'great', 'greater', 'greatest', 'greatly',
+    'green', 'grew', 'ground', 'group', 'grow', 'grown', 'growth', 'guard',
+    'guess', 'guide', 'gulf', 'gun', 'habit', 'had', 'hair', 'half',
+    'halfway', 'hall', 'hand', 'handle', 'handsome', 'hang', 'happen', 'happened',
+    'happily', 'happy', 'harbor', 'hard', 'harder', 'hardly', 'has', 'hat',
+    'have', 'having', 'hay', 'he', 'headed', 'heading', 'health', 'heard',
+    'hearing', 'heart', 'heat', 'heavy', 'height', 'held', 'hello', 'help',
+    'helpful', 'her', 'herd', 'here', 'herself', 'hidden', 'hide', 'high',
+    'higher', 'highest', 'highway', 'hill', 'him', 'himself', 'his', 'history',
+    'hit', 'hold', 'hole', 'hollow', 'home', 'honor', 'hope', 'horn',
+    'horse', 'hospital', 'hot', 'hour', 'house', 'how', 'however', 'huge',
+    'human', 'hundred', 'hung', 'hungry', 'hunt', 'hunter', 'hurried', 'hurry',
+    'hurt', 'husband', 'ice', 'idea', 'identity', 'if', 'ill', 'image',
+    'imagine', 'immediately', 'importance', 'important', 'impossible', 'improve', 'in', 'inch',
+    'include', 'including', 'income', 'increase', 'indeed', 'independent', 'indicate', 'individual',
+    'industrial', 'industry', 'influence', 'information', 'inside', 'instance', 'instant', 'instead',
+    'instrument', 'interest', 'interior', 'into', 'introduced', 'invented', 'involved', 'iron',
+    'is', 'island', 'it', 'its', 'itself', 'jack', 'jar', 'jet',
+    'job', 'join', 'joined', 'journey', 'joy', 'judge', 'jump', 'jungle',
+    'just', 'keep', 'kept', 'key', 'kids', 'kill', 'kind', 'kitchen',
+    'knew', 'knife', 'know', 'knowledge', 'known', 'label', 'labor', 'lack',
+    'lady', 'laid', 'lake', 'lamp', 'land', 'language', 'large', 'larger',
+    'largest', 'last', 'late', 'later', 'laugh', 'law', 'lay', 'layers',
+    'lead', 'leader', 'leaf', 'learn', 'least', 'leather', 'leave', 'leaving',
+    'led', 'left', 'leg', 'length', 'lesson', 'let', 'letter', 'level',
+    'library', 'lie', 'life', 'lift', 'light', 'like', 'likely', 'limited',
+    'line', 'lion', 'lips', 'liquid', 'list', 'listen', 'little', 'live',
+    'living', 'load', 'local', 'locate', 'location', 'log', 'lonely', 'long',
+    'longer', 'look', 'loose', 'lose', 'loss', 'lost', 'lot', 'loud',
+    'love', 'lovely', 'low', 'lower', 'luck', 'lucky', 'lunch', 'lungs',
+    'lying', 'machine', 'machinery', 'mad', 'made', 'magic', 'magnet', 'mail',
+    'main', 'mainly', 'major', 'make', 'making', 'man', 'managed', 'manner',
+    'manufacturing', 'many', 'map', 'mark', 'market', 'married', 'mass', 'massage',
+    'master', 'material', 'mathematics', 'matter', 'may', 'maybe', 'me', 'meal',
+    'mean', 'means', 'meant', 'measure', 'meat', 'medicine', 'meet', 'melted',
+    'member', 'memory', 'men', 'mental', 'merely', 'met', 'metal', 'method',
+    'mice', 'middle', 'might', 'mighty', 'mile', 'military', 'milk', 'mill',
+    'mind', 'mine', 'minerals', 'minute', 'mirror', 'missing', 'mission', 'mistake',
+    'mix', 'mixture', 'model', 'modern', 'molecular', 'moment', 'money', 'monkey',
+    'month', 'mood', 'moon', 'more', 'morning', 'most', 'mostly', 'mother',
+    'motion', 'motor', 'mountain', 'mouse', 'mouth', 'move', 'movement', 'movie',
+    'moving', 'mud', 'muscle', 'music', 'musical', 'must', 'my', 'myself',
+    'mysterious', 'nails', 'name', 'nation', 'national', 'native', 'natural', 'naturally',
+    'nature', 'near', 'nearby', 'nearer', 'nearest', 'nearly', 'necessary', 'neck',
+    'needed', 'needle', 'needs', 'negative', 'neighbor', 'neighborhood', 'nervous', 'nest',
+    'never', 'new', 'news', 'newspaper', 'next', 'nice', 'night', 'nine',
+    'no', 'nobody', 'nodded', 'noise', 'none', 'noon', 'nor', 'north',
+    'nose', 'not', 'note', 'noted', 'nothing', 'notice', 'noun', 'now',
+    'number', 'numeral', 'nuts', 'object', 'observe', 'obtain', 'occasionally', 'occur',
+    'ocean', 'of', 'off', 'offer', 'office', 'officer', 'official', 'oil',
+    'old', 'older', 'oldest', 'on', 'once', 'one', 'only', 'onto',
+    'open', 'operation', 'opinion', 'opportunity', 'opposite', 'or', 'orange', 'orbit',
+    'order', 'ordinary', 'organization', 'organized', 'origin', 'original', 'other', 'ought',
+    'our', 'ourselves', 'out', 'outer', 'outline', 'outside', 'over', 'own',
+    'owner', 'oxygen', 'pack', 'package', 'page', 'paid', 'pain', 'paint',
+    'pair', 'palace', 'pale', 'pan', 'paper', 'paragraph', 'parallel', 'parent',
+    'park', 'part', 'particles', 'particular', 'particularly', 'partly', 'parts', 'party',
+    'pass', 'passage', 'past', 'path', 'pattern', 'pay', 'peace', 'pen',
+    'pencil', 'people', 'per', 'percent', 'perfect', 'perfectly', 'perhaps', 'period',
+    'person', 'personal', 'pet', 'phrase', 'physical', 'piano', 'pick', 'picture',
+    'pictured', 'pie', 'piece', 'pig', 'pile', 'pilot', 'pine', 'pink',
+    'pipe', 'pitch', 'place', 'plain', 'plan', 'plane', 'planet', 'planned',
+    'planning', 'plant', 'plastic', 'plate', 'plates', 'play', 'pleasant', 'please',
+    'pleasure', 'plenty', 'plural', 'plus', 'pocket', 'poem', 'poet', 'poetry',
+    'point', 'pole', 'police', 'policeman', 'political', 'pond', 'pony', 'pool',
+    'poor', 'popular', 'population', 'porch', 'port', 'position', 'positive', 'possible',
+    'possibly', 'post', 'pot', 'potatoes', 'pound', 'pour', 'powder', 'power',
+    'powerful', 'practical', 'practice', 'prepare', 'present', 'president', 'press', 'pressure',
+    'pretty', 'prevent', 'previous', 'price', 'pride', 'primitive', 'principal', 'principle',
+    'printed', 'private', 'prize', 'probably', 'problem', 'process', 'produce', 'product',
+    'production', 'program', 'progress', 'promised', 'proper', 'properly', 'property', 'protection',
+    'proud', 'prove', 'provide', 'public', 'pull', 'pupil', 'pure', 'purple',
+    'purpose', 'push', 'put', 'putting', 'quarter', 'queen', 'question', 'quick',
+    'quickly', 'quiet', 'quietly', 'quite', 'rabbit', 'race', 'radio', 'railroad',
+    'rain', 'raise', 'ran', 'ranch', 'range', 'rapidly', 'rate', 'rather',
+    'raw', 'rays', 'reach', 'read', 'reader', 'ready', 'real', 'realize',
+    'rear', 'reason', 'recall', 'receive', 'recent', 'recently', 'recognize', 'record',
+    'red', 'refer', 'refused', 'region', 'regular', 'related', 'relationship', 'religious',
+    'remain', 'remarkable', 'remember', 'remove', 'repeat', 'replace', 'replied', 'report',
+    'represent', 'require', 'research', 'respect', 'rest', 'result', 'return', 'review',
+    'rhyme', 'rhythm', 'rice', 'rich', 'ride', 'riding', 'right', 'ring',
+    'rise', 'rising', 'river', 'road', 'roar', 'rock', 'rocket', 'rocky',
+    'rod', 'roll', 'roof', 'room', 'root', 'rope', 'rose', 'rough',
+    'round', 'route', 'row', 'rubbed', 'rubber', 'rule', 'ruler', 'run',
+    'running', 'rush', 'sad', 'saddle', 'safe', 'safety', 'said', 'sail',
+    'sale', 'salmon', 'salt', 'same', 'sand', 'sang', 'sat', 'satellites',
+    'satisfied', 'save', 'saved', 'saw', 'say', 'scale', 'scared', 'scene',
+    'school', 'science', 'scientific', 'scientist', 'score', 'screen', 'sea', 'search',
+    'season', 'seat', 'second', 'secret', 'section', 'see', 'seed', 'seeing',
+    'seems', 'seen', 'seldom', 'select', 'selection', 'sell', 'send', 'sense',
+    'sent', 'sentence', 'separate', 'series', 'serious', 'serve', 'service', 'sets',
+    'setting', 'settle', 'settlers', 'seven', 'several', 'shade', 'shadow', 'shake',
+    'shaking', 'shall', 'shallow', 'shape', 'share', 'sharp', 'she', 'sheep',
+    'sheet', 'shelf', 'shells', 'shelter', 'shine', 'shinning', 'ship', 'shirt',
+    'shoe', 'shoot', 'shop', 'shore', 'short', 'shorter', 'shot', 'should',
+    'shoulder', 'shout', 'show', 'shown', 'shut', 'sick', 'sides', 'sight',
+    'sign', 'signal', 'silence', 'silent', 'silk', 'silly', 'silver', 'similar',
+    'simple', 'simplest', 'simply', 'since', 'sing', 'single', 'sink', 'sister',
+    'sit', 'sitting', 'situation', 'six', 'size', 'skill', 'skin', 'sky',
+    'slabs', 'slave', 'sleep', 'slept', 'slide', 'slight', 'slightly', 'slip',
+    'slipped', 'slope', 'slow', 'slowly', 'small', 'smaller', 'smallest', 'smell',
+    'smile', 'smoke', 'smooth', 'snake', 'snow', 'so', 'soap', 'social',
+    'society', 'soft', 'softly', 'soil', 'solar', 'sold', 'soldier', 'solid',
+    'solution', 'solve', 'some', 'somebody', 'somehow', 'someone', 'something', 'sometime',
+    'somewhere', 'son', 'song', 'soon', 'sort', 'sound', 'source', 'south',
+    'southern', 'space', 'speak', 'special', 'species', 'specific', 'speech', 'speed',
+    'spell', 'spend', 'spent', 'spider', 'spin', 'spirit', 'spite', 'split',
+    'spoken', 'sport', 'spread', 'spring', 'square', 'stage', 'stairs', 'stand',
+    'standard', 'star', 'stared', 'start', 'state', 'statement', 'station', 'stay',
+    'steady', 'steam', 'steel', 'steep', 'stems', 'step', 'stepped', 'stick',
+    'stiff', 'still', 'stock', 'stomach', 'stone', 'stood', 'stop', 'stopped',
+    'store', 'storm', 'story', 'stove', 'straight', 'strange', 'stranger', 'straw',
+    'stream', 'street', 'strength', 'stretch', 'strike', 'string', 'strip', 'strong',
+    'stronger', 'struck', 'structure', 'struggle', 'stuck', 'student', 'studied', 'studying',
+    'subject', 'substance', 'success', 'successful', 'such', 'sudden', 'suddenly', 'sugar',
+    'suggest', 'suit', 'sum', 'summer', 'sun', 'sunlight', 'supper', 'supply',
+    'support', 'suppose', 'sure', 'surface', 'surprise', 'surrounded', 'swam', 'sweet',
+    'swept', 'swim', 'swimming', 'swing', 'swung', 'syllable', 'symbol', 'system',
+    'table', 'tail', 'take', 'taken', 'tales', 'talk', 'tall', 'tank',
+    'tape', 'task', 'taste', 'taught', 'tax', 'tea', 'teach', 'teacher',
+    'team', 'tears', 'teeth', 'telephone', 'television', 'tell', 'temperature', 'ten',
+    'tent', 'term', 'terrible', 'test', 'than', 'thank', 'that', 'thee',
+    'them', 'themselves', 'then', 'theory', 'there', 'therefore', 'these', 'they',
+    'thick', 'thin', 'thing', 'think', 'third', 'thirty', 'this', 'those',
+    'thou', 'though', 'thought', 'thousand', 'thread', 'three', 'threw', 'throat',
+    'through', 'throughout', 'throw', 'thrown', 'thumb', 'thus', 'thy', 'tide',
+    'tie', 'tight', 'tightly', 'till', 'time', 'tin', 'tiny', 'tip',
+    'tired', 'title', 'to', 'tobacco', 'today', 'together', 'told', 'tomorrow',
+    'tone', 'tongue', 'tonight', 'too', 'took', 'tool', 'top', 'topic',
+    'torn', 'total', 'touch', 'toward', 'tower', 'town', 'toy', 'trace',
+    'track', 'trade', 'traffic', 'trail', 'train', 'transportation', 'trap', 'travel',
+    'treated', 'tree', 'triangle', 'tribe', 'trick', 'tried', 'trip', 'troops',
+    'tropical', 'trouble', 'truck', 'trunk', 'truth', 'try', 'tube', 'tune',
+    'turn', 'twelve', 'twenty', 'twice', 'two', 'type', 'typical', 'uncle',
+    'under', 'underline', 'understanding', 'unhappy', 'union', 'unit', 'universe', 'unknown',
+    'unless', 'until', 'unusual', 'up', 'upon', 'upper', 'upward', 'us',
+    'use', 'useful', 'using', 'usual', 'usually', 'valley', 'valuable', 'value',
+    'vapor', 'variety', 'various', 'vast', 'vegetable', 'verb', 'vertical', 'very',
+    'vessels', 'victory', 'view', 'village', 'visit', 'visitor', 'voice', 'volume',
+    'vote', 'vowel', 'voyage', 'wagon', 'wait', 'walk', 'wall', 'want',
+    'war', 'warm', 'warn', 'was', 'wash', 'waste', 'watch', 'water',
+    'wave', 'way', 'we', 'weak', 'wealth', 'wear', 'weather', 'week',
+    'weigh', 'weight', 'welcome', 'well', 'went', 'were', 'west', 'western',
+    'wet', 'whale', 'what', 'whatever', 'wheat', 'wheel', 'when', 'whenever',
+    'where', 'wherever', 'whether', 'which', 'while', 'whispered', 'whistle', 'white',
+    'who', 'whole', 'whom', 'whose', 'why', 'wide', 'widely', 'wife',
+    'wild', 'will', 'willing', 'win', 'wind', 'window', 'wing', 'winter',
+    'wire', 'wise', 'wish', 'with', 'within', 'without', 'wolf', 'women',
+    'won', 'wonder', 'wonderful', 'wood', 'wooden', 'wool', 'word', 'wore',
+    'work', 'worker', 'world', 'worried', 'worry', 'worse', 'worth', 'would',
+    'wrapped', 'write', 'writer', 'writing', 'written', 'wrong', 'wrote', 'yard',
+    'year', 'yellow', 'yes', 'yesterday', 'yet', 'you', 'young', 'younger',
+    'your', 'yourself', 'youth', 'zero', 'zoo'
+  ];
+
+  var isVowel = function(c) {
+    return Bella.contains(vowels, c);
+  };
+
+  var isConsolnant = function(c) {
+    return !isVowel(c);
+  };
+
+  var isEndWithVowel = function(w) {
+    var r = false;
+    for (var i = 0; i < vowels.length; i++) {
+      var x = vowels[i];
+      if (w.endsWith(x)) {
+        r = true;
+        break;
+      }
+    }
+    return r;
+  };
+
+  var pick = function(range, probability) {
+    var k = Bella.random(0, range.length - 1);
+    var r = Bella.random(0, 100);
+    var p = probability || 100;
+    if (r <= p) {
+      return range[k];
+    }
+    return false;
+  };
+
+  function word() {
+    var w = '';
+    var c = [];
+    var x = '';
+    var y = '';
+
+    var t = Bella.random(2, 7);
+
+    if (t === 1) {
+      c.push(pick(vowels));
+    }
+
+    if (t > 1) {
+      x = pick(allConsolnants, 50);
+      if (!x) {
+        x = pick(alphabet);
+      }
+      c.push(x);
+      if (isConsolnant(x)) {
+        c.push(pick(allVowels));
       } else {
-        d = str.substr(l - 2);
-        ch = di[d] ? di[d][l === n - 1 ? 'e' : 'm'] : [];
-        if (ch.length) {
-          str += ch[Math.floor(ch.length * Math.random())];
-        } else {
-          str = str.substr(0, l - 3);
+        c.push(pick(consolnants));
+      }
+    }
+
+    if (t > 2) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = pick(consolnants);
+      } else {
+        x = pick(vowels);
+      }
+      c.push(x);
+    }
+
+    if (t > 3) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = pick(consolnants);
+      } else {
+        x = pick(vowels);
+      }
+      c.push(x);
+    }
+
+    var getEnding = function(vo) {
+      var a = [];
+      endSounds.forEach(function(item) {
+        if (item.startsWith('-V') && vo) {
+          a.push(item);
+        } else if (item.startsWith('-C') && !vo) {
+          a.push(item);
         }
-      }
-      l = str.length;
-    }
-    return str.toLowerCase();
-  }
+      });
+      var m = Bella.pick(a);
+      m = m.replace('C', pick(allConsolnants));
+      m = m.replace('V', pick(allVowels));
+      return m;
+    };
 
-  function sentence(n) {
-    var words = [], i;
-    for (i = 0; i < n; i++) {
-      var t = 1 + Math.floor(Math.random() * 3 + Math.random() * 3 + Math.random() * 3);
-      var w = word(t);
-      if (i === 0) {
-        w = Bella.ucfirst(w);
-      }
-      words.push(w);
-
-      // add random , into the sentence
-      if (i < n - 1 && Math.random() < 0.1) {
-        words.push(',');
-      }
-    }
-
-    // add random ,.?! at the and of the sentence
-    if (Math.random() < 0.2) {
-      if (Math.random() < 0.3) {
-        words.push('!');
+    if (t > 4) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = getEnding(false);
       } else {
-        words.push('?');
+        x = getEnding(true);
       }
-    } else {
-      words.push('.');
+      x = x.replace('-', '');
+      c.push(x);
     }
 
-    var s = words.join(' ');
-    s = s.replace(/\s(\.|!|\?|,)/gi, '$1');
-    return s;
+    w = c.join('');
+    return w;
   }
 
-  function paragraph(n) {
-    var sentences = [], i;
-    for (i = 0; i < n; i++) {
-      sentences.push(sentence(4 + Math.floor(Math.random() * 10)));
-    }
-    return sentences.join(' ');
+  for (var i = 0; i < 200; i++) {
+    wordList.push(word());
   }
 
   var get = function(size) {
-    console.log(paragraph(size));
+    if (!size) {
+      return wordList;
+    }
+    return Bella.pick(wordList, size);
   };
 
   return {

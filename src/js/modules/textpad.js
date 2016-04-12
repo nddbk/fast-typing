@@ -16,11 +16,8 @@ App.addModule('textpad', function(context) {
   var Dom = Bella.dom;
   var Event = Bella.event;
 
-  var defaultTextLength = App.getGlobalConfig('defaultTextLength');
-  var wordlist = context.getService('wordlist');
-  var generator = context.getService('sentence');
-
-  generator.get(8);
+  var defaultTextLength = 5;
+  var generator = context.getService('generator');
 
   var $textpad, $typingArea;
 
@@ -178,7 +175,7 @@ App.addModule('textpad', function(context) {
   var load = function(text) {
     var s = text;
     if (!s) {
-      var a = wordlist.get(defaultTextLength);
+      var a = generator.get(defaultTextLength);
       s = a.join(' ');
     }
     render(s);

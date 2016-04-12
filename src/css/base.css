@@ -12,7 +12,6 @@ html, body {
   font-display: optional;
   color: #444;
   -webkit-font-smoothing: antialiased;
-  display: none;
 }
 
 html {
