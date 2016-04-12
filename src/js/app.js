@@ -21,12 +21,8 @@
   App.init({
     debug: true,
     K: 0.123456789,
-    H: {
-      lastUpdate: Bella.time(),
-      id: Bella.createId(64)
-    },
-    defaultTextLength: 20,
-    capitalLetters: false, // ABCDE
+    defaultTextLength: 12,
+    capitalLetters: false, // alphabet
     digitNumbers: false, // 0123456789
     punctuationChars: false, // .,;:"'!?/()-
     specialChars: false // @#~`<>{}()|&!$%^+-*\/:=[],.;"'

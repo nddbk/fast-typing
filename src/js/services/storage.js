@@ -4,6 +4,7 @@
  * @ndaidong
  */
 
+/* global chrome */
 
  /* eslint no-console: 0 */
  /* eslint func-names: 0 */
@@ -12,16 +13,38 @@ Box.Application.addService('storage', function() {
 
   'use strict';
 
-  var _store = (function(data) {
+  var _store = {};
+
+  var onready = function() {
+    return false;
+  };
+
+  var ready = function(fn) {
+    if (Bella.isFunction(fn)) {
+      onready = fn;
+    }
+  };
+
+  var getCache = function(data) {
     var o;
     if (data) {
-      o = JSON.parse(data);
+      o = Bella.isString(data) ? JSON.parse(data) : data;
     }
-    return o || {};
-  })(localStorage.getItem('store'));
+    _store = o || {};
+    onready();
+  };
 
   var updateStore = function() {
-    localStorage.setItem('store', JSON.stringify(_store));
+    if (chrome && chrome.storage) {
+      chrome.storage.local.set({
+        store: _store,
+        lastUpdate: Date.now()
+      }, function() {
+        console.log('Saved');
+      });
+    } else {
+      localStorage.setItem('store', JSON.stringify(_store));
+    }
   };
 
   var set = function(key, value) {
@@ -38,14 +61,20 @@ Box.Application.addService('storage', function() {
       updateStore();
     }
   };
-  var me = function() {
-    return _store.user || false;
-  };
+
+  Bella.dom.ready(function() {
+    if (chrome && chrome.storage) {
+      return chrome.storage.local.get('store', function(result) {
+        getCache(result.store);
+      });
+    }
+    return getCache(localStorage.getItem('store'));
+  });
 
   return {
+    ready: ready,
     get: get,
     set: set,
-    remove: remove,
-    me: me
+    remove: remove
   };
 });

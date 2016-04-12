@@ -16,7 +16,7 @@ App.addModule('textpad', function(context) {
   var Dom = Bella.dom;
   var Event = Bella.event;
 
-  var defaultTextLength = 5;
+  var defaultTextLength = App.getGlobalConfig('defaultTextLength');
   var generator = context.getService('generator');
 
   var $textpad, $typingArea;

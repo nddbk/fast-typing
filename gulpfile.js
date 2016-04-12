@@ -39,15 +39,14 @@ var fixPath = (p) => {
 var bConfig = pkg.builder;
 var distDir = fixPath(bConfig.distDir);
 var js3rdDir = fixPath(bConfig.jsDir) + 'vendor';
-var css3rdDir = fixPath(bConfig.cssDir) + 'vendor';
 var verDir = 'v' + pkg.version;
 
 gulp.task('dir', () => {
-  builder.createDir([ distDir, js3rdDir, css3rdDir ]);
+  builder.createDir([ distDir, js3rdDir ]);
 });
 
 gulp.task('reset', () => {
-  removeDir([ distDir, js3rdDir, css3rdDir ]);
+  removeDir([ distDir, js3rdDir ]);
 });
 
 gulp.task('prepare', () => {
@@ -58,7 +57,7 @@ gulp.task('prepare', () => {
 
   copyDir('src/_locales', dir + '/_locales');
   copyDir('src/images', dir + '/images');
-  copyDir('src/templates', dir + '/templates');
+  copyDir('src/fonts', dir + '/fonts');
   copyDir('src/js/vendor', dir + '/js/vendor');
 });
 
@@ -107,7 +106,6 @@ gulp.task('merge', () => {
 gulp.task('download', () => {
   var download = builder.download;
   let jsFiles = bConfig.javascript || {};
-  let cssFiles = bConfig.css || {};
   if (bella.isObject(jsFiles)) {
     let rd = fixPath(js3rdDir);
     if (!fs.existsSync(rd)) {
@@ -117,21 +115,6 @@ gulp.task('download', () => {
       if (bella.hasProperty(jsFiles, alias)) {
         let src = jsFiles[alias];
         let dest = rd + alias + '.js';
-        if (!fs.existsSync(dest)) {
-          download(src, dest);
-        }
-      }
-    }
-  }
-  if (bella.isObject(cssFiles)) {
-    let rd = fixPath(css3rdDir);
-    if (!fs.existsSync(rd)) {
-      mkdirp(rd);
-    }
-    for (let alias in cssFiles) {
-      if (bella.hasProperty(cssFiles, alias)) {
-        let src = cssFiles[alias];
-        let dest = rd + alias + '.css';
         if (!fs.existsSync(dest)) {
           download(src, dest);
         }

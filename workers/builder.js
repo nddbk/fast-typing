@@ -146,15 +146,10 @@ var compileCSS = (files) => {
     if (bella.isString(files)) {
       files = [ files ];
     }
-
     files.forEach((file) => {
       if (fs.existsSync(file)) {
         let x = fs.readFileSync(file, 'utf8');
-        if (!file.includes('/vendor')) {
-          as.push(x);
-        } else {
-          vs.push(x);
-        }
+        as.push(x);
       }
     });
 
@@ -179,7 +174,6 @@ var compileJS = (files) => {
     if (bella.isString(files)) {
       files = [ files ];
     }
-
     files.forEach((file) => {
       if (fs.existsSync(file)) {
         let x = fs.readFileSync(file, 'utf8');
@@ -226,7 +220,7 @@ export var compileHTML = (file) => {
       (next) => {
         $('link[rel="stylesheet"]').each((i, elem) => {
           let ofile = $(elem).attr('href');
-          cssFiles.push('./src' + ofile);
+          cssFiles.push('./src/' + ofile);
         });
         $('link[rel="stylesheet"]').remove();
         return next();
@@ -258,8 +252,6 @@ export var compileHTML = (file) => {
       (next) => {
         html = $.html();
         html = removeNewLines(html);
-        html = html.replace(/\s+/gm, ' ');
-        html = html.replace(/>\s+</gm, '><');
         return next();
       }
     ], (err) => {

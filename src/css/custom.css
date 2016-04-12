@@ -72,3 +72,7 @@
   display: inline;
   animation: blink .4s step-end infinite alternate;
 }
+
+#butSetting{
+  color: #999;
+}

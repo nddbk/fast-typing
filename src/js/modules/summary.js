@@ -11,10 +11,11 @@
 
 var App = Box.Application || {};
 
-App.addModule('summary', function() {
+App.addModule('summary', function(context) {
 
   var K = App.getGlobalConfig('K');
-  var H = App.getGlobalConfig('H');
+  var H = {};
+  var storage = context.getService('storage');
 
   var Dom = Bella.dom;
 
@@ -97,12 +98,11 @@ App.addModule('summary', function() {
     } else {
       var hr = H.hr;
       if (score > hr.score) {
+        storage.set('hr', x);
         H.hr = x;
       }
     }
-
     data.hr = H.hr;
-
     onchange();
   };
 
@@ -119,17 +119,21 @@ App.addModule('summary', function() {
     $numHrScore = Dom.get('numHrScore');
     $txtHrScore = Dom.get('txtHrScore');
 
-    data = {
-      speed: 0,
-      mistake: 0,
-      score: 0,
-      hr: {
+    storage.ready(function() {
+      var savedHr = storage.get('hr') || {
         speed: 0,
         mistake: 0,
         score: 0
-      }
-    };
-    onchange();
+      };
+      H.hr = savedHr;
+      data = {
+        speed: 0,
+        mistake: 0,
+        score: 0,
+        hr: savedHr
+      };
+      onchange();
+    });
   };
 
   return {
