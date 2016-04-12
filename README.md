@@ -1,5 +1,7 @@
 # fast-typing
 
+![FastTyping](http://i.imgur.com/QIFCpp3.jpg)
+
 [FastTyping](https://chrome.google.com/webstore/detail/dgibeimfinglbfgimhiffmflgimlfffl) is a simple and clean tool that helps me improve typing speed, without seeing any ads. It's full offline and just has the features I really need but any other tool provides. 
 
 [FastTyping](https://chrome.google.com/webstore/detail/dgibeimfinglbfgimhiffmflgimlfffl) is not for beginner, use it if you are already:
@@ -19,6 +21,7 @@ Hopefully that it is also useful for you.
 #### Tech Stacks
 
 - [T3.js](http://t3js.org/)
+- [ES6](http://git.io/es6features)
 - [PostCSS](http://postcss.org/)
 - [Gulp](http://gulpjs.com/) & automation build scripting
 - Chrome apps/extensions
