@@ -1,10 +1,137 @@
 /**
- * wordlist.js
- * WordList service
+ * generator.js
+ * generator service
  * @ndaidong
  */
 
-Box.Application.addService('wordlist', function _wordlist() {
+/* eslint no-console: 0 */
+/* eslint func-names: 0 */
+
+Box.Application.addService('generator', function() {
+
+  'use strict';
+
+  var consolnants = [
+    'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+    'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y'
+  ];
+  var vowels = [
+    'a', 'e', 'i', 'o', 'u', 'y'
+  ];
+
+  var alphabet = consolnants.concat(vowels);
+
+  var consolnantCombinations = [
+    'bl', 'br',
+    'ch', 'chr', 'chz', 'cl', 'cr', 'cz',
+    'dr',
+    'fl',
+    'gh',
+    'gr',
+    'kn',
+    'ph',
+    'qu', 'qw',
+    'sch', 'sh', 'sl', 'sm', 'st',
+    'th', 'thr', 'tr',
+    'zh'
+  ];
+
+  var allConsolnants = consolnants.concat(consolnantCombinations);
+
+  var vowelCombinations = [
+    'ai', 'ao', 'au', 'ay',
+    'ea', 'ee', 'ei', 'eu', 'ey',
+    'ia', 'ie', 'io',
+    'oo', 'oa', 'oe', 'oi', 'oy', 'ou',
+    'ua', 'ue', 'ui', 'ua', 'uy',
+    'ye'
+  ];
+
+  var allVowels = vowels.concat(vowelCombinations);
+
+  var endSounds = [
+    '-Cate',
+    '-Case',
+    '-Cace',
+    '-Came',
+    '-Cake',
+    '-Cache',
+    '-Cage',
+    '-Cain',
+    '-Cail',
+    '-Caise',
+    '-Caid',
+    '-Cait',
+    '-Caight',
+    '-Caint',
+    '-Cave',
+    '-Cable',
+    '-Cadle',
+    '-Cange',
+    '-Cape',
+    '-Caste',
+    '-Canger',
+    '-Carrow',
+    '-Casis',
+    '-Cazy',
+    '-Cayer',
+    '-Caying',
+    '-Vche',
+    '-Vcious',
+    '-Ceigh',
+    '-Ceight',
+    '-Cein',
+    '-Ceroic',
+    '-Ceying',
+    '-Ceyor',
+    '-Ciche',
+    '-Cide',
+    '-Cidle',
+    '-Cifle',
+    '-Cigh',
+    '-Cight',
+    '-Cile',
+    '-Cimb',
+    '-Cime',
+    '-Cind',
+    '-Cine',
+    '-Cise',
+    '-Cite',
+    '-Cisis',
+    '-Citle',
+    '-Cize',
+    '-Cive',
+    '-Cizon',
+    '-Cycle',
+    '-Coach',
+    '-Coad',
+    '-Coak',
+    '-Coal',
+    '-Coast',
+    '-Coat',
+    '-Coin',
+    '-Coing',
+    '-Cold',
+    '-Colk',
+    '-Cost',
+    '-Cough',
+    '-Counce',
+    '-Count',
+    '-Couse',
+    '-Couth',
+    '-Cow',
+    '-Cowd',
+    '-Cower',
+    '-Cowing',
+    '-Cowl',
+    '-Cown',
+    '-Vddle',
+    '-Vght',
+    '-Vndle',
+    '-Vtial',
+    '-Vtion',
+    '-Vssion'
+  ];
 
   var wordList = [
     'ability', 'able', 'aboard', 'about', 'above', 'accept', 'accident', 'according',
@@ -253,12 +380,121 @@ Box.Application.addService('wordlist', function _wordlist() {
     'your', 'yourself', 'youth', 'zero', 'zoo'
   ];
 
-  function get(size) {
+  var isVowel = function(c) {
+    return Bella.contains(vowels, c);
+  };
+
+  var isConsolnant = function(c) {
+    return !isVowel(c);
+  };
+
+  var isEndWithVowel = function(w) {
+    var r = false;
+    for (var i = 0; i < vowels.length; i++) {
+      var x = vowels[i];
+      if (w.endsWith(x)) {
+        r = true;
+        break;
+      }
+    }
+    return r;
+  };
+
+  var pick = function(range, probability) {
+    var k = Bella.random(0, range.length - 1);
+    var r = Bella.random(0, 100);
+    var p = probability || 100;
+    if (r <= p) {
+      return range[k];
+    }
+    return false;
+  };
+
+  function word() {
+    var w = '';
+    var c = [];
+    var x = '';
+    var y = '';
+
+    var t = Bella.random(2, 7);
+
+    if (t === 1) {
+      c.push(pick(vowels));
+    }
+
+    if (t > 1) {
+      x = pick(allConsolnants, 50);
+      if (!x) {
+        x = pick(alphabet);
+      }
+      c.push(x);
+      if (isConsolnant(x)) {
+        c.push(pick(allVowels));
+      } else {
+        c.push(pick(consolnants));
+      }
+    }
+
+    if (t > 2) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = pick(consolnants);
+      } else {
+        x = pick(vowels);
+      }
+      c.push(x);
+    }
+
+    if (t > 3) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = pick(consolnants);
+      } else {
+        x = pick(vowels);
+      }
+      c.push(x);
+    }
+
+    var getEnding = function(vo) {
+      var a = [];
+      endSounds.forEach(function(item) {
+        if (item.startsWith('-V') && vo) {
+          a.push(item);
+        } else if (item.startsWith('-C') && !vo) {
+          a.push(item);
+        }
+      });
+      var m = Bella.pick(a);
+      m = m.replace('C', pick(allConsolnants));
+      m = m.replace('V', pick(allVowels));
+      return m;
+    };
+
+    if (t > 4) {
+      y = c.join('');
+      if (isEndWithVowel(y)) {
+        x = getEnding(false);
+      } else {
+        x = getEnding(true);
+      }
+      x = x.replace('-', '');
+      c.push(x);
+    }
+
+    w = c.join('');
+    return w;
+  }
+
+  for (var i = 0; i < 200; i++) {
+    wordList.push(word());
+  }
+
+  var get = function(size) {
     if (!size) {
       return wordList;
     }
     return Bella.pick(wordList, size);
-  }
+  };
 
   return {
     get: get

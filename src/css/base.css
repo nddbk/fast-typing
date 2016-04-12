@@ -12,7 +12,6 @@ html, body {
   font-display: optional;
   color: #444;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -278,33 +277,31 @@ body {
     background-color: #3f51b5;
   }
 
-#textpad {
-  border: none;
-  outline: none;
-}
-#textpad .text-area{
-  font-family: Courier;
-  background-color: rgba(238, 255, 95, 0.2);
-  border: 2px inset #CCCFA0;
-  white-space: pre-wrap;
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+         local('MaterialIcons-Regular'),
+         url(../fonts/MaterialIcons-Regular.woff) format('woff');
+  }
+
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+.ico-button{
   cursor: default;
-  padding: 10px;
-  position: relative;
-  min-height: 70px;
-  opacity: 0.5;
-  color: #000;
-}
-#textpad:focus .text-area{
-  opacity: 1.0;
-}
-#textpad .correct {
-  color: green;
-}
-#textpad .error {
-  color: red;
-}
-#textpad .cursor {
-  text-decoration: underline;
-  text-decoration-color: #f06d06;
-  text-decoration-style: wavy;
 }

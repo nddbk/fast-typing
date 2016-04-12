@@ -4,42 +4,77 @@
  * @ndaidong
  */
 
-Box.Application.addService('storage', function _storage() {
+/* global chrome */
 
-  var _store = (function _getCache(data) {
-    var o;
-    if (data) {
-      o = JSON.parse(data);
-    }
-    return o || {};
-  })(localStorage.getItem('store'));
+ /* eslint no-console: 0 */
+ /* eslint func-names: 0 */
 
-  var updateStore = function _updateStore() {
-    localStorage.setItem('store', JSON.stringify(_store));
+Box.Application.addService('storage', function() {
+
+  'use strict';
+
+  var _store = {};
+
+  var onready = function() {
+    return false;
   };
 
-  var set = function _set(key, value) {
+  var ready = function(fn) {
+    if (Bella.isFunction(fn)) {
+      onready = fn;
+    }
+  };
+
+  var getCache = function(data) {
+    var o;
+    if (data) {
+      o = Bella.isString(data) ? JSON.parse(data) : data;
+    }
+    _store = o || {};
+    onready();
+  };
+
+  var updateStore = function() {
+    if (chrome && chrome.storage) {
+      chrome.storage.local.set({
+        store: _store,
+        lastUpdate: Date.now()
+      }, function() {
+        console.log('Saved');
+      });
+    } else {
+      localStorage.setItem('store', JSON.stringify(_store));
+    }
+  };
+
+  var set = function(key, value) {
     _store[key] = value;
     updateStore();
   };
-  var get = function _get(key) {
+  var get = function(key) {
     return _store[key];
   };
-  var remove = function _remove(key) {
+  var remove = function(key) {
     if (Bella.hasProperty(_store, key)) {
       _store[key] = null;
       delete _store[key];
       updateStore();
     }
   };
-  var me = function _me() {
-    return _store.user || false;
-  };
+
+  Bella.dom.ready(function() {
+    if (chrome && chrome.storage) {
+      return chrome.storage.local.get('store', function(result) {
+        getCache(result.store);
+      });
+    }
+    return getCache(localStorage.getItem('store'));
+  });
 
   return {
+    ready: ready,
     get: get,
     set: set,
-    remove: remove,
-    me: me
+    remove: remove
   };
 });

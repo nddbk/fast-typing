@@ -1,5 +1,5 @@
 {
-  "version": "0.4.2",
+  "version": "0.0.2",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
   "homepage": "http://techpush.net",
@@ -61,18 +61,13 @@
     "cssDir": "src/css",
     "jsDir": "src/js",
     "imgDir": "src/images",
+    "fontDir": "src/fonts",
     "distDir": "dist",
     "javascript": {
       "bella": "https://raw.githubusercontent.com/techpush/bella.js/master/src/bella.js",
-      "chance": "https://raw.githubusercontent.com/chancejs/chancejs/master/dist/chance.min.js",
       "fetch": "https://raw.githubusercontent.com/typicode/fetchival/master/index.js",
-      "jasmineDomFixture": "https://raw.githubusercontent.com/jeffwatkins/jasmine-dom/master/lib/jasmine-dom-fixtures.js",
-      "jasmineDomMatcher": "https://raw.githubusercontent.com/jeffwatkins/jasmine-dom/master/lib/jasmine-dom-matchers.js",
       "promise": "https://raw.githubusercontent.com/jakearchibald/es6-promise/master/dist/es6-promise.js",
-      "ractive": "http://cdn.ractivejs.org/latest/ractive.js",
-      "sinon": "http://sinonjs.org/releases/sinon-1.17.3.js",
-      "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js",
-      "t3nativeTest": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-testing.js"
+      "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js"
     }
   }
 }

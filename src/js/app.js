@@ -9,7 +9,9 @@
 
 (function _init() {
 
-  var App = window.App = Box.Application || {};
+  'use strict';
+
+  var App = Box.Application || {};
 
   App.on('error', function _onError(event) {
     var exception = event.exception;
@@ -17,7 +19,13 @@
   });
 
   App.init({
-    debug: true
+    debug: true,
+    K: 0.123456789,
+    defaultTextLength: 12,
+    capitalLetters: false, // alphabet
+    digitNumbers: false, // 0123456789
+    punctuationChars: false, // .,;:"'!?/()-
+    specialChars: false // @#~`<>{}()|&!$%^+-*\/:=[],.;"'
   });
 
 })();

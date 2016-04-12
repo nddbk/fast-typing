@@ -4,13 +4,12 @@
  */
 
 /* global chrome */
-/* eslint no-console: 0*/
 
 chrome.app.runtime.onLaunched.addListener(function _onLaunched() {
-  chrome.app.window.create('window.html', {
+  chrome.app.window.create('blank.html', {
     'outerBounds': {
-      'width': 400,
-      'height': 500
+      'width': 700,
+      'height': 400
     }
   });
 });

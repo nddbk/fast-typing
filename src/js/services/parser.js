@@ -4,7 +4,12 @@
  * @ndaidong
  */
 
-Box.Application.addService('parser', function _parser() {
+ /* eslint no-console: 0 */
+ /* eslint func-names: 0 */
+
+Box.Application.addService('parser', function() {
+
+  'use strict';
 
   function parse(data) {
     var s = '';
@@ -30,7 +35,28 @@ Box.Application.addService('parser', function _parser() {
     return s;
   }
 
+  var pull = function(target, data) {
+    return new Promise(function(resolve, reject) {
+      try {
+        var query = target;
+        query += (target.charAt(target.length - 1) !== '?' ? '?' : '') + parse(data);
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            return resolve(xhr.responseText, xhr.status);
+          }
+          return false;
+        };
+        xhr.open('GET', query, true);
+        return xhr.send();
+      } catch (e) {
+        return reject(e);
+      }
+    });
+  };
+
   return {
-    parse: parse
+    parse: parse,
+    pull: pull
   };
 });
