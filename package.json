@@ -61,6 +61,7 @@
     "cssDir": "src/css",
     "jsDir": "src/js",
     "imgDir": "src/images",
+    "fontDir": "src/fonts",
     "distDir": "dist",
     "javascript": {
       "bella": "https://raw.githubusercontent.com/techpush/bella.js/master/src/bella.js",

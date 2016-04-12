@@ -18,6 +18,9 @@ App.addModule('textpad', function(context) {
 
   var defaultTextLength = App.getGlobalConfig('defaultTextLength');
   var wordlist = context.getService('wordlist');
+  var generator = context.getService('sentence');
+
+  generator.get(8);
 
   var $textpad, $typingArea;
 
