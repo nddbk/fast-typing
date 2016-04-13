@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.4",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
   "homepage": "http://techpush.net",
@@ -10,13 +10,10 @@
   "author": "Dong Nguyen <ndaidong@gmail.com> (https://twitter.com/ndaidong)",
   "main": "./index.js",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">= 5.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/tape test/start.js | tap-spec",
-    "coverage": "./node_modules/.bin/nyc tape test/start.js | tap-spec",
-    "report": "npm run coverage && ./node_modules/.bin/nyc report --reporter=lcov",
-    "coveralls": "npm run report && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+
   },
   "devDependencies": {
     "async": "latest",
@@ -24,27 +21,23 @@
     "bluebird": "latest",
     "cheerio": "latest",
     "copy-dir": "latest",
-    "coveralls": "latest",
     "cssnano": "latest",
-    "gulp": "latest",
     "mkdirp": "latest",
-    "nyc": "latest",
     "postcss": "latest",
     "postcss-cssnext": "latest",
     "postcss-filter-plugins": "latest",
     "postcss-mixins": "latest",
     "postcss-nested": "latest",
-    "svgo": "latest",
-    "tap-spec": "latest",
-    "tape": "latest",
-    "traceur": "latest",
-    "uglify-js": "latest"
+    "prettydiff": "latest",
+    "svgo": "latest"
   },
   "keywords": [
     "chrome",
+    "offline",
     "extension",
     "apps",
     "typing",
+    "tool",
     "util"
   ],
   "license": "MIT",

@@ -5,21 +5,20 @@
  */
 
  /* eslint no-console: 0 */
- /* eslint func-names: 0 */
 
-Box.Application.addService('parser', function() {
+Box.Application.addService('parser', () => {
 
   'use strict';
 
-  function parse(data) {
-    var s = '';
+  var parse = (data) => {
+    let s = '';
     if (Bella.isString(data)) {
       s = data;
     } else if (Bella.isArray(data) || Bella.isObject(data)) {
-      var ar = [];
-      for (var k in data) {
+      let ar = [];
+      for (let k in data) {
         if (Bella.hasProperty(data, k)) {
-          var val = data[k];
+          let val = data[k];
           if (Bella.isString(val)) {
             val = Bella.encode(val);
           } else if (Bella.isArray(val) || Bella.isObject(val)) {
@@ -33,15 +32,15 @@ Box.Application.addService('parser', function() {
       }
     }
     return s;
-  }
+  };
 
-  var pull = function(target, data) {
-    return new Promise(function(resolve, reject) {
+  var pull = (target, data) => {
+    return new Promise((resolve, reject) => {
       try {
-        var query = target;
+        let query = target;
         query += (target.charAt(target.length - 1) !== '?' ? '?' : '') + parse(data);
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
             return resolve(xhr.responseText, xhr.status);
           }

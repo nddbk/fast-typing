@@ -5,15 +5,14 @@
  */
 
 /* eslint no-console: 0 */
-/* eslint func-names: 0 */
 
-(function _init() {
+(() => {
 
   'use strict';
 
   var App = Box.Application || {};
 
-  App.on('error', function _onError(event) {
+  App.on('error', (event) => {
     var exception = event.exception;
     console.log(exception);
   });

@@ -5,9 +5,8 @@
  */
 
 /* eslint no-console: 0 */
-/* eslint func-names: 0 */
 
-Box.Application.addService('generator', function() {
+Box.Application.addService('generator', () => {
 
   'use strict';
 
@@ -380,18 +379,18 @@ Box.Application.addService('generator', function() {
     'your', 'yourself', 'youth', 'zero', 'zoo'
   ];
 
-  var isVowel = function(c) {
+  var isVowel = (c) => {
     return Bella.contains(vowels, c);
   };
 
-  var isConsolnant = function(c) {
+  var isConsolnant = (c) => {
     return !isVowel(c);
   };
 
-  var isEndWithVowel = function(w) {
-    var r = false;
-    for (var i = 0; i < vowels.length; i++) {
-      var x = vowels[i];
+  var isEndWithVowel = (w) => {
+    let r = false;
+    for (let i = 0; i < vowels.length; i++) {
+      let x = vowels[i];
       if (w.endsWith(x)) {
         r = true;
         break;
@@ -400,23 +399,23 @@ Box.Application.addService('generator', function() {
     return r;
   };
 
-  var pick = function(range, probability) {
-    var k = Bella.random(0, range.length - 1);
-    var r = Bella.random(0, 100);
-    var p = probability || 100;
+  var pick = (range, probability) => {
+    let k = Bella.random(0, range.length - 1);
+    let r = Bella.random(0, 100);
+    let p = probability || 100;
     if (r <= p) {
       return range[k];
     }
     return false;
   };
 
-  function word() {
-    var w = '';
-    var c = [];
-    var x = '';
-    var y = '';
+  var word = () => {
+    let w = '';
+    let c = [];
+    let x = '';
+    let y = '';
 
-    var t = Bella.random(2, 7);
+    let t = Bella.random(2, 7);
 
     if (t === 1) {
       c.push(pick(vowels));
@@ -455,9 +454,9 @@ Box.Application.addService('generator', function() {
       c.push(x);
     }
 
-    var getEnding = function(vo) {
-      var a = [];
-      endSounds.forEach(function(item) {
+    var getEnding = (vo) => {
+      let a = [];
+      endSounds.forEach((item) => {
         if (item.startsWith('-V') && vo) {
           a.push(item);
         } else if (item.startsWith('-C') && !vo) {
@@ -483,13 +482,15 @@ Box.Application.addService('generator', function() {
 
     w = c.join('');
     return w;
-  }
+  };
 
-  for (var i = 0; i < 200; i++) {
-    wordList.push(word());
-  }
+  (() => {
+    for (let i = 0; i < 200; i++) {
+      wordList.push(word());
+    }
+  })();
 
-  var get = function(size) {
+  var get = (size) => {
     if (!size) {
       return wordList;
     }
