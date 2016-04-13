@@ -5,7 +5,6 @@
  */
 
 /* eslint no-console: 0 */
-/* eslint func-names: 0 */
 
 'use strict';
 

@@ -5,11 +5,10 @@
  */
 
 /* eslint no-console: 0 */
-/* eslint func-names: 0 */
 
 var App = Box.Application || {};
 
-App.addModule('textpad', function(context) {
+App.addModule('textpad', (context) => {
 
   'use strict';
 
