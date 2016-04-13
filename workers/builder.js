@@ -6,6 +6,8 @@
 /* eslint guard-for-in: 0*/
 /* eslint no-console: 0*/
 
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').execSync;
@@ -37,13 +39,12 @@ const POSTCSS_PLUGINS = [
   postcssNested
 ];
 
-
 var removeNewLines = (s) => {
   s = s.replace(/(?:\r\n|\r|\n)+/gm, '');
   return s;
 };
 
-export var download = (src, saveas) => {
+var download = (src, saveas) => {
   if (fs.existsSync(saveas)) {
     fs.unlink(saveas);
   }
@@ -52,7 +53,7 @@ export var download = (src, saveas) => {
   console.log('Downloaded %s', saveas);
 };
 
-export var createDir = (ls) => {
+var createDir = (ls) => {
   if (bella.isArray(ls)) {
     ls.forEach((d) => {
       d = path.normalize(d);
@@ -69,7 +70,7 @@ export var createDir = (ls) => {
   }
 };
 
-export var removeDir = (ls) => {
+var removeDir = (ls) => {
   if (bella.isArray(ls)) {
     let k = 0;
     ls.forEach((d) => {
@@ -85,7 +86,7 @@ export var removeDir = (ls) => {
   console.log('Done.');
 };
 
-export var createEmptyFile = (dest) => {
+var createEmptyFile = (dest) => {
   let ext = path.extname(dest);
   let fname = path.basename(dest);
   let content = '';
@@ -99,7 +100,7 @@ export var createEmptyFile = (dest) => {
   });
 };
 
-export var copyFile = (source, target) => {
+var copyFile = (source, target) => {
   return new Promise((resolve, reject) => {
     if (fs.existsSync(target)) {
       fs.unlinkSync(target);
@@ -113,7 +114,7 @@ export var copyFile = (source, target) => {
   });
 };
 
-export var copyDir = (from, to) => {
+var copyDir = (from, to) => {
   if (!fs.existsSync(from)) {
     return false;
   }
@@ -194,7 +195,7 @@ var compileJS = (files) => {
   });
 };
 
-export var compileHTML = (file) => {
+var compileHTML = (file) => {
 
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(file)) {
@@ -264,4 +265,14 @@ export var compileHTML = (file) => {
       });
     });
   });
+};
+
+module.exports = {
+  download: download,
+  compileHTML: compileHTML,
+  createDir: createDir,
+  removeDir: removeDir,
+  copyDir: copyDir,
+  copyFile: copyFile,
+  createEmptyFile: createEmptyFile
 };
