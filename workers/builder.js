@@ -10,8 +10,6 @@ var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').execSync;
 
-var traceur = require('traceur/src/node/api.js');
-
 var async = require('async');
 var Promise = require('bluebird');
 var bella = require('bellajs');
@@ -20,14 +18,14 @@ var cpdir = require('copy-dir').sync;
 
 var cheerio = require('cheerio');
 
-var UglifyJS = require('uglify-js');
-
 var postcss = require('postcss');
 var postcssFilter = require('postcss-filter-plugins');
 var cssnano = require('cssnano');
 var cssnext = require('postcss-cssnext');
 var postcssMixin = require('postcss-mixins');
 var postcssNested = require('postcss-nested');
+
+var prettydiff = require('prettydiff');
 
 const POSTCSS_PLUGINS = [
   postcssFilter({
@@ -177,9 +175,6 @@ var compileJS = (files) => {
     files.forEach((file) => {
       if (fs.existsSync(file)) {
         let x = fs.readFileSync(file, 'utf8');
-        if (!file.includes('/vendor')) {
-          x = traceur.compile(x);
-        }
         as.push(x);
       }
     });
@@ -187,10 +182,13 @@ var compileJS = (files) => {
     s = as.join('\n');
 
     if (s.length > 0) {
-      let minified = UglifyJS.minify(s, {
-        fromString: true
+      let result = prettydiff.api({
+        source: s,
+        mode: 'minify',
+        lang: 'javascript',
+        output: 'string'
       });
-      return resolve(minified.code);
+      return resolve(result[0]);
     }
     return reject(new Error('No JavaScript data'));
   });

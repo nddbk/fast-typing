@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.4",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
   "homepage": "http://techpush.net",
@@ -34,6 +34,7 @@
     "postcss-filter-plugins": "latest",
     "postcss-mixins": "latest",
     "postcss-nested": "latest",
+    "prettydiff": "latest",
     "svgo": "latest",
     "tap-spec": "latest",
     "tape": "latest",

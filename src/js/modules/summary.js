@@ -11,7 +11,7 @@
 
 var App = Box.Application || {};
 
-App.addModule('summary', function(context) {
+App.addModule('summary', (context) => {
 
   var K = App.getGlobalConfig('K');
   var H = {};
@@ -24,20 +24,20 @@ App.addModule('summary', function(context) {
   var $numSpeed, $numMistake, $txtMistake, $numScore, $txtScore;
   var $numHrSpeed, $numHrMistake, $txtHrMistake, $numHrScore, $txtHrScore;
 
-  var normalize = function(o) {
+  var normalize = (o) => {
     o.mistakeText = 'mistake' + (o.mistake > 1 ? 's' : '');
     o.pointText = 'point' + (o.score > 1 ? 's' : '');
     return o;
   };
 
-  var display = function() {
+  var display = () => {
     $numSpeed.html(data.speed);
     $numMistake.html(data.mistake);
     $txtMistake.html(data.mistakeText);
     $numScore.html(data.score);
     $txtScore.html(data.pointText);
 
-    var hr = data.hr;
+    let hr = data.hr;
     $numHrSpeed.html(hr.speed);
     $numHrMistake.html(hr.mistake);
     $txtHrMistake.html(hr.mistakeText);
@@ -45,10 +45,10 @@ App.addModule('summary', function(context) {
     $txtHrScore.html(hr.pointText);
   };
 
-  var onchange = function() {
-    for (var k in data) {
+  var onchange = () => {
+    for (let k in data) {
       if (Bella.hasProperty(data, k)) {
-        var x = normalize(data);
+        let x = normalize(data);
         x.hr = normalize(data.hr);
         Bella.copies(x, data);
       }
@@ -56,8 +56,8 @@ App.addModule('summary', function(context) {
     display();
   };
 
-  var calculate = function(totalChars, correct, error, mistake, speed) {
-    var n = speed * (correct / totalChars) * K * 200;
+  var calculate = (totalChars, correct, error, mistake, speed) => {
+    let n = speed * (correct / totalChars) * K * 200;
     if (n > 0 && mistake > 0) {
       while (mistake > 0) {
         mistake--;
@@ -67,36 +67,36 @@ App.addModule('summary', function(context) {
     return Math.ceil(n);
   };
 
-  var onStarted = function() {
+  var onStarted = () => {
 
   };
 
-  var onPressed = function() {
+  var onPressed = () => {
 
   };
 
-  var onFinished = function(o) {
-    var correct = o.correct;
-    var error = o.error;
-    var mistake = o.mistake;
-    var speed = Math.round(o.totalWords * 6e4 / (o.endTime - o.startTime));
+  var onFinished = (o) => {
+    let correct = o.correct;
+    let error = o.error;
+    let mistake = o.mistake;
+    let speed = Math.round(o.totalWords * 6e4 / (o.endTime - o.startTime));
 
-    var score = calculate(o.totalChars, correct, error, mistake, speed);
+    let score = calculate(o.totalChars, correct, error, mistake, speed);
 
-    var x = {
+    let x = {
       speed: speed,
       error: error,
       mistake: mistake,
       score: score
     };
 
-    var tmp = normalize(x);
+    let tmp = normalize(x);
     Bella.copies(tmp, data);
 
     if (!H.hr) {
       H.hr = x;
     } else {
-      var hr = H.hr;
+      let hr = H.hr;
       if (score > hr.score) {
         storage.set('hr', x);
         H.hr = x;
@@ -106,7 +106,7 @@ App.addModule('summary', function(context) {
     onchange();
   };
 
-  var init = function() {
+  var init = () => {
 
     $numSpeed = Dom.get('numSpeed');
     $numMistake = Dom.get('numMistake');
@@ -119,8 +119,8 @@ App.addModule('summary', function(context) {
     $numHrScore = Dom.get('numHrScore');
     $txtHrScore = Dom.get('txtHrScore');
 
-    storage.ready(function() {
-      var savedHr = storage.get('hr') || {
+    storage.ready(() => {
+      let savedHr = storage.get('hr') || {
         speed: 0,
         mistake: 0,
         score: 0
@@ -139,7 +139,7 @@ App.addModule('summary', function(context) {
   return {
     init: init,
     messages: [ 'onstarted', 'onpressed', 'onfinished' ],
-    onmessage: function(name, eventData) {
+    onmessage: (name, eventData) => {
       if (name === 'onrenderred') {
         onStarted(eventData);
       } else if (name === 'onpressed') {

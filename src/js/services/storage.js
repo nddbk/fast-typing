@@ -7,26 +7,25 @@
 /* global chrome */
 
  /* eslint no-console: 0 */
- /* eslint func-names: 0 */
 
-Box.Application.addService('storage', function() {
+Box.Application.addService('storage', () => {
 
   'use strict';
 
   var _store = {};
 
-  var onready = function() {
+  var onready = () => {
     return false;
   };
 
-  var ready = function(fn) {
+  var ready = (fn) => {
     if (Bella.isFunction(fn)) {
       onready = fn;
     }
   };
 
-  var getCache = function(data) {
-    var o;
+  var getCache = (data) => {
+    let o;
     if (data) {
       o = Bella.isString(data) ? JSON.parse(data) : data;
     }
@@ -34,12 +33,12 @@ Box.Application.addService('storage', function() {
     onready();
   };
 
-  var updateStore = function() {
+  var updateStore = () => {
     if (chrome && chrome.storage) {
-      chrome.storage.local.set({
+      chrome.storage.sync.set({
         store: _store,
         lastUpdate: Date.now()
-      }, function() {
+      }, () => {
         console.log('Saved');
       });
     } else {
@@ -47,14 +46,14 @@ Box.Application.addService('storage', function() {
     }
   };
 
-  var set = function(key, value) {
+  var set = (key, value) => {
     _store[key] = value;
     updateStore();
   };
-  var get = function(key) {
+  var get = (key) => {
     return _store[key];
   };
-  var remove = function(key) {
+  var remove = (key) => {
     if (Bella.hasProperty(_store, key)) {
       _store[key] = null;
       delete _store[key];
@@ -62,9 +61,9 @@ Box.Application.addService('storage', function() {
     }
   };
 
-  Bella.dom.ready(function() {
+  Bella.dom.ready(() => {
     if (chrome && chrome.storage) {
-      return chrome.storage.local.get('store', function(result) {
+      return chrome.storage.sync.get('store', (result) => {
         getCache(result.store);
       });
     }

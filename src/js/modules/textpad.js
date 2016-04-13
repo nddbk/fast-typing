@@ -35,7 +35,7 @@ App.addModule('textpad', function(context) {
 
   var start, end, restart, reset;
 
-  reset = function() {
+  reset = () => {
     strInput = '';
     characters = [];
     cursor = 0;
@@ -49,13 +49,13 @@ App.addModule('textpad', function(context) {
     $typingArea.empty();
   };
 
-  start = function() {
+  start = () => {
     startTime = Bella.time();
     totalChars = strInput.length;
     totalWords = strInput.split(' ').length;
   };
 
-  end = function() {
+  end = () => {
     endTime = Bella.time();
     context.broadcast('onfinished', {
       startTime: startTime,
@@ -69,18 +69,18 @@ App.addModule('textpad', function(context) {
     restart();
   };
 
-  var moveCursor = function(k) {
+  var moveCursor = (k) => {
 
     if (k < 0 || k > characters.length) {
       return false;
     }
 
-    Dom.all('.cursor').forEach(function(item) {
+    Dom.all('.cursor').forEach((item) => {
       item.removeClass('cursor');
     });
 
     if (k >= 0 && k < characters.length) {
-      var el = Dom.get('c_' + k);
+      let el = Dom.get('c_' + k);
       el.addClass('cursor');
       cursor = k;
     }
@@ -94,11 +94,11 @@ App.addModule('textpad', function(context) {
     return context.broadcast('onpressed');
   };
 
-  var moveBack = function() {
+  var moveBack = () => {
     if (cursor > 0) {
       cursor--;
-      var prevChar = characters[cursor];
-      var el = Dom.get(prevChar.id);
+      let prevChar = characters[cursor];
+      let el = Dom.get(prevChar.id);
 
       if (el.hasClass('correct')) {
         correct--;
@@ -111,11 +111,11 @@ App.addModule('textpad', function(context) {
     }
   };
 
-  var moveNext = function(char) {
+  var moveNext = (char) => {
     if (cursor < characters.length) {
       cursor++;
-      var prevChar = characters[cursor - 1];
-      var el = Dom.get(prevChar.id);
+      let prevChar = characters[cursor - 1];
+      let el = Dom.get(prevChar.id);
       if (prevChar.char === char) {
         el.addClass('correct');
         correct++;
@@ -128,12 +128,12 @@ App.addModule('textpad', function(context) {
     }
   };
 
-  var handleAction = function(evt) {
+  var handleAction = (evt) => {
     if (!isActivated) {
       return false;
     }
-    var e = evt || window.event;
-    var keyCode = e.keyCode || e.which;
+    let e = evt || window.event;
+    let keyCode = e.keyCode || e.which;
     if (keyCode === 8) {
       Event.stop(evt);
       return moveBack();
@@ -141,24 +141,24 @@ App.addModule('textpad', function(context) {
     return e;
   };
 
-  var handleText = function(evt) {
+  var handleText = (evt) => {
     if (!isActivated) {
       return false;
     }
-    var e = evt || window.event;
-    var keyCode = e.keyCode || e.which;
-    var chr = String.fromCharCode(keyCode);
+    let e = evt || window.event;
+    let keyCode = e.keyCode || e.which;
+    let chr = String.fromCharCode(keyCode);
     return moveNext(chr);
   };
 
-  var render = function(s) {
+  var render = (s) => {
     reset();
     strInput = s;
-    var a = s.split('');
-    var i = 0;
-    a.forEach(function(c) {
-      var id = 'c_' + i;
-      var span = Dom.add('SPAN', $typingArea);
+    let a = s.split('');
+    let i = 0;
+    a.forEach((c) => {
+      let id = 'c_' + i;
+      let span = Dom.add('SPAN', $typingArea);
       span.id = id;
       span.innerHTML = c;
       characters.push({
@@ -172,25 +172,25 @@ App.addModule('textpad', function(context) {
     return context.broadcast('onstarted');
   };
 
-  var load = function(text) {
-    var s = text;
+  var load = (text) => {
+    let s = text;
     if (!s) {
-      var a = generator.get(defaultTextLength);
+      let a = generator.get(defaultTextLength);
       s = a.join(' ');
     }
     render(s);
   };
 
-  restart = function() {
+  restart = () => {
     load();
   };
 
-  var init = function() {
+  var init = () => {
     $textpad.focus();
-    Event.on(document.body, 'click', function() {
+    Event.on(document.body, 'click', () => {
 
       isActivated = false;
-      var focused = document.activeElement;
+      let focused = document.activeElement;
       if (!focused || focused === document.body) {
         focused = null;
       } else if (document.querySelector) {
@@ -207,7 +207,7 @@ App.addModule('textpad', function(context) {
   };
 
   return {
-    init: function() {
+    init: () => {
       $textpad = Dom.get('textpad');
       $typingArea = Dom.get('typingArea');
       init();
