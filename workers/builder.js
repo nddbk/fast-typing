@@ -27,7 +27,8 @@ var cssnext = require('postcss-cssnext');
 var postcssMixin = require('postcss-mixins');
 var postcssNested = require('postcss-nested');
 
-var prettydiff = require('prettydiff');
+var parser = require('shift-parser');
+var codegen = require('shift-codegen').default;
 
 const POSTCSS_PLUGINS = [
   postcssFilter({
@@ -183,13 +184,9 @@ var compileJS = (files) => {
     s = as.join('\n');
 
     if (s.length > 0) {
-      let result = prettydiff.api({
-        source: s,
-        mode: 'minify',
-        lang: 'javascript',
-        output: 'string'
-      });
-      return resolve(result[0]);
+      let ast = parser.parseScript(s);
+      let result = codegen(ast);
+      return resolve(result);
     }
     return reject(new Error('No JavaScript data'));
   });
