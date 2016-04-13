@@ -20,8 +20,6 @@ var bella = require('bellajs');
 
 var fs = require('fs');
 
-var mkdirp = require('mkdirp').sync;
-
 var fixPath = (p) => {
   if (!p) {
     return '';
@@ -38,7 +36,7 @@ var js3rdDir = fixPath(bConfig.jsDir) + 'vendor';
 var verDir = 'v' + pkg.version;
 
 gulp.task('dir', () => {
-  builder.createDir([ distDir, js3rdDir ]);
+  createDir([ distDir, js3rdDir ]);
 });
 
 gulp.task('reset', () => {
@@ -105,7 +103,7 @@ gulp.task('download', () => {
   if (bella.isObject(jsFiles)) {
     let rd = fixPath(js3rdDir);
     if (!fs.existsSync(rd)) {
-      mkdirp(rd);
+      createDir(rd);
     }
     for (let alias in jsFiles) {
       if (bella.hasProperty(jsFiles, alias)) {

@@ -38,14 +38,16 @@ v0.0.4
 git clone https://github.com/techpush/fast-typing.git
 cd fast-typing
 npm install
-gulp setup
+
+// prepare space and download resources
+npm run setup
 
 // now you can load /src folder to your Chrome extension list for test,
 // or access directly to blank.html as a normal web page
 
 // if you want to build to chrome app, run:
 
-gulp build
+npm run build
 
 // then the last result would be created in /dist folder
 
