@@ -12,7 +12,11 @@
   "engines": {
     "node": ">= 5.0"
   },
-  "scripts": {},
+  "scripts": {
+    "setup": "./node_modules/.bin/gulp setup",
+    "build": "./node_modules/.bin/gulp build",
+    "reset": "./node_modules/.bin/gulp reset"
+  },
   "devDependencies": {
     "async": "latest",
     "bellajs": "latest",
