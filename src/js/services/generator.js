@@ -491,10 +491,14 @@ Box.Application.addService('generator', () => {
   })();
 
   var get = (size) => {
-    if (!size) {
-      return wordList;
+    let arr = [];
+    let max = Math.min(size || 1, 5);
+    while (arr.length < max) {
+      let len = Bella.random(3, 20);
+      let sen = Bella.pick(wordList, len);
+      arr.push(sen.join(' '));
     }
-    return Bella.pick(wordList, size);
+    return arr;
   };
 
   return {

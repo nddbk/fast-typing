@@ -19,12 +19,7 @@
 
   App.init({
     debug: true,
-    K: 0.123456789,
-    defaultTextLength: 12,
-    capitalLetters: false, // alphabet
-    digitNumbers: false, // 0123456789
-    punctuationChars: false, // .,;:"'!?/()-
-    specialChars: false // @#~`<>{}()|&!$%^+-*\/:=[],.;"'
+    K: 0.123456789
   });
 
 })();

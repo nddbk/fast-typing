@@ -15,7 +15,16 @@ App.addModule('textpad', (context) => {
   var Dom = Bella.dom;
   var Event = Bella.event;
 
-  var defaultTextLength = App.getGlobalConfig('defaultTextLength');
+  var defaultTextLength = 2;
+
+  const FLAT_WORDS = 0; // default
+  const CAPITAL_LETTERS = 1;
+  const DIGIT_NUMBERS = 2; // 0123456789
+  const PUNCTIATIONS = 3; // .,;:"'!?/()-
+  const SPECIAL_CHARS = 4; // @#~`<>{}()|&!$%^+-*\/:=[],.;"'
+
+  var mode = FLAT_WORDS;
+
   var generator = context.getService('generator');
   var storage = context.getService('storage');
 
@@ -195,18 +204,35 @@ App.addModule('textpad', (context) => {
     return context.broadcast('onstarted');
   };
 
+  var toTextData = (arr) => {
+    var r = [];
+    if (mode === FLAT_WORDS) {
+      r = arr.map((sen) => {
+        return sen.replace(/[^a-zA-Z0-9\s]/g, '');
+      });
+    } else if (mode === CAPITAL_LETTERS) {
+      r = [];
+    } else if (mode === DIGIT_NUMBERS) {
+      r = [];
+    } else if (mode === PUNCTIATIONS) {
+      r = [];
+    } else if (mode === SPECIAL_CHARS) {
+      r = [];
+    }
+    return r.join(' ');
+  };
+
   var load = (text) => {
     let s = text;
     if (!s) {
       let sentences = storage.get('sentences') || [];
       if (sentences.length > 0) {
-        s = Bella.pick(sentences);
+        s = toTextData(Bella.pick(sentences, defaultTextLength));
       } else {
         let a = generator.get(defaultTextLength);
-        s = a.join(' ');
+        s = toTextData(a);
       }
     }
-    console.log(s);
     render(s);
   };
 

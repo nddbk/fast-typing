@@ -35,11 +35,15 @@ Box.Application.addService('storage', () => {
 
   var updateStore = () => {
     if (chrome && chrome.storage) {
-      chrome.storage.sync.set({
+      chrome.storage.local.set({
         store: _store,
         lastUpdate: Date.now()
       }, () => {
-        console.log('Saved');
+        if (chrome.runtime.lastError) {
+          console.log(chrome.runtime.lastError);
+        } else {
+          console.log('Saved in local');
+        }
       });
     } else {
       localStorage.setItem('store', JSON.stringify(_store));
@@ -63,7 +67,7 @@ Box.Application.addService('storage', () => {
 
   Bella.dom.ready(() => {
     if (chrome && chrome.storage) {
-      return chrome.storage.sync.get('store', (result) => {
+      return chrome.storage.local.get('store', (result) => {
         getCache(result.store);
       });
     }
