@@ -18,6 +18,9 @@ App.addModule('textpad', (context) => {
   var defaultTextLength = App.getGlobalConfig('defaultTextLength');
   var generator = context.getService('generator');
 
+  var g = generator.get(20);
+  console.log(g);
+
   var $textpad, $typingArea;
 
   var isActivated = true;

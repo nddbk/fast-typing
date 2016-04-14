@@ -62,7 +62,6 @@
     "distDir": "dist",
     "javascript": {
       "bella": "https://raw.githubusercontent.com/techpush/bella.js/master/src/bella.js",
-      "fetch": "https://raw.githubusercontent.com/typicode/fetchival/master/index.js",
       "promise": "https://raw.githubusercontent.com/jakearchibald/es6-promise/master/dist/es6-promise.js",
       "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js"
     }
