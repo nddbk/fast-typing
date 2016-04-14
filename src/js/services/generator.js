@@ -497,25 +497,6 @@ Box.Application.addService('generator', () => {
     return Bella.pick(wordList, size);
   };
 
-  var init = () => {
-    fetch('http://metaphorpsum.com/paragraphs/20/50', { mode: 'no-cors' }).then((response) => {
-      console.log(response);
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' + response.status);
-        return;
-      }
-
-      // Examine the text in the response
-      response.json().then((data) => {
-        console.log(data);
-      });
-    }).catch((err) => {
-      console.log('Fetch Error :-S', err);
-    });
-  };
-
-  init();
-
   return {
     get: get
   };

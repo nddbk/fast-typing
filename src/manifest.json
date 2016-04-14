@@ -30,6 +30,7 @@
     "notifications",
     "storage",
     "unlimitedStorage",
-    "geolocation"
+    "geolocation",
+    "http://metaphorpsum.com/"
   ]
 }

@@ -17,9 +17,30 @@ App.addModule('textpad', (context) => {
 
   var defaultTextLength = App.getGlobalConfig('defaultTextLength');
   var generator = context.getService('generator');
+  var storage = context.getService('storage');
 
-  var g = generator.get(20);
-  console.log(g);
+  var updateBank = (ar) => {
+    let sentences = storage.get('sentences') || [];
+    let arr = sentences.concat(ar);
+    let arrr = Bella.unique(arr);
+    arrr = Bella.pick(arrr, 1000);
+    storage.set('sentences', arrr);
+  };
+
+  var getSentences = () => {
+    fetch('http://techpush.net/api/sentences').then((response) => {
+      return response.text();
+    }).then((txt) => {
+      let o = JSON.parse(txt);
+      if (o && o.sentences) {
+        updateBank(o.sentences);
+      } else {
+        console.log(txt);
+      }
+    }).catch((error) => {
+      console.log('Request failed', error);
+    });
+  };
 
   var $textpad, $typingArea;
 
@@ -177,9 +198,15 @@ App.addModule('textpad', (context) => {
   var load = (text) => {
     let s = text;
     if (!s) {
-      let a = generator.get(defaultTextLength);
-      s = a.join(' ');
+      let sentences = storage.get('sentences') || [];
+      if (sentences.length > 0) {
+        s = Bella.pick(sentences);
+      } else {
+        let a = generator.get(defaultTextLength);
+        s = a.join(' ');
+      }
     }
+    console.log(s);
     render(s);
   };
 
@@ -214,6 +241,7 @@ App.addModule('textpad', (context) => {
       $typingArea = Dom.get('typingArea');
       init();
       load();
+      getSentences();
     },
     load: load
   };
