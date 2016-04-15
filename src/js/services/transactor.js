@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
- /* eslint no-console: 0 */
-
 Box.Application.addService('transactor', () => {
 
   'use strict';
@@ -50,7 +48,7 @@ Box.Application.addService('transactor', () => {
                 return resolve(o, status, xhr);
               }
             } catch (e) {
-              console.log(e);
+              console.log(e); // eslint-disable-line no-console
             }
             return resolve(txt, status, xhr);
           }

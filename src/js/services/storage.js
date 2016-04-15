@@ -6,8 +6,6 @@
 
 /* global chrome */
 
- /* eslint no-console: 0 */
-
 Box.Application.addService('storage', () => {
 
   'use strict';
@@ -40,9 +38,9 @@ Box.Application.addService('storage', () => {
         lastUpdate: Date.now()
       }, () => {
         if (chrome.runtime.lastError) {
-          console.log(chrome.runtime.lastError);
+          console.log(chrome.runtime.lastError); // eslint-disable-line no-console
         } else {
-          console.log('Saved in local');
+          console.log('Saved in local'); // eslint-disable-line no-console
         }
       });
     } else {

@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
-/* eslint no-console: 0 */
-
 var App = Box.Application || {};
 
 App.addModule('textpad', (context) => {
@@ -44,10 +42,10 @@ App.addModule('textpad', (context) => {
       if (o && o.sentences) {
         updateBank(o.sentences);
       } else {
-        console.log(txt);
+        console.log(txt); // eslint-disable-line no-console
       }
     }).catch((error) => {
-      console.log('Request failed', error);
+      console.log('Request failed', error); // eslint-disable-line no-console
     });
   };
 

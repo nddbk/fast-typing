@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
-/* eslint no-console: 0 */
-
 Box.Application.addService('generator', () => {
 
   'use strict';

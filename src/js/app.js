@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
-/* eslint no-console: 0 */
-
 (() => {
 
   'use strict';
@@ -14,7 +12,7 @@
 
   App.on('error', (event) => {
     var exception = event.exception;
-    console.log(exception);
+    console.log(exception); // eslint-disable-line no-console
   });
 
   App.init({
