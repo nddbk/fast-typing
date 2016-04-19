@@ -10,8 +10,7 @@ App.addModule('textpad', (context) => {
 
   'use strict';
 
-  var Dom = Bella.dom;
-  var Event = Bella.event;
+  var Event = DOM.Event;
 
   var defaultTextLength = 2;
 
@@ -105,12 +104,12 @@ App.addModule('textpad', (context) => {
       return false;
     }
 
-    Dom.all('.cursor').forEach((item) => {
+    DOM.all('.cursor').forEach((item) => {
       item.removeClass('cursor');
     });
 
     if (k >= 0 && k < characters.length) {
-      let el = Dom.get('c_' + k);
+      let el = DOM.get('c_' + k);
       el.addClass('cursor');
       cursor = k;
     }
@@ -128,7 +127,7 @@ App.addModule('textpad', (context) => {
     if (cursor > 0) {
       cursor--;
       let prevChar = characters[cursor];
-      let el = Dom.get(prevChar.id);
+      let el = DOM.get(prevChar.id);
 
       if (el.hasClass('correct')) {
         correct--;
@@ -145,7 +144,7 @@ App.addModule('textpad', (context) => {
     if (cursor < characters.length) {
       cursor++;
       let prevChar = characters[cursor - 1];
-      let el = Dom.get(prevChar.id);
+      let el = DOM.get(prevChar.id);
       if (prevChar.char === char) {
         el.addClass('correct');
         correct++;
@@ -188,7 +187,7 @@ App.addModule('textpad', (context) => {
     let i = 0;
     a.forEach((c) => {
       let id = 'c_' + i;
-      let span = Dom.add('SPAN', $typingArea);
+      let span = DOM.add('SPAN', $typingArea);
       span.id = id;
       span.innerHTML = c;
       characters.push({
@@ -261,11 +260,14 @@ App.addModule('textpad', (context) => {
 
   return {
     init: () => {
-      $textpad = Dom.get('textpad');
-      $typingArea = Dom.get('typingArea');
-      init();
-      load();
-      getSentences();
+      $textpad = DOM.get('textpad');
+      $typingArea = DOM.get('typingArea');
+
+      storage.ready(() => {
+        init();
+        load();
+        getSentences();
+      });
     },
     load: load
   };

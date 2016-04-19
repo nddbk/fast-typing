@@ -14,8 +14,6 @@ App.addModule('summary', (context) => {
   var H = {};
   var storage = context.getService('storage');
 
-  var Dom = Bella.dom;
-
   var data;
 
   var $numSpeed, $numMistake, $txtMistake, $numScore, $txtScore;
@@ -105,36 +103,36 @@ App.addModule('summary', (context) => {
 
   var init = () => {
 
-    $numSpeed = Dom.get('numSpeed');
-    $numMistake = Dom.get('numMistake');
-    $txtMistake = Dom.get('txtMistake');
-    $numScore = Dom.get('numScore');
-    $txtScore = Dom.get('txtScore');
-    $numHrSpeed = Dom.get('numHrSpeed');
-    $numHrMistake = Dom.get('numHrMistake');
-    $txtHrMistake = Dom.get('txtHrMistake');
-    $numHrScore = Dom.get('numHrScore');
-    $txtHrScore = Dom.get('txtHrScore');
+    $numSpeed = DOM.get('numSpeed');
+    $numMistake = DOM.get('numMistake');
+    $txtMistake = DOM.get('txtMistake');
+    $numScore = DOM.get('numScore');
+    $txtScore = DOM.get('txtScore');
+    $numHrSpeed = DOM.get('numHrSpeed');
+    $numHrMistake = DOM.get('numHrMistake');
+    $txtHrMistake = DOM.get('txtHrMistake');
+    $numHrScore = DOM.get('numHrScore');
+    $txtHrScore = DOM.get('txtHrScore');
 
-    storage.ready(() => {
-      let savedHr = storage.get('hr') || {
-        speed: 0,
-        mistake: 0,
-        score: 0
-      };
-      H.hr = savedHr;
-      data = {
-        speed: 0,
-        mistake: 0,
-        score: 0,
-        hr: savedHr
-      };
-      onchange();
-    });
+    let savedHr = storage.get('hr') || {
+      speed: 0,
+      mistake: 0,
+      score: 0
+    };
+    H.hr = savedHr;
+    data = {
+      speed: 0,
+      mistake: 0,
+      score: 0,
+      hr: savedHr
+    };
+    onchange();
   };
 
   return {
-    init: init,
+    init: () => {
+      storage.ready(init);
+    },
     messages: [ 'onstarted', 'onpressed', 'onfinished' ],
     onmessage: (name, eventData) => {
       if (name === 'onrenderred') {

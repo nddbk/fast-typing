@@ -43,6 +43,8 @@
     "SDATA": true,
     "RECONF": true,
     "App": true,
+    "DOM": true,
+    "vDOM": true,
     "Bella": true,
     "Box": true
   },

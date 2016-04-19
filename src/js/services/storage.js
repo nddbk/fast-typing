@@ -12,13 +12,24 @@ Box.Application.addService('storage', () => {
 
   var _store = {};
 
+  var already = 0;
+  var onReadyCallbacks = [];
+
   var onready = () => {
-    return false;
+    already = 1;
+    var exec = (fn) => {
+      fn();
+    };
+    onReadyCallbacks.map(exec);
   };
 
   var ready = (fn) => {
     if (Bella.isFunction(fn)) {
-      onready = fn;
+      if (already) {
+        setTimeout(fn, 0);
+      } else {
+        onReadyCallbacks.push(fn);
+      }
     }
   };
 
@@ -63,7 +74,7 @@ Box.Application.addService('storage', () => {
     }
   };
 
-  Bella.dom.ready(() => {
+  DOM.ready(() => {
     if (chrome && chrome.storage) {
       return chrome.storage.local.get('store', (result) => {
         getCache(result.store);
