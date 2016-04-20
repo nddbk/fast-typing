@@ -12,41 +12,8 @@ App.addModule('textpad', (context) => {
 
   var Event = DOM.Event;
 
-  var defaultTextLength = 2;
-
-  const FLAT_WORDS = 0; // default
-  const CAPITAL_LETTERS = 1;
-  const DIGIT_NUMBERS = 2; // 0123456789
-  const PUNCTIATIONS = 3; // .,;:"'!?/()-
-  const SPECIAL_CHARS = 4; // @#~`<>{}()|&!$%^+-*\/:=[],.;"'
-
-  var mode = FLAT_WORDS;
-
   var generator = context.getService('generator');
   var storage = context.getService('storage');
-
-  var updateBank = (ar) => {
-    let sentences = storage.get('sentences') || [];
-    let arr = sentences.concat(ar);
-    let arrr = Bella.unique(arr);
-    arrr = Bella.pick(arrr, 1000);
-    storage.set('sentences', arrr);
-  };
-
-  var getSentences = () => {
-    fetch('http://techpush.net/api/sentences').then((response) => {
-      return response.text();
-    }).then((txt) => {
-      let o = JSON.parse(txt);
-      if (o && o.sentences) {
-        updateBank(o.sentences);
-      } else {
-        console.log(txt); // eslint-disable-line no-console
-      }
-    }).catch((error) => {
-      console.log('Request failed', error); // eslint-disable-line no-console
-    });
-  };
 
   var $textpad, $typingArea;
 
@@ -201,35 +168,8 @@ App.addModule('textpad', (context) => {
     return context.broadcast('onstarted');
   };
 
-  var toTextData = (arr) => {
-    var r = [];
-    if (mode === FLAT_WORDS) {
-      r = arr.map((sen) => {
-        return sen.replace(/[^a-zA-Z0-9\s]/g, '');
-      });
-    } else if (mode === CAPITAL_LETTERS) {
-      r = [];
-    } else if (mode === DIGIT_NUMBERS) {
-      r = [];
-    } else if (mode === PUNCTIATIONS) {
-      r = [];
-    } else if (mode === SPECIAL_CHARS) {
-      r = [];
-    }
-    return r.join(' ');
-  };
-
   var load = (text) => {
-    let s = text;
-    if (!s) {
-      let sentences = storage.get('sentences') || [];
-      if (sentences.length > 0) {
-        s = toTextData(Bella.pick(sentences, defaultTextLength));
-      } else {
-        let a = generator.get(defaultTextLength);
-        s = toTextData(a);
-      }
-    }
+    let s = text || generator.getTextString();
     render(s);
   };
 
@@ -266,7 +206,7 @@ App.addModule('textpad', (context) => {
       storage.ready(() => {
         init();
         load();
-        getSentences();
+        generator.init();
       });
     },
     load: load

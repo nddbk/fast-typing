@@ -15,14 +15,35 @@ App.addModule('preferences', (context) => {
   var $dialog, $btnSetting, vTpl;
 
   var OPTS = {
-    letters: 1,
-    sumbers: 0,
+    numbers: 0,
     sentences: 0,
     punctiations: 0
   };
 
-  var changeState = (key, inputId) => {
-    console.log(key, inputId); // eslint-disable-line
+  var saveOptions = () => {
+    let changed = false;
+    let opts = {};
+    let a = [
+      'numbers', 'sentences', 'punctiations'
+    ];
+    for (let i = 0; i < a.length; i++) {
+      let k = a [i];
+      if (Bella.hasProperty(OPTS, k)) {
+        let cval = OPTS[k];
+        let id = '_' + k;
+        let input = DOM.get(id);
+        let nval = input.checked ? 1 : 0;
+        opts[k] = nval;
+        if (nval !== cval) {
+          changed = true;
+        }
+      }
+    }
+
+    if (changed) {
+      OPTS = opts;
+      storage.set('options', opts);
+    }
   };
 
   var updateBox = (o) => {
@@ -47,9 +68,6 @@ App.addModule('preferences', (context) => {
         if (v) {
           ip.setAttribute('checked', true);
         }
-        ip.setEvent('change', () => {
-          changeState(k, ip.tagId);
-        });
         lb.append('SPAN', {
           class: 'mdl-checkbox__label',
           text: label
@@ -62,8 +80,7 @@ App.addModule('preferences', (context) => {
   };
 
   var init = () => {
-    var opts = storage.get('options');
-    opts = false;
+    let opts = storage.get('options');
     if (!opts) {
       opts = OPTS;
       storage.set('options', opts);
@@ -75,6 +92,10 @@ App.addModule('preferences', (context) => {
 
     DOM.Event.on($btnSetting, 'click', () => { $dialog.showModal(); });
     DOM.Event.on('btnCancel', 'click', () => { $dialog.close(); });
+    DOM.Event.on('btnSave', 'click', () => {
+      saveOptions();
+      $dialog.close();
+    });
   };
 
   return {
