@@ -64,11 +64,12 @@
       "material": "https://code.getmdl.io/1.1.3/material.brown-cyan.min.css"
     },
     "javascript": {
-      "bella": "https://raw.githubusercontent.com/ndaidong/bella.js/master/src/bella.js",
+      "bella": "https://raw.githubusercontent.com/ndaidong/bella.js/master/dist/bella.min.js",
       "material": "https://storage.googleapis.com/code.getmdl.io/1.1.3/material.js",
-      "promise": "https://raw.githubusercontent.com/ndaidong/promise-wtf/master/src/Promise.js",
+      "promise": "https://raw.githubusercontent.com/ndaidong/promise-wtf/master/dist/Promise.min.js",
       "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js",
-      "vdom": "https://raw.githubusercontent.com/ndaidong/vdom/master/src/vdom.js"
+      "vdom": "https://raw.githubusercontent.com/ndaidong/vdom/master/dist/vdom.min.js",
+      "vue": "https://raw.githubusercontent.com/vuejs/vue/dev/dist/vue.min.js"
     }
   }
 }

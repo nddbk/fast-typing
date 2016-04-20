@@ -4,6 +4,8 @@
  * @ndaidong
  */
 
+/* global componentHandler */
+
 'use strict';
 
 var App = Box.Application || {};
@@ -76,7 +78,10 @@ App.addModule('preferences', (context) => {
       }
     }
 
-    vTpl.render('prefBox');
+    let $prefBox = DOM.get('prefBox');
+    vTpl.render($prefBox);
+
+    componentHandler.upgradeElement($prefBox);
   };
 
   var init = () => {
