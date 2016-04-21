@@ -19,7 +19,7 @@ Hopefully that it is also useful for you.
 
 ## Last version
 
-v0.0.6
+[v0.0.6](https://github.com/techpush/fast-typing/releases/tag/v0.0.6)
 
 
 ## For developer
