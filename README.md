@@ -19,7 +19,7 @@ Hopefully that it is also useful for you.
 
 ## Last version
 
-v0.0.4
+v0.0.6
 
 
 ## For developer
