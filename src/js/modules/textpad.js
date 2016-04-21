@@ -173,6 +173,11 @@ App.addModule('textpad', (context) => {
     render(s);
   };
 
+  var reactivate = () => {
+    $textpad.focus();
+    isActivated = true;
+  };
+
   restart = () => {
     load();
   };
@@ -209,6 +214,18 @@ App.addModule('textpad', (context) => {
         generator.init();
       });
     },
-    load: load
+    messages: [ 'onsavechange', 'onresetoption' ],
+    onmessage: (name) => {
+      if (name === 'onsavechange') {
+        restart();
+        setTimeout(() => {
+          reactivate();
+        }, 200);
+      } else if (name === 'onresetoption') {
+        setTimeout(() => {
+          reactivate();
+        }, 200);
+      }
+    }
   };
 });

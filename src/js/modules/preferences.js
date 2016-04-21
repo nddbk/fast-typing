@@ -4,7 +4,6 @@
  * @ndaidong
  */
 
-/* global componentHandler */
 
 'use strict';
 
@@ -22,14 +21,15 @@ App.addModule('preferences', (context) => {
     punctiations: 0
   };
 
+  let ORDER = [
+    'numbers', 'sentences', 'punctiations'
+  ];
+
   var saveOptions = () => {
     let changed = false;
     let opts = {};
-    let a = [
-      'numbers', 'sentences', 'punctiations'
-    ];
-    for (let i = 0; i < a.length; i++) {
-      let k = a [i];
+    for (let i = 0; i < ORDER.length; i++) {
+      let k = ORDER[i];
       if (Bella.hasProperty(OPTS, k)) {
         let cval = OPTS[k];
         let id = '_' + k;
@@ -45,6 +45,19 @@ App.addModule('preferences', (context) => {
     if (changed) {
       OPTS = opts;
       storage.set('options', opts);
+    }
+  };
+
+  var resetOptions = () => {
+    for (let i = 0; i < ORDER.length; i++) {
+      let k = ORDER[i];
+      let v = OPTS[k];
+      let el = DOM.get('_' + k);
+      if (v === 1) {
+        el.checked = true;
+      } else {
+        el.checked = false;
+      }
     }
   };
 
@@ -81,7 +94,13 @@ App.addModule('preferences', (context) => {
     let $prefBox = DOM.get('prefBox');
     vTpl.render($prefBox);
 
-    componentHandler.upgradeElement($prefBox);
+  };
+
+  var showModal = () => {
+    $dialog.addClass('dialog-container--visible');
+  };
+  var hideModal = () => {
+    $dialog.removeClass('dialog-container--visible');
   };
 
   var init = () => {
@@ -92,14 +111,19 @@ App.addModule('preferences', (context) => {
     }
     updateBox(opts);
 
-    $dialog = DOM.one('dialog');
+    $dialog = DOM.get('preferences');
     $btnSetting = DOM.get('butSetting');
 
-    DOM.Event.on($btnSetting, 'click', () => { $dialog.showModal(); });
-    DOM.Event.on('btnCancel', 'click', () => { $dialog.close(); });
+    DOM.Event.on($btnSetting, 'click', showModal);
+    DOM.Event.on('btnCancel', 'click', () => {
+      hideModal();
+      setTimeout(resetOptions, 500);
+      context.broadcast('onresetoption');
+    });
     DOM.Event.on('btnSave', 'click', () => {
       saveOptions();
-      $dialog.close();
+      hideModal();
+      context.broadcast('onsavechange');
     });
   };
 
