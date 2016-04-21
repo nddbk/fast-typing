@@ -6,21 +6,30 @@
 
 /* global chrome */
 
- /* eslint no-console: 0 */
-
 Box.Application.addService('storage', () => {
 
   'use strict';
 
   var _store = {};
 
+  var already = 0;
+  var onReadyCallbacks = [];
+
   var onready = () => {
-    return false;
+    already = 1;
+    var exec = (fn) => {
+      fn();
+    };
+    onReadyCallbacks.map(exec);
   };
 
   var ready = (fn) => {
     if (Bella.isFunction(fn)) {
-      onready = fn;
+      if (already) {
+        setTimeout(fn, 0);
+      } else {
+        onReadyCallbacks.push(fn);
+      }
     }
   };
 
@@ -35,11 +44,15 @@ Box.Application.addService('storage', () => {
 
   var updateStore = () => {
     if (chrome && chrome.storage) {
-      chrome.storage.sync.set({
+      chrome.storage.local.set({
         store: _store,
         lastUpdate: Date.now()
       }, () => {
-        console.log('Saved');
+        if (chrome.runtime.lastError) {
+          console.log(chrome.runtime.lastError); // eslint-disable-line no-console
+        } else {
+          console.log('Saved in local'); // eslint-disable-line no-console
+        }
       });
     } else {
       localStorage.setItem('store', JSON.stringify(_store));
@@ -61,9 +74,9 @@ Box.Application.addService('storage', () => {
     }
   };
 
-  Bella.dom.ready(() => {
+  DOM.ready(() => {
     if (chrome && chrome.storage) {
-      return chrome.storage.sync.get('store', (result) => {
+      return chrome.storage.local.get('store', (result) => {
         getCache(result.store);
       });
     }

@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
-/* eslint no-console: 0 */
-
 (() => {
 
   'use strict';
@@ -14,17 +12,12 @@
 
   App.on('error', (event) => {
     var exception = event.exception;
-    console.log(exception);
+    console.log(exception); // eslint-disable-line no-console
   });
 
   App.init({
     debug: true,
-    K: 0.123456789,
-    defaultTextLength: 12,
-    capitalLetters: false, // alphabet
-    digitNumbers: false, // 0123456789
-    punctuationChars: false, // .,;:"'!?/()-
-    specialChars: false // @#~`<>{}()|&!$%^+-*\/:=[],.;"'
+    K: 0.123456789
   });
 
 })();

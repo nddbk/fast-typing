@@ -3,7 +3,7 @@
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "author": "@ndaidong",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "default_locale": "en",
 
   "icons": {
@@ -30,6 +30,7 @@
     "notifications",
     "storage",
     "unlimitedStorage",
-    "geolocation"
+    "geolocation",
+    "http://techpush.net/"
   ]
 }

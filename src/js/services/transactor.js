@@ -1,12 +1,10 @@
 /**
- * parser.js
- * Parser service
+ * transactor.js
+ * Transactor service
  * @ndaidong
  */
 
- /* eslint no-console: 0 */
-
-Box.Application.addService('parser', () => {
+Box.Application.addService('transactor', () => {
 
   'use strict';
 
@@ -41,8 +39,18 @@ Box.Application.addService('parser', () => {
         query += (target.charAt(target.length - 1) !== '?' ? '?' : '') + parse(data);
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
-          if (xhr.readyState === 4) {
-            return resolve(xhr.responseText, xhr.status);
+          let txt = xhr.response;
+          let status = xhr.status;
+          if (xhr.readyState === 4 && txt !== '') {
+            try {
+              let o = JSON.parse(txt);
+              if (o) {
+                return resolve(o, status, xhr);
+              }
+            } catch (e) {
+              console.log(e); // eslint-disable-line no-console
+            }
+            return resolve(txt, status, xhr);
           }
           return false;
         };

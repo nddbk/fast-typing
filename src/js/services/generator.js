@@ -4,8 +4,6 @@
  * @ndaidong
  */
 
-/* eslint no-console: 0 */
-
 Box.Application.addService('generator', () => {
 
   'use strict';
@@ -490,14 +488,192 @@ Box.Application.addService('generator', () => {
     }
   })();
 
-  var get = (size) => {
-    if (!size) {
-      return wordList;
+  var storage = Box.Application.getService('storage');
+
+  var updateBank = (ar) => {
+    let sentences = storage.get('sentences') || [];
+    let arr = sentences.concat(ar);
+    let arrr = Bella.unique(arr);
+    arrr = Bella.pick(arrr, 1000);
+    storage.set('sentences', arrr);
+    storage.set('lastUpdate', Bella.time());
+  };
+
+  var getSentences = () => {
+    fetch('http://techpush.net/api/sentences').then((response) => {
+      return response.text();
+    }).then((txt) => {
+      let o = JSON.parse(txt);
+      if (o && o.sentences) {
+        updateBank(o.sentences);
+      }
+    }).catch((error) => {
+      console.log('Request failed', error); // eslint-disable-line no-console
+    });
+  };
+
+  var pickLastPunc = () => {
+    let a = '.......!?!?;...'.split('');
+    return Bella.pick(a);
+  };
+
+  var pickMiddlePunc = () => {
+    let p = ' ';
+    let k = Math.random() * 1000;
+    if (k < 50) {
+      p = ':';
+    } else if (k > 950) {
+      p = '...';
+    } else if (k > 300 && k < 500) {
+      p = ',';
+    } else if (k > 500 && k < 600) {
+      p = '-';
     }
-    return Bella.pick(wordList, size);
+    return p;
+  };
+
+  var isNormalChar = (s) => {
+    let spe = /@#~`<>\{\}\(\)\|\&!\$%\^+-*\/:=\[\],\.;"\\''/;
+    return !spe.test(s);
+  };
+
+  var insertPunc = (s) => {
+    let a = s.split('');
+    let b = [];
+    let lastInsert = 0;
+    for (let i = 0; i < a.length; i++) {
+      let c = a[i];
+      if (c === ' ' && lastInsert < i - 10) {
+        let prev, next;
+        if (i > 0) {
+          prev = a[i - 1];
+        }
+        if (i < a.length - 1) {
+          next = a[i + 1];
+        }
+        if (prev && isNormalChar(prev) && next && isNormalChar(next)) {
+          let p = pickMiddlePunc();
+          if (p !== ' ') {
+            c = (p === '-' ? ' ' : '') + p + ' ';
+            lastInsert = i;
+          }
+        }
+      }
+      b.push(c);
+    }
+    return b.join('');
+  };
+
+  var insertNumbers = (s) => {
+    let a = s.split(' ');
+    for (let i = 0; i < a.length; i += 3) {
+      let k = Math.random() * 1000;
+      if (k < 100) {
+        a.splice(i, 0, Bella.random(9999, 999999));
+      } else if (k > 900) {
+        a.splice(i, 0, Bella.random(0, 999));
+      } else if (k > 400 && k < 600) {
+        a.splice(i, 0, Bella.random(999, 9999));
+      }
+    }
+
+    return a.join(' ');
+  };
+
+  var attachBrackets = (w) => {
+    return Bella.pick([
+      `[${w}]`,
+      `(${w})`,
+      `{${w}}`,
+      `<${w}>`,
+      `"${w}"`,
+      `'${w}'`
+    ]);
+  };
+
+  var insertSpecialPunc = (s) => {
+    let a = s.split(' ');
+    for (let i = 0; i < a.length; i += 3) {
+      let w = a[i];
+      if (isNormalChar(w)) {
+        a[i] = attachBrackets(w);
+      }
+    }
+
+    return a.join(' ');
+  };
+
+  var preprocess = (a, opt) => {
+    let s = '';
+    let r = [];
+
+    let x = opt.numbers;
+    let y = opt.sentences;
+    let z = opt.punctiations;
+
+    a.forEach((sen) => {
+      if (x + y + z === 0) {
+        sen = sen.replace(/[^a-zA-Z0-9\s]/g, '');
+      } else {
+        if (x === 1) {
+          sen = insertNumbers(sen);
+        }
+        if (y === 1) {
+          sen = Bella.ucfirst(sen);
+          sen += pickLastPunc();
+          sen = insertPunc(sen);
+        }
+        if (z === 1) {
+          sen = insertSpecialPunc(sen);
+        }
+      }
+      r.push(sen);
+    });
+    s = r.join(' ');
+    return s;
+  };
+
+  var get = (size) => {
+    let arr = [];
+    let max = Math.min(size || 1, 5);
+    while (arr.length < max) {
+      let len = Bella.random(5, 12);
+      let sen = Bella.pick(wordList, len);
+      arr.push(sen.join(' '));
+    }
+    return arr;
+  };
+
+  var getTextString = () => {
+    let a = [];
+    let sentences = storage.get('sentences') || [];
+    if (sentences.length > 0) {
+      a = Bella.pick(sentences, 2);
+    } else {
+      a = get(2);
+    }
+    let opts = storage.get('options') || {
+      numbers: 0,
+      sentences: 0,
+      punctiations: 0
+    };
+    return preprocess(a, opts);
+  };
+
+  var init = () => {
+    let sentences = storage.set('sentences') || [];
+    let lastUpdate = storage.get('lastUpdate') || 0;
+    let now = Bella.time();
+    if (sentences.length < 1000 || now - lastUpdate < 6e4 * 360) {
+      getSentences();
+    }
   };
 
   return {
-    get: get
+    init: () => {
+      storage.ready(init);
+    },
+    get: get,
+    getTextString: getTextString
   };
 });
