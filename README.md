@@ -17,11 +17,6 @@ Hopefully that it is also useful for you.
 ![FastTyping](http://i.imgur.com/PuTZgB7.png)
 
 
-## Last version
-
-[v0.0.6](https://github.com/techpush/fast-typing/releases/tag/v0.0.6)
-
-
 ## For developer
 
 #### Tech Stacks
@@ -29,8 +24,9 @@ Hopefully that it is also useful for you.
 - [T3.js](http://t3js.org/)
 - [ES6](http://git.io/es6features)
 - [PostCSS](http://postcss.org/)
-- [Gulp](http://gulpjs.com/) & automation build scripting
-- Chrome apps/extensions
+- [txtgen](http://ndaidong.github.io/txtgen/) - text generator  
+- [Jake](http://jakejs.com/) - automation builder & task runner
+- [Chrome extensions](https://developer.chrome.com/extensions/devtools)
 
 #### Installation:
 
