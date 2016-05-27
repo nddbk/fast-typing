@@ -3,10 +3,7 @@
  * @ndaidong at Twitter
  **/
 
- /* eslint no-console: 0*/
-
-'use strict'; // enable strict mode to use "let" in node.js 4.x
-
+/* global task */
 
 var pkg = require('./package');
 var builder = require('./workers/builder');
@@ -15,7 +12,6 @@ var removeDir = builder.removeDir;
 var copyDir = builder.copyDir;
 var copyFile = builder.copyFile;
 
-var gulp = require('gulp');
 var bella = require('bellajs');
 
 var fs = require('fs');
@@ -36,15 +32,15 @@ var js3rdDir = fixPath(bConfig.jsDir) + 'vendor';
 var css3rdDir = fixPath(bConfig.cssDir) + 'vendor';
 var verDir = 'v' + pkg.version;
 
-gulp.task('dir', () => {
+task('dir', () => {
   createDir([ distDir, js3rdDir ]);
 });
 
-gulp.task('reset', () => {
+task('reset', () => {
   removeDir([ distDir, js3rdDir ]);
 });
 
-gulp.task('prepare', () => {
+task('prepare', () => {
   let dir = distDir + verDir;
   removeDir(dir);
   createDir(dir);
@@ -56,7 +52,7 @@ gulp.task('prepare', () => {
   copyDir('src/js/vendor', dir + '/js/vendor');
 });
 
-gulp.task('move', () => {
+task('move', () => {
   let dir = fixPath(distDir + verDir);
   fs.readdir('src/', (err, files) => {
     if (err) {
@@ -76,7 +72,7 @@ gulp.task('move', () => {
 });
 
 
-gulp.task('merge', () => {
+task('merge', () => {
   let dir = distDir + verDir;
 
   builder.compileHTML('src/blank.html').then((result) => {
@@ -98,7 +94,7 @@ gulp.task('merge', () => {
   });
 });
 
-gulp.task('download', () => {
+task('download', () => {
   var download = builder.download;
   let jsFiles = bConfig.javascript || {};
   let cssFiles = bConfig.css || {};
@@ -134,5 +130,5 @@ gulp.task('download', () => {
   }
 });
 
-gulp.task('setup', [ 'dir', 'download' ]);
-gulp.task('build', [ 'setup', 'prepare', 'move', 'merge' ]);
+task('setup', [ 'dir', 'download' ]);
+task('build', [ 'setup', 'prepare', 'move', 'merge' ]);
