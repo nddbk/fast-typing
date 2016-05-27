@@ -17,11 +17,6 @@ Hopefully that it is also useful for you.
 ![FastTyping](http://i.imgur.com/PuTZgB7.png)
 
 
-## Last version
-
-v0.0.4
-
-
 ## For developer
 
 #### Tech Stacks
@@ -29,8 +24,8 @@ v0.0.4
 - [T3.js](http://t3js.org/)
 - [ES6](http://git.io/es6features)
 - [PostCSS](http://postcss.org/)
-- [Gulp](http://gulpjs.com/) & automation build scripting
-- Chrome apps/extensions
+- [Jake](http://jakejs.com/) & automation build scripting
+- [Chrome extensions](https://developer.chrome.com/extensions/devtools)
 
 #### Installation:
 
