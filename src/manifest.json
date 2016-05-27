@@ -3,7 +3,7 @@
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "author": "@ndaidong",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "default_locale": "en",
 
   "icons": {
@@ -31,6 +31,6 @@
     "storage",
     "unlimitedStorage",
     "geolocation",
-    "http://techpush.net/"
+    "http://tp.fomo.link/"
   ]
 }

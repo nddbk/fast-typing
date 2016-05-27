@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.0.8",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
   "homepage": "http://techpush.net",
@@ -10,12 +10,12 @@
   "author": "Dong Nguyen <ndaidong@gmail.com> (https://twitter.com/ndaidong)",
   "main": "./index.js",
   "engines": {
-    "node": ">= 5.0"
+    "node": ">= 6.0"
   },
   "scripts": {
-    "setup": "./node_modules/.bin/gulp setup",
-    "build": "./node_modules/.bin/gulp build",
-    "reset": "./node_modules/.bin/gulp reset"
+    "setup": "./node_modules/.bin/jake setup",
+    "build": "./node_modules/.bin/jake build",
+    "reset": "./node_modules/.bin/jake reset"
   },
   "devDependencies": {
     "async": "latest",
@@ -24,7 +24,7 @@
     "cheerio": "latest",
     "copy-dir": "latest",
     "cssnano": "latest",
-    "gulp": "latest",
+    "jake": "latest",
     "mkdirp": "latest",
     "postcss": "latest",
     "postcss-cssnext": "latest",
@@ -64,7 +64,8 @@
     "javascript": {
       "bella": "https://raw.githubusercontent.com/ndaidong/bella.js/master/dist/bella.min.js",
       "promise": "https://raw.githubusercontent.com/ndaidong/promise-wtf/master/dist/Promise.min.js",
-      "t3native": "https://raw.githubusercontent.com/box/t3js/master/dist/t3-native-2.4.0.js",
+      "t3native": "http://cdn.rawgit.com/box/t3js/v2.5.0/dist/t3.min.js",
+      "txtgen": "https://raw.githubusercontent.com/ndaidong/txtgen/master/dist/txtgen.min.js",
       "vdom": "https://raw.githubusercontent.com/ndaidong/vdom/master/dist/vdom.min.js"
     }
   }

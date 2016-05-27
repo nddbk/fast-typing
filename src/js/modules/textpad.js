@@ -211,7 +211,6 @@ App.addModule('textpad', (context) => {
       storage.ready(() => {
         init();
         load();
-        generator.init();
       });
     },
     messages: [ 'onsavechange', 'onresetoption' ],
