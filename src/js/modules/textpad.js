@@ -10,7 +10,7 @@ App.addModule('textpad', (context) => {
 
   'use strict';
 
-  var Event = DOM.Event;
+  var Event = doc.Event;
 
   var generator = context.getService('generator');
   var storage = context.getService('storage');
@@ -71,12 +71,12 @@ App.addModule('textpad', (context) => {
       return false;
     }
 
-    DOM.all('.cursor').forEach((item) => {
+    doc.all('.cursor').forEach((item) => {
       item.removeClass('cursor');
     });
 
     if (k >= 0 && k < characters.length) {
-      let el = DOM.get('c_' + k);
+      let el = doc.get('c_' + k);
       el.addClass('cursor');
       cursor = k;
     }
@@ -94,7 +94,7 @@ App.addModule('textpad', (context) => {
     if (cursor > 0) {
       cursor--;
       let prevChar = characters[cursor];
-      let el = DOM.get(prevChar.id);
+      let el = doc.get(prevChar.id);
 
       if (el.hasClass('correct')) {
         correct--;
@@ -111,7 +111,7 @@ App.addModule('textpad', (context) => {
     if (cursor < characters.length) {
       cursor++;
       let prevChar = characters[cursor - 1];
-      let el = DOM.get(prevChar.id);
+      let el = doc.get(prevChar.id);
       if (prevChar.char === char) {
         el.addClass('correct');
         correct++;
@@ -154,7 +154,7 @@ App.addModule('textpad', (context) => {
     let i = 0;
     a.forEach((c) => {
       let id = 'c_' + i;
-      let span = DOM.add('SPAN', $typingArea);
+      let span = doc.add('SPAN', $typingArea);
       span.id = id;
       span.innerHTML = c;
       characters.push({
@@ -199,14 +199,14 @@ App.addModule('textpad', (context) => {
       }
     });
 
-    Event.on(document, 'keydown', handleAction);
-    Event.on(document, 'keypress', handleText);
+    Event.on(document.body, 'keydown', handleAction);
+    Event.on(document.body, 'keypress', handleText);
   };
 
   return {
     init: () => {
-      $textpad = DOM.get('textpad');
-      $typingArea = DOM.get('typingArea');
+      $textpad = doc.get('textpad');
+      $typingArea = doc.get('typingArea');
 
       storage.ready(() => {
         init();

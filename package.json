@@ -1,8 +1,8 @@
 {
-  "version": "0.0.9",
+  "version": "0.1.0",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
-  "homepage": "http://techpush.net",
+  "homepage": "http://techpush.xyz",
   "repository": {
     "type": "git",
     "url": "git@github.com:techpush/fast-typing.git"
@@ -66,7 +66,7 @@
       "promise": "https://raw.githubusercontent.com/ndaidong/promise-wtf/master/dist/Promise.min.js",
       "t3native": "http://cdn.rawgit.com/box/t3js/v2.5.0/dist/t3.min.js",
       "txtgen": "https://raw.githubusercontent.com/ndaidong/txtgen/master/dist/txtgen.min.js",
-      "vdom": "https://raw.githubusercontent.com/ndaidong/vdom/master/dist/vdom.min.js"
+      "doc": "https://raw.githubusercontent.com/ndaidong/doc/master/dist/doc.min.js"
     }
   }
 }

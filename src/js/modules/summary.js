@@ -103,16 +103,16 @@ App.addModule('summary', (context) => {
 
   var init = () => {
 
-    $numSpeed = DOM.get('numSpeed');
-    $numMistake = DOM.get('numMistake');
-    $txtMistake = DOM.get('txtMistake');
-    $numScore = DOM.get('numScore');
-    $txtScore = DOM.get('txtScore');
-    $numHrSpeed = DOM.get('numHrSpeed');
-    $numHrMistake = DOM.get('numHrMistake');
-    $txtHrMistake = DOM.get('txtHrMistake');
-    $numHrScore = DOM.get('numHrScore');
-    $txtHrScore = DOM.get('txtHrScore');
+    $numSpeed = doc.get('numSpeed');
+    $numMistake = doc.get('numMistake');
+    $txtMistake = doc.get('txtMistake');
+    $numScore = doc.get('numScore');
+    $txtScore = doc.get('txtScore');
+    $numHrSpeed = doc.get('numHrSpeed');
+    $numHrMistake = doc.get('numHrMistake');
+    $txtHrMistake = doc.get('txtHrMistake');
+    $numHrScore = doc.get('numHrScore');
+    $txtHrScore = doc.get('txtHrScore');
 
     let savedHr = storage.get('hr') || {
       speed: 0,

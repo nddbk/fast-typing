@@ -13,7 +13,9 @@ App.addModule('preferences', (context) => {
 
   var storage = context.getService('storage');
 
-  var $dialog, $btnSetting, vTpl;
+  var $dialog, $btnSetting;
+
+  var Event = doc.Event;
 
   var OPTS = {
     numbers: 0,
@@ -21,7 +23,7 @@ App.addModule('preferences', (context) => {
     punctiations: 0
   };
 
-  let ORDER = [
+  var ORDER = [
     'numbers', 'sentences', 'punctiations'
   ];
 
@@ -33,7 +35,7 @@ App.addModule('preferences', (context) => {
       if (Bella.hasProperty(OPTS, k)) {
         let cval = OPTS[k];
         let id = '_' + k;
-        let input = DOM.get(id);
+        let input = doc.get(id);
         let nval = input.checked ? 1 : 0;
         opts[k] = nval;
         if (nval !== cval) {
@@ -52,7 +54,7 @@ App.addModule('preferences', (context) => {
     for (let i = 0; i < ORDER.length; i++) {
       let k = ORDER[i];
       let v = OPTS[k];
-      let el = DOM.get('_' + k);
+      let el = doc.get('_' + k);
       if (v === 1) {
         el.checked = true;
       } else {
@@ -64,18 +66,22 @@ App.addModule('preferences', (context) => {
   var updateBox = (o) => {
 
     OPTS = o;
-    vTpl = vDOM.create('DIV');
+    let $prefBox = doc.get('prefBox');
 
     for (let k in o) {
       if (Bella.hasProperty(o, k)) {
         let id = '_' + k;
         let v = o[k];
         let label = Bella.ucfirst(k);
-        let p = vTpl.append('P');
-        let lb = p.append('label');
-        lb.setAttribute('class', 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect');
-        lb.setAttribute('for', id);
-        let ip = lb.append('input', {
+        let p = doc.add('P', $prefBox);
+        let lb = doc.add('LABEL', p);
+        lb.setProperty({
+          class: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect',
+          for: id
+        });
+
+        let ip = doc.add('INPUT', lb);
+        ip.setProperty({
           type: 'checkbox',
           class: 'mdl-checkbox__input',
           id: id
@@ -83,16 +89,13 @@ App.addModule('preferences', (context) => {
         if (v) {
           ip.setAttribute('checked', true);
         }
-        lb.append('SPAN', {
-          class: 'mdl-checkbox__label',
-          text: label
+        let span = doc.add('SPAN', lb);
+        span.setProperty({
+          class: 'mdl-checkbox__label'
         });
-        vTpl.append(p);
+        span.html(label);
       }
     }
-
-    let $prefBox = DOM.get('prefBox');
-    vTpl.render($prefBox);
 
   };
 
@@ -111,16 +114,16 @@ App.addModule('preferences', (context) => {
     }
     updateBox(opts);
 
-    $dialog = DOM.get('preferences');
-    $btnSetting = DOM.get('butSetting');
+    $dialog = doc.get('preferences');
+    $btnSetting = doc.get('butSetting');
 
-    DOM.Event.on($btnSetting, 'click', showModal);
-    DOM.Event.on('btnCancel', 'click', () => {
+    Event.on($btnSetting, 'click', showModal);
+    Event.on('btnCancel', 'click', () => {
       hideModal();
       setTimeout(resetOptions, 500);
       context.broadcast('onresetoption');
     });
-    DOM.Event.on('btnSave', 'click', () => {
+    Event.on('btnSave', 'click', () => {
       saveOptions();
       hideModal();
       context.broadcast('onsavechange');

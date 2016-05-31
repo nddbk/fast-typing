@@ -74,7 +74,7 @@ Box.Application.addService('storage', () => {
     }
   };
 
-  DOM.ready(() => {
+  doc.ready(() => {
     if (chrome && chrome.storage) {
       return chrome.storage.local.get('store', (result) => {
         getCache(result.store);
