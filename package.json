@@ -1,39 +1,29 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "name": "fast-typing",
   "description": "Chrome apps for typing practice",
-  "homepage": "http://techpush.xyz",
+  "homepage": "https://chrome.google.com/webstore/detail/fasttyping/dgibeimfinglbfgimhiffmflgimlfffl",
   "repository": {
     "type": "git",
-    "url": "git@github.com:techpush/fast-typing.git"
+    "url": "https://github.com/ndaidong/fast-typing"
   },
-  "author": "Dong Nguyen <ndaidong@gmail.com> (https://twitter.com/ndaidong)",
+  "author": "@ndaidong",
   "main": "./index.js",
   "engines": {
     "node": ">= 6.0"
   },
   "scripts": {
-    "setup": "./node_modules/.bin/jake setup",
-    "build": "./node_modules/.bin/jake build",
-    "reset": "./node_modules/.bin/jake reset"
+    "setup": "node scripts/setup",
+    "lint": "eslint src/js scripts",
+    "nsp": "nsp check --output checkstyle",
+    "test": "npm run lint && npm run nsp",
+    "release": "npm test && node scripts/release"
   },
   "devDependencies": {
-    "async": "latest",
-    "bellajs": "latest",
-    "bluebird": "latest",
-    "cheerio": "latest",
-    "copy-dir": "latest",
-    "cssnano": "latest",
-    "jake": "latest",
-    "mkdirp": "latest",
-    "postcss": "latest",
-    "postcss-cssnext": "latest",
-    "postcss-filter-plugins": "latest",
-    "postcss-mixins": "latest",
-    "postcss-nested": "latest",
-    "shift-codegen": "latest",
-    "shift-parser": "latest",
-    "svgo": "latest"
+    "eslint": "3.x.x",
+    "eslint-config-ggc": "1.x.x",
+    "mkdirp": "0.x.x",
+    "nsp": "2.x.x"
   },
   "keywords": [
     "chrome",
@@ -44,29 +34,15 @@
     "tool",
     "util"
   ],
-  "license": "MIT",
-  "maintainers": [
-    "ndaidong <ndaidong@gmail.com>"
-  ],
-  "bugs": {
-    "url": "https://github.com/techpush/fast-typing/issues"
-  },
-  "directories": {
-    "test": "test"
-  },
   "builder": {
-    "cssDir": "src/css",
-    "jsDir": "src/js",
-    "imgDir": "src/images",
-    "fontDir": "src/fonts",
-    "distDir": "dist",
+    "vendorDir": "src/vendor",
     "css": {},
     "javascript": {
       "bella": "https://raw.githubusercontent.com/ndaidong/bella.js/master/dist/bella.min.js",
-      "promise": "https://raw.githubusercontent.com/ndaidong/promise-wtf/master/dist/Promise.min.js",
-      "t3native": "http://cdn.rawgit.com/box/t3js/v2.5.0/dist/t3.min.js",
+      "doc": "https://raw.githubusercontent.com/ndaidong/doc/master/dist/doc.min.js",
       "txtgen": "https://raw.githubusercontent.com/ndaidong/txtgen/master/dist/txtgen.min.js",
-      "doc": "https://raw.githubusercontent.com/ndaidong/doc/master/dist/doc.min.js"
+      "t3js": "http://cdn.rawgit.com/box/t3js/v2.7.0/dist/t3.min.js"
     }
-  }
+  },
+  "license": "MIT"
 }

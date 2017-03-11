@@ -1,12 +1,9 @@
 /**
- * start.js
- * Init app
+ * app.js
  * @ndaidong
  */
 
 (() => {
-
-  'use strict';
 
   var App = Box.Application || {};
 

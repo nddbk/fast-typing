@@ -1,14 +1,11 @@
 /**
  * textpad.js
- * textpad module
  * @ndaidong
  */
 
 var App = Box.Application || {};
 
 App.addModule('textpad', (context) => {
-
-  'use strict';
 
   var Event = doc.Event;
 
@@ -54,13 +51,13 @@ App.addModule('textpad', (context) => {
   end = () => {
     endTime = Bella.time();
     context.broadcast('onfinished', {
-      startTime: startTime,
-      endTime: endTime,
-      totalChars: totalChars,
-      totalWords: totalWords,
-      error: error,
-      correct: correct,
-      mistake: mistake
+      startTime,
+      endTime,
+      totalChars,
+      totalWords,
+      error,
+      correct,
+      mistake
     });
     restart();
   };
@@ -159,7 +156,7 @@ App.addModule('textpad', (context) => {
       span.innerHTML = c;
       characters.push({
         index: i,
-        id: id,
+        id,
         char: c
       });
       i++;
@@ -213,7 +210,7 @@ App.addModule('textpad', (context) => {
         load();
       });
     },
-    messages: [ 'onsavechange', 'onresetoption' ],
+    messages: ['onsavechange', 'onresetoption'],
     onmessage: (name) => {
       if (name === 'onsavechange') {
         restart();

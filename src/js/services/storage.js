@@ -1,14 +1,9 @@
 /**
  * storage.js
- * Storage service
  * @ndaidong
  */
 
-/* global chrome */
-
 Box.Application.addService('storage', () => {
-
-  'use strict';
 
   var _store = {};
 
@@ -84,9 +79,9 @@ Box.Application.addService('storage', () => {
   });
 
   return {
-    ready: ready,
-    get: get,
-    set: set,
-    remove: remove
+    ready,
+    get,
+    set,
+    remove
   };
 });

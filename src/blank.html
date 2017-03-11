@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FastTyping</title>
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-  <link rel="stylesheet" type="text/css" href="css/custom.css">
-  <link rel="icon" type="image/png" href="icon-16.png">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastTyping</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="icon" type="image/png" href="icon-16.png">
+  </head>
+  <body>
 
-  <header class="header">
-    <h1 class="header__title">FastTyping</h1>
-    <i id="butSetting" title="Settings" class="ico-button material-icons">settings</i>
-  </header>
+    <header class="header">
+      <h1 class="header__title">FastTyping</h1>
+      <i id="butSetting" title="Settings" class="ico-button material-icons">settings</i>
+    </header>
 
-  <main class="main">
-    <div class="card" id="summary" data-module="summary">
-      <div class="line">
-        <label>Recently: </label>
-        <span class="section">
-          <span class="number" id="numSpeed"></span> wpm
-        </span>
-        <span class="section">
-          <span class="number" id="numMistake"></span> <span id="txtMistake"></span>
-        </span>
-        <span class="section">
-          <span class="number" id="numScore"></span> <span id="txtScore"></span>
-        </span>
+    <main class="main">
+      <div class="card" id="summary" data-module="summary">
+        <div class="line">
+          <label>Recently: </label>
+          <span class="section">
+            <span class="number" id="numSpeed"></span> wpm
+          </span>
+          <span class="section">
+            <span class="number" id="numMistake"></span> <span id="txtMistake"></span>
+          </span>
+          <span class="section">
+            <span class="number" id="numScore"></span> <span id="txtScore"></span>
+          </span>
+        </div>
+        <div class="line older">
+          <label>Highest record: </label>
+          <span class="section">
+            <span class="number" id="numHrSpeed"></span> wpm
+          </span>
+          <span class="section">
+            <span class="number" id="numHrMistake"></span> <span id="txtHrMistake"></span>
+          </span>
+          <span class="section">
+            <span class="number" id="numHrScore"></span> <span id="txtHrScore"></span>
+          </span>
+        </div>
       </div>
-      <div class="line older">
-        <label>Highest record: </label>
-        <span class="section">
-          <span class="number" id="numHrSpeed"></span> wpm
-        </span>
-        <span class="section">
-          <span class="number" id="numHrMistake"></span> <span id="txtHrMistake"></span>
-        </span>
-        <span class="section">
-          <span class="number" id="numHrScore"></span> <span id="txtHrScore"></span>
-        </span>
+      <div class="card" id="textpad" data-module="textpad" tabindex="-1">
+        <div id="typingArea" class="text-area"></div>
+      </div>
+    </main>
+
+    <div class="dialog-container" id="preferences" data-module="preferences">
+      <div class="dialog">
+        <div class="dialog-title">Preferences </div>
+        <div class="dialog-body">
+          <div id="prefBox"></div>
+        </div>
+        <div class="dialog-buttons">
+          <button class="mdl-button" id="btnSave">Save changes</button>
+          <button class="mdl-button close" id="btnCancel">Cancel</button>
+        </div>
       </div>
     </div>
-    <div class="card" id="textpad" data-module="textpad" tabindex="-1">
-      <div id="typingArea" class="text-area"></div>
-    </div>
-  </main>
+    <script type="text/javascript" src="vendor/js/t3js.js"></script>
+    <script type="text/javascript" src="vendor/js/bella.js"></script>
+    <script type="text/javascript" src="vendor/js/txtgen.js"></script>
+    <script type="text/javascript" src="vendor/js/doc.js"></script>
 
-  <div class="dialog-container" id="preferences" data-module="preferences">
-    <div class="dialog">
-      <div class="dialog-title">Preferences </div>
-      <div class="dialog-body">
-        <div id="prefBox"></div>
-      </div>
-      <div class="dialog-buttons">
-        <button class="mdl-button" id="btnSave">Save changes</button>
-        <button class="mdl-button close" id="btnCancel">Cancel</button>
-      </div>
-    </div>
-  </div>
+    <script type="text/javascript" src="js/services/storage.js"></script>
+    <script type="text/javascript" src="js/services/generator.js"></script>
 
-  <script type="text/javascript" src="/js/vendor/t3native.js"></script>
-  <script type="text/javascript" src="/js/vendor/bella.js"></script>
-  <script type="text/javascript" src="/js/vendor/promise.js"></script>
-  <script type="text/javascript" src="/js/vendor/txtgen.js"></script>
-  <script type="text/javascript" src="/js/vendor/doc.js"></script>
-  <script type="text/javascript" src="/js/services/transactor.js"></script>
-  <script type="text/javascript" src="/js/services/generator.js"></script>
-  <script type="text/javascript" src="/js/services/storage.js"></script>
-  <script type="text/javascript" src="/js/modules/preferences.js"></script>
-  <script type="text/javascript" src="/js/modules/summary.js"></script>
-  <script type="text/javascript" src="/js/modules/textpad.js"></script>
-  <script type="text/javascript" src="/js/app.js"></script>
-</body>
+    <script type="text/javascript" src="/js/modules/preferences.js"></script>
+    <script type="text/javascript" src="/js/modules/summary.js"></script>
+    <script type="text/javascript" src="/js/modules/textpad.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
 </html>

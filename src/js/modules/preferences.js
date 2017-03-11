@@ -1,11 +1,7 @@
 /**
- * settings.js
- * settings module
+ * preferences.js
  * @ndaidong
  */
-
-
-'use strict';
 
 var App = Box.Application || {};
 
@@ -84,7 +80,7 @@ App.addModule('preferences', (context) => {
         ip.setProperty({
           type: 'checkbox',
           class: 'mdl-checkbox__input',
-          id: id
+          id
         });
         if (v) {
           ip.setAttribute('checked', true);

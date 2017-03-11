@@ -22,10 +22,7 @@ Hopefully that it is also useful for you.
 #### Tech Stacks
 
 - [T3.js](http://t3js.org/)
-- [ES6](http://git.io/es6features)
-- [PostCSS](http://postcss.org/)
 - [txtgen](http://ndaidong.github.io/txtgen/) - text generator  
-- [Jake](http://jakejs.com/) - automation builder & task runner
 - [Chrome extensions](https://developer.chrome.com/extensions/devtools)
 
 #### Installation:
@@ -43,7 +40,7 @@ npm run setup
 
 // if you want to build to chrome app, run:
 
-npm run build
+npm run release
 
 // then the last result would be created in /dist folder
 
