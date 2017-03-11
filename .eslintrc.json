@@ -1,0 +1,13 @@
+{
+  "extends": "eslint-config-ggc",
+  "globals": {
+    "Bella": true,
+    "Box": true,
+    "chrome": true,
+    "doc": true,
+    "txtgen": true
+  },
+  "rules": {
+    "max-params": 0
+  }
+}

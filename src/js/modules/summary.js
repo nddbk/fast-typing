@@ -1,10 +1,7 @@
 /**
  * summary.js
- * summary module
  * @ndaidong
  */
-
-'use strict';
 
 var App = Box.Application || {};
 
@@ -63,11 +60,11 @@ App.addModule('summary', (context) => {
   };
 
   var onStarted = () => {
-
+    return 0;
   };
 
   var onPressed = () => {
-
+    return 0;
   };
 
   var onFinished = (o) => {
@@ -79,23 +76,23 @@ App.addModule('summary', (context) => {
     let score = calculate(o.totalChars, correct, error, mistake, speed);
 
     let x = {
-      speed: speed,
-      error: error,
-      mistake: mistake,
-      score: score
+      speed,
+      error,
+      mistake,
+      score
     };
 
     let tmp = normalize(x);
     Bella.copies(tmp, data);
 
-    if (!H.hr) {
-      H.hr = x;
-    } else {
+    if (H.hr) {
       let hr = H.hr;
       if (score > hr.score) {
         storage.set('hr', x);
         H.hr = x;
       }
+    } else {
+      H.hr = x;
     }
     data.hr = H.hr;
     onchange();
@@ -133,7 +130,7 @@ App.addModule('summary', (context) => {
     init: () => {
       storage.ready(init);
     },
-    messages: [ 'onstarted', 'onpressed', 'onfinished' ],
+    messages: ['onstarted', 'onpressed', 'onfinished'],
     onmessage: (name, eventData) => {
       if (name === 'onrenderred') {
         onStarted(eventData);

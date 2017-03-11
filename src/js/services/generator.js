@@ -1,14 +1,9 @@
 /**
  * generator.js
- * generator service
  * @ndaidong
  */
 
-/* global txtgen */
-
 Box.Application.addService('generator', (context) => {
-
-  'use strict';
 
   var storage = context.getService('storage');
 
@@ -28,7 +23,7 @@ Box.Application.addService('generator', (context) => {
   };
 
   var isNormalChar = (s) => {
-    let spe = /@#~`<>\{\}\(\)\|\&!\$%\^+-*\/:=\[\],\.;"\\''/;
+    let spe = /@#~`<>\{\}\(\)\|&!\$%\^+-*\/:=\[\],\.;"\\''/;
     return !spe.test(s);
   };
 
@@ -76,14 +71,14 @@ Box.Application.addService('generator', (context) => {
   };
 
   var attachBrackets = (w) => {
-    return Bella.pick([
+    return Bella.stabilize([
       `[${w}]`,
       `(${w})`,
       `{${w}}`,
       `<${w}>`,
       `"${w}"`,
       `'${w}'`
-    ]);
+    ]).pick();
   };
 
   var insertSpecialPunc = (s) => {
@@ -108,7 +103,7 @@ Box.Application.addService('generator', (context) => {
 
     a.forEach((sen) => {
       if (x + y + z === 0) {
-        sen = Bella.strtolower(sen);
+        sen = sen.toLowerCase();
         sen = sen.replace(/[^a-zA-Z0-9\s]/g, '');
       } else {
         if (x === 1) {
@@ -141,6 +136,6 @@ Box.Application.addService('generator', (context) => {
   };
 
   return {
-    getTextString: getTextString
+    getTextString
   };
 });
