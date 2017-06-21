@@ -7,6 +7,10 @@ Box.Application.addService('generator', (context) => {
 
   var storage = context.getService('storage');
 
+  var {
+    random
+  } = bella;
+
   var pickMiddlePunc = () => {
     let p = ' ';
     let k = Math.random() * 1000;
@@ -59,11 +63,11 @@ Box.Application.addService('generator', (context) => {
     for (let i = 0; i < a.length; i += 3) {
       let k = Math.random() * 1000;
       if (k < 100) {
-        a.splice(i, 0, Bella.random(9999, 999999));
+        a.splice(i, 0, random(9999, 999999));
       } else if (k > 900) {
-        a.splice(i, 0, Bella.random(0, 999));
+        a.splice(i, 0, random(0, 999));
       } else if (k > 400 && k < 600) {
-        a.splice(i, 0, Bella.random(999, 9999));
+        a.splice(i, 0, random(999, 9999));
       }
     }
 
@@ -71,14 +75,16 @@ Box.Application.addService('generator', (context) => {
   };
 
   var attachBrackets = (w) => {
-    return Bella.stabilize([
+    let arr = [
       `[${w}]`,
       `(${w})`,
       `{${w}}`,
       `<${w}>`,
       `"${w}"`,
       `'${w}'`
-    ]).pick();
+    ];
+    let k = random(0, arr.length - 1);
+    return arr[k];
   };
 
   var insertSpecialPunc = (s) => {

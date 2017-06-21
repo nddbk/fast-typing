@@ -7,7 +7,16 @@ var App = Box.Application || {};
 
 App.addModule('textpad', (context) => {
 
-  var Event = doc.Event;
+  var {
+    queryAll,
+    get,
+    add,
+    Event
+  } = realdom;
+
+  var {
+    time
+  } = bella;
 
   var generator = context.getService('generator');
   var storage = context.getService('storage');
@@ -43,13 +52,13 @@ App.addModule('textpad', (context) => {
   };
 
   start = () => {
-    startTime = Bella.time();
+    startTime = time();
     totalChars = strInput.length;
     totalWords = strInput.split(' ').length;
   };
 
   end = () => {
-    endTime = Bella.time();
+    endTime = time();
     context.broadcast('onfinished', {
       startTime,
       endTime,
@@ -68,12 +77,12 @@ App.addModule('textpad', (context) => {
       return false;
     }
 
-    doc.all('.cursor').forEach((item) => {
+    queryAll('.cursor').forEach((item) => {
       item.removeClass('cursor');
     });
 
     if (k >= 0 && k < characters.length) {
-      let el = doc.get('c_' + k);
+      let el = get('c_' + k);
       el.addClass('cursor');
       cursor = k;
     }
@@ -91,7 +100,7 @@ App.addModule('textpad', (context) => {
     if (cursor > 0) {
       cursor--;
       let prevChar = characters[cursor];
-      let el = doc.get(prevChar.id);
+      let el = get(prevChar.id);
 
       if (el.hasClass('correct')) {
         correct--;
@@ -108,7 +117,7 @@ App.addModule('textpad', (context) => {
     if (cursor < characters.length) {
       cursor++;
       let prevChar = characters[cursor - 1];
-      let el = doc.get(prevChar.id);
+      let el = get(prevChar.id);
       if (prevChar.char === char) {
         el.addClass('correct');
         correct++;
@@ -151,7 +160,7 @@ App.addModule('textpad', (context) => {
     let i = 0;
     a.forEach((c) => {
       let id = 'c_' + i;
-      let span = doc.add('SPAN', $typingArea);
+      let span = add('SPAN', $typingArea);
       span.id = id;
       span.innerHTML = c;
       characters.push({
@@ -202,8 +211,8 @@ App.addModule('textpad', (context) => {
 
   return {
     init: () => {
-      $textpad = doc.get('textpad');
-      $typingArea = doc.get('typingArea');
+      $textpad = get('textpad');
+      $typingArea = get('typingArea');
 
       storage.ready(() => {
         init();

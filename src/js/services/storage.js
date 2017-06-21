@@ -14,7 +14,7 @@ Box.Application.addService('storage', () => {
     hasProperty,
     isFunction,
     isString
-  } = Bella;
+  } = bella;
 
   var onready = () => {
     already = 1;
@@ -77,7 +77,7 @@ Box.Application.addService('storage', () => {
     }
   };
 
-  doc.ready(() => {
+  realdom.ready(() => {
     if (chrome && chrome.storage) {
       return chrome.storage.local.get('store', (result) => {
         getCache(result.store);

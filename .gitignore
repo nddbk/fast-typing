@@ -18,3 +18,7 @@ src/vendor
 dist
 releases
 configs/env
+
+yarn.lock
+coverage.lcov
+package-lock.json
