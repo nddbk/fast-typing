@@ -11,7 +11,16 @@ App.addModule('preferences', (context) => {
 
   var $dialog, $btnSetting;
 
-  var Event = doc.Event;
+  var {
+    get,
+    add,
+    Event
+  } = realdom;
+
+  var {
+    hasProperty,
+    ucfirst
+  } = bella;
 
   var OPTS = {
     numbers: 0,
@@ -28,10 +37,10 @@ App.addModule('preferences', (context) => {
     let opts = {};
     for (let i = 0; i < ORDER.length; i++) {
       let k = ORDER[i];
-      if (Bella.hasProperty(OPTS, k)) {
+      if (hasProperty(OPTS, k)) {
         let cval = OPTS[k];
         let id = '_' + k;
-        let input = doc.get(id);
+        let input = get(id);
         let nval = input.checked ? 1 : 0;
         opts[k] = nval;
         if (nval !== cval) {
@@ -50,7 +59,7 @@ App.addModule('preferences', (context) => {
     for (let i = 0; i < ORDER.length; i++) {
       let k = ORDER[i];
       let v = OPTS[k];
-      let el = doc.get('_' + k);
+      let el = get('_' + k);
       if (v === 1) {
         el.checked = true;
       } else {
@@ -62,21 +71,21 @@ App.addModule('preferences', (context) => {
   var updateBox = (o) => {
 
     OPTS = o;
-    let $prefBox = doc.get('prefBox');
+    let $prefBox = get('prefBox');
 
     for (let k in o) {
-      if (Bella.hasProperty(o, k)) {
+      if (hasProperty(o, k)) {
         let id = '_' + k;
         let v = o[k];
-        let label = Bella.ucfirst(k);
-        let p = doc.add('P', $prefBox);
-        let lb = doc.add('LABEL', p);
+        let label = ucfirst(k);
+        let p = add('P', $prefBox);
+        let lb = add('LABEL', p);
         lb.setProperty({
           class: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect',
           for: id
         });
 
-        let ip = doc.add('INPUT', lb);
+        let ip = add('INPUT', lb);
         ip.setProperty({
           type: 'checkbox',
           class: 'mdl-checkbox__input',
@@ -85,7 +94,7 @@ App.addModule('preferences', (context) => {
         if (v) {
           ip.setAttribute('checked', true);
         }
-        let span = doc.add('SPAN', lb);
+        let span = add('SPAN', lb);
         span.setProperty({
           class: 'mdl-checkbox__label'
         });
@@ -110,8 +119,8 @@ App.addModule('preferences', (context) => {
     }
     updateBox(opts);
 
-    $dialog = doc.get('preferences');
-    $btnSetting = doc.get('butSetting');
+    $dialog = get('preferences');
+    $btnSetting = get('butSetting');
 
     Event.on($btnSetting, 'click', showModal);
     Event.on('btnCancel', 'click', () => {

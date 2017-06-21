@@ -10,16 +10,22 @@ Box.Application.addService('storage', () => {
   var already = 0;
   var onReadyCallbacks = [];
 
+  var {
+    hasProperty,
+    isFunction,
+    isString
+  } = bella;
+
   var onready = () => {
     already = 1;
-    var exec = (fn) => {
+    let exec = (fn) => {
       fn();
     };
     onReadyCallbacks.map(exec);
   };
 
   var ready = (fn) => {
-    if (Bella.isFunction(fn)) {
+    if (isFunction(fn)) {
       if (already) {
         setTimeout(fn, 0);
       } else {
@@ -31,7 +37,7 @@ Box.Application.addService('storage', () => {
   var getCache = (data) => {
     let o;
     if (data) {
-      o = Bella.isString(data) ? JSON.parse(data) : data;
+      o = isString(data) ? JSON.parse(data) : data;
     }
     _store = o || {};
     onready();
@@ -58,18 +64,20 @@ Box.Application.addService('storage', () => {
     _store[key] = value;
     updateStore();
   };
+
   var get = (key) => {
     return _store[key];
   };
+
   var remove = (key) => {
-    if (Bella.hasProperty(_store, key)) {
+    if (hasProperty(_store, key)) {
       _store[key] = null;
       delete _store[key];
       updateStore();
     }
   };
 
-  doc.ready(() => {
+  realdom.ready(() => {
     if (chrome && chrome.storage) {
       return chrome.storage.local.get('store', (result) => {
         getCache(result.store);

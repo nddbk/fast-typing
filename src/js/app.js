@@ -9,7 +9,7 @@
 
   App.on('error', (event) => {
     var exception = event.exception;
-    console.log(exception); // eslint-disable-line no-console
+    console.log(exception);
   });
 
   App.init({

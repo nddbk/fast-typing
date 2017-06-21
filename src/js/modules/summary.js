@@ -11,6 +11,15 @@ App.addModule('summary', (context) => {
   var H = {};
   var storage = context.getService('storage');
 
+  var {
+    hasProperty,
+    copies
+  } = bella;
+
+  var {
+    get
+  } = realdom;
+
   var data;
 
   var $numSpeed, $numMistake, $txtMistake, $numScore, $txtScore;
@@ -39,10 +48,10 @@ App.addModule('summary', (context) => {
 
   var onchange = () => {
     for (let k in data) {
-      if (Bella.hasProperty(data, k)) {
+      if (hasProperty(data, k)) {
         let x = normalize(data);
         x.hr = normalize(data.hr);
-        Bella.copies(x, data);
+        copies(x, data);
       }
     }
     display();
@@ -83,7 +92,7 @@ App.addModule('summary', (context) => {
     };
 
     let tmp = normalize(x);
-    Bella.copies(tmp, data);
+    copies(tmp, data);
 
     if (H.hr) {
       let hr = H.hr;
@@ -100,16 +109,16 @@ App.addModule('summary', (context) => {
 
   var init = () => {
 
-    $numSpeed = doc.get('numSpeed');
-    $numMistake = doc.get('numMistake');
-    $txtMistake = doc.get('txtMistake');
-    $numScore = doc.get('numScore');
-    $txtScore = doc.get('txtScore');
-    $numHrSpeed = doc.get('numHrSpeed');
-    $numHrMistake = doc.get('numHrMistake');
-    $txtHrMistake = doc.get('txtHrMistake');
-    $numHrScore = doc.get('numHrScore');
-    $txtHrScore = doc.get('txtHrScore');
+    $numSpeed = get('numSpeed');
+    $numMistake = get('numMistake');
+    $txtMistake = get('txtMistake');
+    $numScore = get('numScore');
+    $txtScore = get('txtScore');
+    $numHrSpeed = get('numHrSpeed');
+    $numHrMistake = get('numHrMistake');
+    $txtHrMistake = get('txtHrMistake');
+    $numHrScore = get('numHrScore');
+    $txtHrScore = get('txtHrScore');
 
     let savedHr = storage.get('hr') || {
       speed: 0,
