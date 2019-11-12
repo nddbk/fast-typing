@@ -1,28 +1,30 @@
 #!/usr/bin/env node
 
-var {
+const {
   existsSync,
-  unlinkSync
+  unlinkSync,
 } = require('fs');
 
-var exec = require('child_process').execSync;
+const {execSync} = require('child_process');
 
-var dirs = [
+const dirs = [
   'dist',
   'docs',
   '.nyc_output',
   'coverage',
-  'node_modules'
+  'node_modules',
+  '.nuxt',
 ];
 
-var files = [
+const files = [
   'yarn.lock',
+  'pnpm-lock.yaml',
   'package-lock.json',
-  'coverage.lcov'
+  'coverage.lcov',
 ];
 
 dirs.forEach((d) => {
-  exec(`rm -rf ${d}`);
+  execSync(`rm -rf ${d}`);
 });
 
 files.forEach((f) => {

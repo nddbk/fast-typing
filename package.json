@@ -1,49 +1,54 @@
 {
-  "version": "1.1.0",
+  "version": "2.0.0",
   "name": "fast-typing",
-  "description": "Chrome apps for typing practice",
-  "homepage": "https://chrome.google.com/webstore/detail/fasttyping/dgibeimfinglbfgimhiffmflgimlfffl",
+  "description": "Simple web app for typing practice",
+  "homepage": "https://fast-typing.github.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/ndaidong/fast-typing"
   },
   "author": "@ndaidong",
-  "main": "./index.js",
   "engines": {
-    "node": ">= 6.0"
+    "node": ">= 8.6"
   },
   "scripts": {
-    "setup": "node scripts/setup",
-    "lint": "eslint src/js scripts",
-    "nsp": "nsp check --output checkstyle",
-    "test": "npm run lint && npm run nsp",
-    "release": "npm test && node scripts/release",
-    "reset": "node reset"
+    "start": "DEBUG=fast-typing:* node index",
+    "build": "NODE_ENV=build node index",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "NODE_ENV=test tap test/start.js --coverage --reporter=spec"
+  },
+  "dependencies": {
+    "@rollup/plugin-replace": "^2.2.1",
+    "@rollup/plugin-strip": "^1.3.1",
+    "autoprefixer": "^9.7.1",
+    "bellajs": "^8.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "clean-css": "^4.2.1",
+    "debug": "^4.1.1",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "html-minifier": "^4.0.0",
+    "lit-html": "^1.1.2",
+    "postcss": "^7.0.21",
+    "postcss-custom-media": "^7.0.8",
+    "postcss-custom-properties": "^9.0.2",
+    "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.2.1",
+    "postcss-short": "^5.0.0",
+    "pretty": "^2.0.0",
+    "realdom": "^3.2.4",
+    "rollup": "^1.26.5",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "strip-css-comments": "^4.0.0",
+    "terser": "^4.4.0",
+    "txtgen": "^2.2.4"
   },
   "devDependencies": {
-    "eslint": "4.x.x",
-    "eslint-config-ggc": "1.x.x",
-    "mkdirp": "0.x.x",
-    "nsp": "2.x.x"
-  },
-  "keywords": [
-    "chrome",
-    "offline",
-    "extension",
-    "apps",
-    "typing",
-    "tool",
-    "util"
-  ],
-  "builder": {
-    "vendorDir": "src/vendor",
-    "css": {},
-    "javascript": {
-      "bella": "https://raw.githubusercontent.com/ndaidong/bella.js/master/dist/bella.min.js",
-      "realdom": "https://raw.githubusercontent.com/ndaidong/realdom/master/dist/realdom.min.js",
-      "txtgen": "https://raw.githubusercontent.com/ndaidong/txtgen/master/dist/txtgen.min.js",
-      "t3js": "http://cdn.rawgit.com/box/t3js/v2.7.0/dist/t3.min.js"
-    }
+    "eslint-config-goes": "^1.1.8",
+    "tap": "^14.9.2"
   },
   "license": "MIT"
 }
