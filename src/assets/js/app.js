@@ -3,6 +3,7 @@
 import {html, render} from 'lit-html';
 
 import Store from './helpers/store';
+import {init as initTextpad} from './modules/textpad';
 
 import {tplHeader} from './templates/header';
 import {tplMain} from './templates/main';
@@ -25,6 +26,7 @@ const App = window.App = {
     try {
       const state = await Store.init();
       App.render(state);
+      setTimeout(initTextpad, 100);
     } catch (err) {
       console.trace(err);
     }
@@ -32,4 +34,3 @@ const App = window.App = {
 };
 
 App.init();
-

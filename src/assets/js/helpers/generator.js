@@ -1,9 +1,9 @@
 // helpers -> generator
 
-import txtgen from 'txtgen';
+import {sentence} from 'txtgen';
 import {randint} from 'bellajs';
 
-import {getOptions} from './store';
+import Store from './store';
 
 const pickMiddlePunc = () => {
   let p = ' ';
@@ -126,9 +126,9 @@ const preprocess = (a, opt) => {
 
 export const getTextString = () => {
   const a = [];
-  while (a.length < 3) {
-    a.push(txtgen.sentence());
+  while (a.length < 4) {
+    a.push(sentence());
   }
-  const opts = getOptions();
+  const opts = Store.getOptions();
   return preprocess(a, opts);
 };

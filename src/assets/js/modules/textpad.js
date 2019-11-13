@@ -8,10 +8,16 @@ import {
 } from 'realdom';
 
 import {getTextString} from '../helpers/generator';
-import {onStarted, onPressed, onFinished} from '../helpers/analyzer';
+import {
+  init as initAnalyzer,
+  onStarted,
+  onPressed,
+  onFinished,
+} from '../helpers/analyzer';
 
-const $textpad = get('textpad');
-const $typingArea = get('typingArea');
+const Loader = {
+  load: () => {},
+};
 
 const state = {
   isActivated: false,
@@ -39,7 +45,7 @@ const start = () => {
 const end = () => {
   state.endTime = time();
   onFinished(state);
-  restart();
+  Loader.load();
 };
 
 const moveCursor = (k) => {
@@ -93,7 +99,7 @@ const moveBack = () => {
   }
 };
 
-const moveNext = (char) => {
+const moveNext = (chr) => {
   let {
     cursor,
     characters,
@@ -102,7 +108,7 @@ const moveNext = (char) => {
     cursor++;
     const prevChar = characters[cursor - 1];
     const el = get(prevChar.id);
-    if (prevChar.char === char) {
+    if (prevChar.letter === chr) {
       el.addClass('correct');
       state.correct++;
     } else {
@@ -149,7 +155,7 @@ const reset = () => {
   state.mistake = 0;
   state.totalChars = 0;
   state.totalWords = 0;
-  $typingArea.empty();
+  state.$typingArea.empty();
 };
 
 const render = (s) => {
@@ -159,13 +165,13 @@ const render = (s) => {
   let i = 0;
   a.forEach((c) => {
     const id = 'c_' + i;
-    const span = add('SPAN', $typingArea);
+    const span = add('SPAN', state.$typingArea);
     span.id = id;
     span.innerHTML = c;
     state.characters.push({
       index: i,
       id,
-      char: c,
+      letter: c,
     });
     i++;
   });
@@ -173,19 +179,23 @@ const render = (s) => {
   return onStarted(state);
 };
 
-const load = (text) => {
+Loader.load = (text = '') => {
   const s = text || getTextString();
   render(s);
 };
 
 const reactivate = () => {
-  $textpad.focus();
+  state.$textpad.focus();
   state.isActivated = true;
 };
 
 
 export const init = () => {
-  $textpad.focus();
+  state.$textpad = get('textpad');
+  state.$typingArea = get('typingArea');
+  reactivate();
+  Loader.load();
+  initAnalyzer();
   Event.on(document.body, 'click', () => {
     state.isActivated = false;
     let focused = document.activeElement;

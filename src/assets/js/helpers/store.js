@@ -1,12 +1,21 @@
 // helpers -> store.js
 
+export const setItem = (k, v) => {
+  localStorage.setItem(k, JSON.stringify(v));
+};
+
+export const getItem = (k) => {
+  const t = localStorage.getItem(k);
+  return t ? JSON.parse(t) : null;
+};
+
+
 const createStore = () => {
   const state = {
     title: 'FastTyping',
     author: '@ndaidong',
     authorLink: 'https://twitter.com/ndaidong',
     clientSecret: '__clientSecret__',
-    K: 0.123456789,
   };
 
   const getState = () => {
