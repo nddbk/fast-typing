@@ -26,9 +26,8 @@ const onSubmit = (e, state) => {
 
 
 export const tplMain = () => {
-  return html`<main>
-    <fieldset class="input">
-      <legend>Statistics:</legend>
+  return html`<div class="page-content">
+    <main class="main">
       <div class="card" id="summary" data-module="summary">
         <div class="line">
           <label>Recently: </label>
@@ -55,13 +54,22 @@ export const tplMain = () => {
           </span>
         </div>
       </div>
-    </fieldset>
-    <fieldset class="output">
-      <legend>Textpad:</legend>
       <div class="card" id="textpad" data-module="textpad" tabindex="-1">
         <div id="typingArea" class="text-area"></div>
       </div>
-    </fieldset>
-  </main>`;
+    </main>
+    <div class="dialog-container" id="preferences" data-module="preferences">
+      <div class="dialog">
+        <div class="dialog-title">Preferences </div>
+        <div class="dialog-body">
+          <div id="prefBox"></div>
+        </div>
+        <div class="dialog-buttons">
+          <button class="mdl-button" id="btnSave">Save changes</button>
+          <button class="mdl-button close" id="btnCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
 };
 

@@ -4,8 +4,10 @@ import {html} from 'lit-html';
 
 
 export const tplHeader = (state) => {
-  return html`<header>
-    <h1><a href="https://github.com/ndaidong/fast-typing">${state.title}</a></h1>
+  return html`
+    <header class="header">
+      <h1 class="header__title">${state.title}</h1>
+      <i id="butSetting" title="Settings" class="ico-button material-icons">settings</i>
     </header>`
   ;
 };
